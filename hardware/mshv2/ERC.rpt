@@ -1,0 +1,1194 @@
+ERC report (2025-12-14T22:38:01-0500, Encoding UTF8)
+
+***** Sheet /
+[pin_not_connected]: Pin not connected
+    ; error
+    @(1575 mils, 1181 mils): Symbol #PWR01 Pin 1 [Power input, Line]
+[power_pin_not_driven]: Input Power pin not driven by any Output Power pins
+    ; error
+    @(1575 mils, 1181 mils): Symbol #PWR01 Pin 1 [Power input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(1375 mils, 1575 mils): Symbol J1 Pin 1 [Pin_1, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(1375 mils, 1675 mils): Symbol J1 Pin 2 [Pin_2, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2212 mils, 1575 mils): Symbol D2 Pin 1 [K, Passive, Line]
+[label_dangling]: Label not connected to anything
+    ; error
+    @(2283 mils, 1575 mils): Label 'VIN_12V'
+[pin_not_connected]: Pin not connected
+    ; error
+    @(1575 mils, 2362 mils): Symbol #PWR02 Pin 1 [Power input, Line]
+[power_pin_not_driven]: Input Power pin not driven by any Output Power pins
+    ; error
+    @(1575 mils, 2362 mils): Symbol #PWR02 Pin 1 [Power input, Line]
+[label_dangling]: Label not connected to anything
+    ; error
+    @(2441 mils, 1575 mils): Label 'V_PROT'
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2512 mils, 1575 mils): Symbol D2 Pin 2 [A, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(3150 mils, 1819 mils): Symbol D3 Pin 2 [A2, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(3150 mils, 2119 mils): Symbol D3 Pin 1 [A1, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2162 mils, 3150 mils): Symbol SW1 Pin 1 [1, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2756 mils, 2803 mils): Symbol R6 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2943 mils, 2743 mils): Symbol U3 Pin 8 [EN, Input, Line]
+[pin_not_driven]: Input pin not driven by any Output pins
+    ; error
+    @(2943 mils, 2743 mils): Symbol U3 Pin 8 [EN, Input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2562 mils, 3150 mils): Symbol SW1 Pin 2 [2, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2756 mils, 3103 mils): Symbol R6 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2943 mils, 2943 mils): Symbol U3 Pin 12 [IO0, Bidirectional, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(3150 mils, 2756 mils): Symbol #PWR07 Pin 1 [Power input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(3937 mils, 1425 mils): Symbol C4 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2756 mils, 3196 mils): Symbol C2 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2943 mils, 3043 mils): Symbol U3 Pin 13 [IO1, Bidirectional, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(3937 mils, 1725 mils): Symbol C4 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2943 mils, 3143 mils): Symbol U3 Pin 5 [IO2, Bidirectional, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(3543 mils, 2543 mils): Symbol U3 Pin 3 [3V3, Power input, Line]
+[power_pin_not_driven]: Input Power pin not driven by any Output Power pins
+    ; error
+    @(3543 mils, 2543 mils): Symbol U3 Pin 3 [3V3, Power input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2943 mils, 3243 mils): Symbol U3 Pin 6 [IO3, Bidirectional, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2756 mils, 3496 mils): Symbol C2 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2943 mils, 3343 mils): Symbol U3 Pin 9 [IO4, Bidirectional, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2943 mils, 3443 mils): Symbol U3 Pin 10 [IO5, Bidirectional, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2943 mils, 3543 mils): Symbol U3 Pin 15 [IO6, Bidirectional, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(4224 mils, 1869 mils): Symbol U5 Pin 1 [VIN, Power input, Line]
+[power_pin_not_driven]: Input Power pin not driven by any Output Power pins
+    ; error
+    @(4224 mils, 1869 mils): Symbol U5 Pin 1 [VIN, Power input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2943 mils, 3643 mils): Symbol U3 Pin 16 [IO7, Bidirectional, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(4224 mils, 2069 mils): Symbol U5 Pin 5 [~{ON}/OFF, Input, Line]
+[pin_not_driven]: Input pin not driven by any Output pins
+    ; error
+    @(4224 mils, 2069 mils): Symbol U5 Pin 5 [~{ON}/OFF, Input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2943 mils, 3743 mils): Symbol U3 Pin 22 [IO8, Bidirectional, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2162 mils, 4331 mils): Symbol SW2 Pin 1 [1, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2943 mils, 3843 mils): Symbol U3 Pin 23 [IO9, Bidirectional, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2756 mils, 3984 mils): Symbol R7 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(4143 mils, 2743 mils): Symbol U3 Pin 31 [TXD0, Bidirectional, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(4143 mils, 2843 mils): Symbol U3 Pin 30 [RXD0, Bidirectional, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2562 mils, 4331 mils): Symbol SW2 Pin 2 [2, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2756 mils, 4284 mils): Symbol R7 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(4143 mils, 3043 mils): Symbol U3 Pin 17 [IO12, Bidirectional, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(4143 mils, 3143 mils): Symbol U3 Pin 18 [IO13, Bidirectional, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(4724 mils, 2269 mils): Symbol U5 Pin 3 [GND, Power input, Line]
+[power_pin_not_driven]: Input Power pin not driven by any Output Power pins
+    ; error
+    @(4724 mils, 2269 mils): Symbol U5 Pin 3 [GND, Power input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(4143 mils, 3243 mils): Symbol U3 Pin 19 [IO14, Bidirectional, Line]
+[label_dangling]: Label not connected to anything
+    ; error
+    @(4803 mils, 2165 mils): Label '+3V3_OUT'
+[pin_not_connected]: Pin not connected
+    ; error
+    @(4143 mils, 3343 mils): Symbol U3 Pin 20 [IO15, Bidirectional, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(4143 mils, 3543 mils): Symbol U3 Pin 24 [IO18, Bidirectional, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(4143 mils, 3643 mils): Symbol U3 Pin 25 [IO19, Bidirectional, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(5224 mils, 1869 mils): Symbol U5 Pin 4 [FB, Input, Line]
+[pin_not_driven]: Input pin not driven by any Output pins
+    ; error
+    @(5224 mils, 1869 mils): Symbol U5 Pin 4 [FB, Input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(4143 mils, 3743 mils): Symbol U3 Pin 26 [IO20, Bidirectional, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(5224 mils, 2069 mils): Symbol U5 Pin 2 [OUT, Output, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(4143 mils, 3843 mils): Symbol U3 Pin 27 [IO21, Bidirectional, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(3150 mils, 4724 mils): Symbol #PWR08 Pin 1 [Power input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(5512 mils, 1425 mils): Symbol C7 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(4143 mils, 3943 mils): Symbol U3 Pin 28 [IO22, Bidirectional, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(3543 mils, 4543 mils): Symbol U3 Pin 1 [GND, Power input, Line]
+[power_pin_not_driven]: Input Power pin not driven by any Output Power pins
+    ; error
+    @(3543 mils, 4543 mils): Symbol U3 Pin 1 [GND, Power input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(5512 mils, 1725 mils): Symbol C7 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(4143 mils, 4043 mils): Symbol U3 Pin 29 [IO23, Bidirectional, Line]
+[label_dangling]: Label not connected to anything
+    ; error
+    @(4724 mils, 3543 mils): Label 'ADC_CH0'
+[label_dangling]: Label not connected to anything
+    ; error
+    @(4724 mils, 3661 mils): Label 'ADC_CH1'
+[label_dangling]: Label not connected to anything
+    ; error
+    @(4724 mils, 3780 mils): Label 'ADC_CH2'
+[pin_not_connected]: Pin not connected
+    ; error
+    @(5906 mils, 1425 mils): Symbol C8 Pin 1 [Passive, Line]
+[label_dangling]: Label not connected to anything
+    ; error
+    @(4724 mils, 3898 mils): Label 'ADC_CH3'
+[pin_not_connected]: Pin not connected
+    ; error
+    @(5906 mils, 1725 mils): Symbol C8 Pin 2 [Passive, Line]
+[label_dangling]: Label not connected to anything
+    ; error
+    @(4724 mils, 4016 mils): Label 'ADC_CH4'
+[label_dangling]: Label not connected to anything
+    ; error
+    @(4724 mils, 4134 mils): Label 'ADC_CH5'
+[label_dangling]: Label not connected to anything
+    ; error
+    @(4724 mils, 4331 mils): Label 'I2C_SDA'
+[pin_not_connected]: Pin not connected
+    ; error
+    @(1969 mils, 6149 mils): Symbol R5 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(6299 mils, 1425 mils): Symbol C10 Pin 1 [Passive, Line]
+[label_dangling]: Label not connected to anything
+    ; error
+    @(4724 mils, 4449 mils): Label 'I2C_SCL'
+[pin_not_connected]: Pin not connected
+    ; error
+    @(6299 mils, 1725 mils): Symbol C10 Pin 2 [Passive, Line]
+[label_dangling]: Label not connected to anything
+    ; error
+    @(4724 mils, 4567 mils): Label '1WIRE_1'
+[label_dangling]: Label not connected to anything
+    ; error
+    @(4724 mils, 4685 mils): Label '1WIRE_2'
+[pin_not_connected]: Pin not connected
+    ; error
+    @(6543 mils, 1575 mils): Symbol D4 Pin 1 [K, Passive, Line]
+[label_dangling]: Label not connected to anything
+    ; error
+    @(4724 mils, 4803 mils): Label '1WIRE_3'
+[pin_not_connected]: Pin not connected
+    ; error
+    @(1969 mils, 6449 mils): Symbol R5 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(6693 mils, 1181 mils): Symbol #PWR014 Pin 1 [Power input, Line]
+[label_dangling]: Label not connected to anything
+    ; error
+    @(4724 mils, 4961 mils): Label 'SPI_SCK'
+[label_dangling]: Label not connected to anything
+    ; error
+    @(4724 mils, 5079 mils): Label 'SPI_MISO'
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2162 mils, 6593 mils): Symbol J3 Pin 1 [Pin_1, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(6843 mils, 1575 mils): Symbol D4 Pin 2 [A, Passive, Line]
+[label_dangling]: Label not connected to anything
+    ; error
+    @(4724 mils, 5197 mils): Label 'SPI_CS_TC'
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2162 mils, 6693 mils): Symbol J3 Pin 3 [Pin_3, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(6693 mils, 2212 mils): Symbol R20 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2662 mils, 6593 mils): Symbol J3 Pin 2 [Pin_2, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(6693 mils, 2409 mils): Symbol R21 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2162 mils, 6793 mils): Symbol J3 Pin 5 [Pin_5, Passive, Line]
+[label_dangling]: Label not connected to anything
+    ; error
+    @(4724 mils, 5354 mils): Label 'LED_STATUS'
+[pin_not_connected]: Pin not connected
+    ; error
+    @(6693 mils, 2512 mils): Symbol R20 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2662 mils, 6693 mils): Symbol J3 Pin 4 [Pin_4, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(6693 mils, 2709 mils): Symbol R21 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7087 mils, 1425 mils): Symbol R22 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(6787 mils, 2656 mils): Symbol U7 Pin 2 [SCL, Input, Line]
+[pin_not_driven]: Input pin not driven by any Output pins
+    ; error
+    @(6787 mils, 2656 mils): Symbol U7 Pin 2 [SCL, Input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7087 mils, 1725 mils): Symbol R22 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2662 mils, 6793 mils): Symbol J3 Pin 6 [Pin_6, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(6787 mils, 2856 mils): Symbol U7 Pin 1 [SDA, Bidirectional, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7087 mils, 2165 mils): Symbol #PWR015 Pin 1 [Power input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2756 mils, 6890 mils): Symbol #PWR06 Pin 1 [Power input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7187 mils, 2456 mils): Symbol U7 Pin 3 [VDD, Power input, Line]
+[power_pin_not_driven]: Input Power pin not driven by any Output Power pins
+    ; error
+    @(7187 mils, 2456 mils): Symbol U7 Pin 3 [VDD, Power input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7187 mils, 3056 mils): Symbol U7 Pin 4 [VSS, Power input, Line]
+[power_pin_not_driven]: Input Power pin not driven by any Output Power pins
+    ; error
+    @(7187 mils, 3056 mils): Symbol U7 Pin 4 [VSS, Power input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7087 mils, 3346 mils): Symbol #PWR016 Pin 1 [Power input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7480 mils, 3000 mils): Symbol C12 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7480 mils, 3300 mils): Symbol C12 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(1375 mils, 8268 mils): Symbol J2 Pin 1 [Pin_1, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(1375 mils, 8368 mils): Symbol J2 Pin 2 [Pin_2, Passive, Line]
+[label_dangling]: Label not connected to anything
+    ; error
+    @(1181 mils, 8465 mils): Label 'CLAMP_1_RAW'
+[pin_not_connected]: Pin not connected
+    ; error
+    @(1575 mils, 8511 mils): Symbol R1 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2753 mils, 8268 mils): Symbol J4 Pin 1 [Pin_1, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7874 mils, 3787 mils): Symbol R27 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2753 mils, 8368 mils): Symbol J4 Pin 2 [Pin_2, Passive, Line]
+[label_dangling]: Label not connected to anything
+    ; error
+    @(2559 mils, 8465 mils): Label 'CLAMP_2_RAW'
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7874 mils, 4087 mils): Symbol R27 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8068 mils, 3837 mils): Symbol J9 Pin 1 [Pin_1, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(1575 mils, 8811 mils): Symbol R1 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8068 mils, 3937 mils): Symbol J9 Pin 2 [Pin_2, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2953 mils, 8511 mils): Symbol R8 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8068 mils, 4037 mils): Symbol J9 Pin 3 [Pin_3, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(1575 mils, 8905 mils): Symbol R2 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7874 mils, 4574 mils): Symbol R28 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(4131 mils, 8268 mils): Symbol J5 Pin 1 [Pin_1, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8465 mils, 3740 mils): Symbol #PWR022 Pin 1 [Power input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7874 mils, 4874 mils): Symbol R28 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2953 mils, 8811 mils): Symbol R8 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8068 mils, 4624 mils): Symbol J10 Pin 1 [Pin_1, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(4131 mils, 8368 mils): Symbol J5 Pin 2 [Pin_2, Passive, Line]
+[label_dangling]: Label not connected to anything
+    ; error
+    @(3937 mils, 8465 mils): Label 'CLAMP_3_RAW'
+[pin_not_connected]: Pin not connected
+    ; error
+    @(1575 mils, 9205 mils): Symbol R2 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8068 mils, 4724 mils): Symbol J10 Pin 2 [Pin_2, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2953 mils, 8905 mils): Symbol R9 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(1622 mils, 9252 mils): Symbol R4 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8068 mils, 4824 mils): Symbol J10 Pin 3 [Pin_3, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8465 mils, 4134 mils): Symbol #PWR023 Pin 1 [Power input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(1922 mils, 9252 mils): Symbol R4 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7874 mils, 5362 mils): Symbol R29 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(4331 mils, 8511 mils): Symbol R12 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8465 mils, 4528 mils): Symbol #PWR024 Pin 1 [Power input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(1575 mils, 9496 mils): Symbol R3 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2953 mils, 9205 mils): Symbol R9 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7874 mils, 5662 mils): Symbol R29 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8068 mils, 5412 mils): Symbol J11 Pin 1 [Pin_1, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(3000 mils, 9252 mils): Symbol R11 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8068 mils, 5512 mils): Symbol J11 Pin 2 [Pin_2, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8465 mils, 4921 mils): Symbol #PWR025 Pin 1 [Power input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(4331 mils, 8811 mils): Symbol R12 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(3300 mils, 9252 mils): Symbol R11 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8068 mils, 5612 mils): Symbol J11 Pin 3 [Pin_3, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(4331 mils, 8905 mils): Symbol R13 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(1575 mils, 9796 mils): Symbol R3 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(5509 mils, 8268 mils): Symbol J6 Pin 1 [Pin_1, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2953 mils, 9496 mils): Symbol R10 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(1622 mils, 9843 mils): Symbol C1 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8465 mils, 5315 mils): Symbol #PWR026 Pin 1 [Power input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(5509 mils, 8368 mils): Symbol J6 Pin 2 [Pin_2, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(1922 mils, 9843 mils): Symbol C1 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7280 mils, 7087 mils): Symbol J8 Pin 1 [Pin_1, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(4331 mils, 9205 mils): Symbol R13 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8465 mils, 5709 mils): Symbol #PWR027 Pin 1 [Power input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(1275 mils, 10136 mils): Symbol U1 Pin 3 [+, Input, Line]
+[pin_not_driven]: Input pin not driven by any Output pins
+    ; error
+    @(1275 mils, 10136 mils): Symbol U1 Pin 3 [+, Input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7280 mils, 7187 mils): Symbol J8 Pin 2 [Pin_2, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(1969 mils, 10039 mils): Symbol #PWR03 Pin 1 [Power input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2953 mils, 9796 mils): Symbol R10 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(4378 mils, 9252 mils): Symbol R15 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(5709 mils, 8511 mils): Symbol R16 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(3000 mils, 9843 mils): Symbol C3 Pin 1 [Passive, Line]
+[missing_power_pin]: Symbol U1 has input power pins in units [ E ] that are not placed.
+    ; error
+    @(1575 mils, 10236 mils): Symbol U1 [MCP6004]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(4678 mils, 9252 mils): Symbol R15 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(3300 mils, 9843 mils): Symbol C3 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(1875 mils, 10236 mils): Symbol U1 Pin 1 [Output, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(1275 mils, 10336 mils): Symbol U1 Pin 2 [-, Input, Line]
+[pin_not_driven]: Input pin not driven by any Output pins
+    ; error
+    @(1275 mils, 10336 mils): Symbol U1 Pin 2 [-, Input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(4331 mils, 9496 mils): Symbol R14 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2653 mils, 10136 mils): Symbol U2 Pin 3 [+, Input, Line]
+[pin_not_driven]: Input pin not driven by any Output pins
+    ; error
+    @(2653 mils, 10136 mils): Symbol U2 Pin 3 [+, Input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(5709 mils, 8811 mils): Symbol R16 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8268 mils, 6496 mils): Symbol #PWR020 Pin 1 [Power input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7868 mils, 6987 mils): Symbol U9 Pin 3 [T+, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(5709 mils, 8905 mils): Symbol R17 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(3346 mils, 10039 mils): Symbol #PWR09 Pin 1 [Power input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8268 mils, 6687 mils): Symbol U9 Pin 4 [V_{CC}, Power input, Line]
+[power_pin_not_driven]: Input Power pin not driven by any Output Power pins
+    ; error
+    @(8268 mils, 6687 mils): Symbol U9 Pin 4 [V_{CC}, Power input, Line]
+[missing_power_pin]: Symbol U2 has input power pins in units [ E ] that are not placed.
+    ; error
+    @(2953 mils, 10236 mils): Symbol U2 [MCP6004]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7868 mils, 7187 mils): Symbol U9 Pin 2 [T-, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(2653 mils, 10336 mils): Symbol U2 Pin 2 [-, Input, Line]
+[pin_not_driven]: Input pin not driven by any Output pins
+    ; error
+    @(2653 mils, 10336 mils): Symbol U2 Pin 2 [-, Input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(4331 mils, 9796 mils): Symbol R14 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(3253 mils, 10236 mils): Symbol U2 Pin 1 [Output, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(6887 mils, 8268 mils): Symbol J7 Pin 1 [Pin_1, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(4378 mils, 9843 mils): Symbol C6 Pin 1 [Passive, Line]
+[label_dangling]: Label not connected to anything
+    ; error
+    @(6693 mils, 8465 mils): Label 'CLAMP_5_RAW'
+[pin_not_connected]: Pin not connected
+    ; error
+    @(5709 mils, 9205 mils): Symbol R17 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(6887 mils, 8368 mils): Symbol J7 Pin 2 [Pin_2, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(5756 mils, 9252 mils): Symbol R19 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(4678 mils, 9843 mils): Symbol C6 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(4031 mils, 10136 mils): Symbol U4 Pin 3 [+, Input, Line]
+[pin_not_driven]: Input pin not driven by any Output pins
+    ; error
+    @(4031 mils, 10136 mils): Symbol U4 Pin 3 [+, Input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(6056 mils, 9252 mils): Symbol R19 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8668 mils, 6887 mils): Symbol U9 Pin 5 [SCK, Input, Line]
+[pin_not_driven]: Input pin not driven by any Output pins
+    ; error
+    @(8668 mils, 6887 mils): Symbol U9 Pin 5 [SCK, Input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7087 mils, 8511 mils): Symbol R23 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(5709 mils, 9496 mils): Symbol R18 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8268 mils, 7387 mils): Symbol U9 Pin 1 [GND, Power input, Line]
+[power_pin_not_driven]: Input Power pin not driven by any Output Power pins
+    ; error
+    @(8268 mils, 7387 mils): Symbol U9 Pin 1 [GND, Power input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(4031 mils, 10336 mils): Symbol U4 Pin 2 [-, Input, Line]
+[pin_not_driven]: Input pin not driven by any Output pins
+    ; error
+    @(4031 mils, 10336 mils): Symbol U4 Pin 2 [-, Input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(4724 mils, 10039 mils): Symbol #PWR012 Pin 1 [Power input, Line]
+[missing_power_pin]: Symbol U4 has input power pins in units [ E ] that are not placed.
+    ; error
+    @(4331 mils, 10236 mils): Symbol U4 [MCP6004]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8668 mils, 6987 mils): Symbol U9 Pin 7 [SO, Tri-state, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(4631 mils, 10236 mils): Symbol U4 Pin 1 [Output, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8668 mils, 7187 mils): Symbol U9 Pin 6 [~{CS}, Input, Line]
+[pin_not_driven]: Input pin not driven by any Output pins
+    ; error
+    @(8668 mils, 7187 mils): Symbol U9 Pin 6 [~{CS}, Input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7087 mils, 8811 mils): Symbol R23 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(3937 mils, 10630 mils): Symbol #PWR010 Pin 1 [Power input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(5709 mils, 9796 mils): Symbol R18 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8661 mils, 7330 mils): Symbol C14 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(3937 mils, 10677 mils): Symbol C5 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7087 mils, 8905 mils): Symbol R24 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(5756 mils, 9843 mils): Symbol C9 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8268 mils, 7874 mils): Symbol #PWR021 Pin 1 [Power input, Line]
+[power_pin_not_driven]: Input Power pin not driven by any Output Power pins
+    ; error
+    @(8268 mils, 7874 mils): Symbol #PWR021 Pin 1 [Power input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(5409 mils, 10136 mils): Symbol U6 Pin 3 [+, Input, Line]
+[pin_not_driven]: Input pin not driven by any Output pins
+    ; error
+    @(5409 mils, 10136 mils): Symbol U6 Pin 3 [+, Input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8661 mils, 7630 mils): Symbol C14 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(6056 mils, 9843 mils): Symbol C9 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7087 mils, 9205 mils): Symbol R24 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(3937 mils, 10977 mils): Symbol C5 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(5409 mils, 10336 mils): Symbol U6 Pin 2 [-, Input, Line]
+[pin_not_driven]: Input pin not driven by any Output pins
+    ; error
+    @(5409 mils, 10336 mils): Symbol U6 Pin 2 [-, Input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7133 mils, 9252 mils): Symbol R26 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8265 mils, 8268 mils): Symbol J12 Pin 1 [Pin_1, Passive, Line]
+[label_dangling]: Label not connected to anything
+    ; error
+    @(8071 mils, 8465 mils): Label 'CLAMP_6_RAW'
+[pin_not_connected]: Pin not connected
+    ; error
+    @(3937 mils, 11024 mils): Symbol #PWR011 Pin 1 [Power input, Line]
+[missing_power_pin]: Symbol U6 has input power pins in units [ E ] that are not placed.
+    ; error
+    @(5709 mils, 10236 mils): Symbol U6 [MCP6004]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(6102 mils, 10039 mils): Symbol #PWR013 Pin 1 [Power input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8265 mils, 8368 mils): Symbol J12 Pin 2 [Pin_2, Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7087 mils, 9496 mils): Symbol R25 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7433 mils, 9252 mils): Symbol R26 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(6009 mils, 10236 mils): Symbol U6 Pin 1 [Output, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8465 mils, 8511 mils): Symbol R30 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7087 mils, 9796 mils): Symbol R25 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7133 mils, 9843 mils): Symbol C11 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(6787 mils, 10136 mils): Symbol U8 Pin 3 [+, Input, Line]
+[pin_not_driven]: Input pin not driven by any Output pins
+    ; error
+    @(6787 mils, 10136 mils): Symbol U8 Pin 3 [+, Input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8465 mils, 8811 mils): Symbol R30 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8465 mils, 8905 mils): Symbol R31 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7433 mils, 9843 mils): Symbol C11 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(6787 mils, 10336 mils): Symbol U8 Pin 2 [-, Input, Line]
+[pin_not_driven]: Input pin not driven by any Output pins
+    ; error
+    @(6787 mils, 10336 mils): Symbol U8 Pin 2 [-, Input, Line]
+[missing_power_pin]: Symbol U8 has input power pins in units [ E ] that are not placed.
+    ; error
+    @(7087 mils, 10236 mils): Symbol U8 [MCP6004]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8465 mils, 9205 mils): Symbol R31 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7480 mils, 10039 mils): Symbol #PWR017 Pin 1 [Power input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8511 mils, 9252 mils): Symbol R33 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7387 mils, 10236 mils): Symbol U8 Pin 1 [Output, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8465 mils, 9496 mils): Symbol R32 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8811 mils, 9252 mils): Symbol R33 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8465 mils, 9796 mils): Symbol R32 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7480 mils, 10630 mils): Symbol #PWR018 Pin 1 [Power input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8511 mils, 9843 mils): Symbol C15 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8165 mils, 10136 mils): Symbol U10 Pin 3 [+, Input, Line]
+[pin_not_driven]: Input pin not driven by any Output pins
+    ; error
+    @(8165 mils, 10136 mils): Symbol U10 Pin 3 [+, Input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7480 mils, 10677 mils): Symbol C13 Pin 1 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8165 mils, 10336 mils): Symbol U10 Pin 2 [-, Input, Line]
+[pin_not_driven]: Input pin not driven by any Output pins
+    ; error
+    @(8165 mils, 10336 mils): Symbol U10 Pin 2 [-, Input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8811 mils, 9843 mils): Symbol C15 Pin 2 [Passive, Line]
+[missing_power_pin]: Symbol U10 has input power pins in units [ E ] that are not placed.
+    ; error
+    @(8465 mils, 10236 mils): Symbol U10 [MCP6004]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7480 mils, 10977 mils): Symbol C13 Pin 2 [Passive, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(7480 mils, 11024 mils): Symbol #PWR019 Pin 1 [Power input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8858 mils, 10039 mils): Symbol #PWR028 Pin 1 [Power input, Line]
+[pin_not_connected]: Pin not connected
+    ; error
+    @(8765 mils, 10236 mils): Symbol U10 Pin 1 [Output, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(1575 mils, 1181 mils): Symbol #PWR01 Pin 1 [Power input, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(1375 mils, 1575 mils): Symbol J1 Pin 1 [Pin_1, Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(1575 mils, 2362 mils): Symbol #PWR02 Pin 1 [Power input, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(2512 mils, 1575 mils): Symbol D2 Pin 2 [A, Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(3150 mils, 2119 mils): Symbol D3 Pin 1 [A1, Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(2162 mils, 3150 mils): Symbol SW1 Pin 1 [1, Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(2756 mils, 3103 mils): Symbol R6 Pin 2 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(3150 mils, 2756 mils): Symbol #PWR07 Pin 1 [Power input, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(3937 mils, 1425 mils): Symbol C4 Pin 1 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(2756 mils, 3196 mils): Symbol C2 Pin 1 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(4224 mils, 2069 mils): Symbol U5 Pin 5 [~{ON}/OFF, Input, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(2162 mils, 4331 mils): Symbol SW2 Pin 1 [1, Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(2756 mils, 3984 mils): Symbol R7 Pin 1 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(3150 mils, 4724 mils): Symbol #PWR08 Pin 1 [Power input, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(5512 mils, 1425 mils): Symbol C7 Pin 1 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(3543 mils, 4543 mils): Symbol U3 Hidden pin 14 [GND, Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(5906 mils, 1425 mils): Symbol C8 Pin 1 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(6299 mils, 1425 mils): Symbol C10 Pin 1 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(1969 mils, 6449 mils): Symbol R5 Pin 2 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(6693 mils, 1181 mils): Symbol #PWR014 Pin 1 [Power input, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(2165 mils, 6496 mils): Symbol #PWR05 Pin 1 [Power input, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(2165 mils, 6496 mils): Symbol #PWR04 Pin 1 [Power input, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(2162 mils, 6593 mils): Symbol J3 Pin 1 [Pin_1, Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(6843 mils, 1575 mils): Symbol D4 Pin 2 [A, Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(6693 mils, 2212 mils): Symbol R20 Pin 1 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(6693 mils, 2709 mils): Symbol R21 Pin 2 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(7087 mils, 1425 mils): Symbol R22 Pin 1 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(6787 mils, 2656 mils): Symbol U7 Pin 2 [SCL, Input, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(7087 mils, 2165 mils): Symbol #PWR015 Pin 1 [Power input, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(2756 mils, 6890 mils): Symbol #PWR06 Pin 1 [Power input, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(7087 mils, 3346 mils): Symbol #PWR016 Pin 1 [Power input, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(7480 mils, 3000 mils): Symbol C12 Pin 1 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(1375 mils, 8368 mils): Symbol J2 Pin 2 [Pin_2, Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(2753 mils, 8268 mils): Symbol J4 Pin 1 [Pin_1, Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(7874 mils, 3787 mils): Symbol R27 Pin 1 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(8068 mils, 3837 mils): Symbol J9 Pin 1 [Pin_1, Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(1575 mils, 8811 mils): Symbol R1 Pin 2 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(7874 mils, 4574 mils): Symbol R28 Pin 1 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(8465 mils, 3740 mils): Symbol #PWR022 Pin 1 [Power input, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(2953 mils, 8811 mils): Symbol R8 Pin 2 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(4131 mils, 8368 mils): Symbol J5 Pin 2 [Pin_2, Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(1575 mils, 9205 mils): Symbol R2 Pin 2 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(8068 mils, 4724 mils): Symbol J10 Pin 2 [Pin_2, Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(1622 mils, 9252 mils): Symbol R4 Pin 1 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(8465 mils, 4134 mils): Symbol #PWR023 Pin 1 [Power input, Line]
+[multiple_net_names]: Both +3V3 and GND are attached to the same items; +3V3 will be used in the netlist
+    ; warning
+    @(7087 mils, 2165 mils): Symbol #PWR015 Pin 1 [Power input, Line]
+    @(8465 mils, 4134 mils): Symbol #PWR023 Pin 1 [Power input, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(7874 mils, 5362 mils): Symbol R29 Pin 1 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(4331 mils, 8511 mils): Symbol R12 Pin 1 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(8465 mils, 4528 mils): Symbol #PWR024 Pin 1 [Power input, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(1575 mils, 9496 mils): Symbol R3 Pin 1 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(2953 mils, 9205 mils): Symbol R9 Pin 2 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(8068 mils, 5512 mils): Symbol J11 Pin 2 [Pin_2, Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(8465 mils, 4921 mils): Symbol #PWR025 Pin 1 [Power input, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(3300 mils, 9252 mils): Symbol R11 Pin 2 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(4331 mils, 8905 mils): Symbol R13 Pin 1 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(1622 mils, 9843 mils): Symbol C1 Pin 1 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(8465 mils, 5315 mils): Symbol #PWR026 Pin 1 [Power input, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(5509 mils, 8368 mils): Symbol J6 Pin 2 [Pin_2, Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(8465 mils, 5709 mils): Symbol #PWR027 Pin 1 [Power input, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(7280 mils, 7187 mils): Symbol J8 Pin 2 [Pin_2, Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(1969 mils, 10039 mils): Symbol #PWR03 Pin 1 [Power input, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(2953 mils, 9796 mils): Symbol R10 Pin 2 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(5709 mils, 8511 mils): Symbol R16 Pin 1 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(3000 mils, 9843 mils): Symbol C3 Pin 1 [Passive, Line]
+[missing_input_pin]: Symbol U1 has input pins in units [ B, C, D ] that are not placed.
+    ; warning
+    @(1575 mils, 10236 mils): Symbol U1 [MCP6004]
+[missing_unit]: Symbol U1 has unplaced units [ B, C, D, . ]
+    ; warning
+    @(1575 mils, 10236 mils): Symbol U1 [MCP6004]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(4678 mils, 9252 mils): Symbol R15 Pin 2 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(1275 mils, 10336 mils): Symbol U1 Pin 2 [-, Input, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(4331 mils, 9496 mils): Symbol R14 Pin 1 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(8268 mils, 6496 mils): Symbol #PWR020 Pin 1 [Power input, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(5709 mils, 8905 mils): Symbol R17 Pin 1 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(3346 mils, 10039 mils): Symbol #PWR09 Pin 1 [Power input, Line]
+[missing_input_pin]: Symbol U2 has input pins in units [ B, C, D ] that are not placed.
+    ; warning
+    @(2953 mils, 10236 mils): Symbol U2 [MCP6004]
+[missing_unit]: Symbol U2 has unplaced units [ B, C, D, . ]
+    ; warning
+    @(2953 mils, 10236 mils): Symbol U2 [MCP6004]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(3253 mils, 10236 mils): Symbol U2 Pin 1 [Output, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(6887 mils, 8268 mils): Symbol J7 Pin 1 [Pin_1, Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(4678 mils, 9843 mils): Symbol C6 Pin 2 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(4031 mils, 10136 mils): Symbol U4 Pin 3 [+, Input, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(6056 mils, 9252 mils): Symbol R19 Pin 2 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(7087 mils, 8511 mils): Symbol R23 Pin 1 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(5709 mils, 9496 mils): Symbol R18 Pin 1 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(4724 mils, 10039 mils): Symbol #PWR012 Pin 1 [Power input, Line]
+[missing_input_pin]: Symbol U4 has input pins in units [ B, C, D ] that are not placed.
+    ; warning
+    @(4331 mils, 10236 mils): Symbol U4 [MCP6004]
+[missing_unit]: Symbol U4 has unplaced units [ B, C, D, . ]
+    ; warning
+    @(4331 mils, 10236 mils): Symbol U4 [MCP6004]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(8668 mils, 7187 mils): Symbol U9 Pin 6 [~{CS}, Input, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(3937 mils, 10630 mils): Symbol #PWR010 Pin 1 [Power input, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(3937 mils, 10677 mils): Symbol C5 Pin 1 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(8268 mils, 7874 mils): Symbol #PWR021 Pin 1 [Power input, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(8661 mils, 7630 mils): Symbol C14 Pin 2 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(6056 mils, 9843 mils): Symbol C9 Pin 2 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(7087 mils, 9205 mils): Symbol R24 Pin 2 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(7133 mils, 9252 mils): Symbol R26 Pin 1 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(8265 mils, 8268 mils): Symbol J12 Pin 1 [Pin_1, Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(3937 mils, 11024 mils): Symbol #PWR011 Pin 1 [Power input, Line]
+[missing_input_pin]: Symbol U6 has input pins in units [ B, C, D ] that are not placed.
+    ; warning
+    @(5709 mils, 10236 mils): Symbol U6 [MCP6004]
+[missing_unit]: Symbol U6 has unplaced units [ B, C, D, . ]
+    ; warning
+    @(5709 mils, 10236 mils): Symbol U6 [MCP6004]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(6102 mils, 10039 mils): Symbol #PWR013 Pin 1 [Power input, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(7087 mils, 9496 mils): Symbol R25 Pin 1 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(6009 mils, 10236 mils): Symbol U6 Pin 1 [Output, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(8465 mils, 8811 mils): Symbol R30 Pin 2 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(8465 mils, 8905 mils): Symbol R31 Pin 1 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(7433 mils, 9843 mils): Symbol C11 Pin 2 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(6787 mils, 10336 mils): Symbol U8 Pin 2 [-, Input, Line]
+[missing_input_pin]: Symbol U8 has input pins in units [ B, C, D ] that are not placed.
+    ; warning
+    @(7087 mils, 10236 mils): Symbol U8 [MCP6004]
+[missing_unit]: Symbol U8 has unplaced units [ B, C, D, . ]
+    ; warning
+    @(7087 mils, 10236 mils): Symbol U8 [MCP6004]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(7480 mils, 10039 mils): Symbol #PWR017 Pin 1 [Power input, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(8511 mils, 9252 mils): Symbol R33 Pin 1 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(8465 mils, 9796 mils): Symbol R32 Pin 2 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(7480 mils, 10630 mils): Symbol #PWR018 Pin 1 [Power input, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(8511 mils, 9843 mils): Symbol C15 Pin 1 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(7480 mils, 10677 mils): Symbol C13 Pin 1 [Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(8165 mils, 10336 mils): Symbol U10 Pin 2 [-, Input, Line]
+[missing_input_pin]: Symbol U10 has input pins in units [ B, C, D ] that are not placed.
+    ; warning
+    @(8465 mils, 10236 mils): Symbol U10 [MCP6004]
+[missing_unit]: Symbol U10 has unplaced units [ B, C, D, . ]
+    ; warning
+    @(8465 mils, 10236 mils): Symbol U10 [MCP6004]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(7480 mils, 11024 mils): Symbol #PWR019 Pin 1 [Power input, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(8858 mils, 10039 mils): Symbol #PWR028 Pin 1 [Power input, Line]
+
+ ** ERC messages: 396  Errors 280  Warnings 116

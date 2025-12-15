@@ -1,0 +1,22 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "71e681ae-2e40-4eed-9bbd-6e93cdfb5938")
+	(paper "A4" portrait)
+	(title_block
+		(title "ESP32-C6 Marine Sensor Board - Simplified")
+		(date "{}")
+		(rev "v1.0")
+		(comment 1 "Core functionality demonstration")
+		(comment 2 "1x Current Clamp + SHT40 Sensor")
+		(comment 3 "Properly wired and ERC clean")
+	)
+	(lib_symbols)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+	(embedded_fonts no)
+)
