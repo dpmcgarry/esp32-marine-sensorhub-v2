@@ -6,7 +6,7 @@
 *-backups/
 *.bak
 *.bck
-*~
+*~*
 _autosave-*
 
 # KiCad cache and temporary files
