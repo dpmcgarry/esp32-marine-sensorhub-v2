@@ -1,4 +1,5 @@
 # KiCad Schematic Creation Guide
+
 ## ESP32-C6 Marine Sensor Board
 
 This guide will walk you through creating the schematic from scratch in KiCad 9.0.
@@ -19,12 +20,14 @@ This guide will walk you through creating the schematic from scratch in KiCad 9.
 ### 2. Add Power Input Connector (J1)
 
 **Add the symbol:**
+
 1. Press `A` (Add Symbol) or click the "Place Symbol" button
 2. Search for: `Screw_Terminal_01x02`
 3. Click to place it at a comfortable position (left side, near top)
 4. Press `Esc` when done
 
 **Configure it:**
+
 1. Hover over the symbol and press `E` (Edit)
 2. Set Reference: `J1`
 3. Set Value: `12V_INPUT`
@@ -33,12 +36,14 @@ This guide will walk you through creating the schematic from scratch in KiCad 9.
 ### 3. Add Reverse Polarity Protection Diode (D1)
 
 **Add the symbol:**
+
 1. Press `A`
 2. Search for: `MBRS340` (or `D_Schottky` if not found)
 3. Place to the right of J1
 4. If needed, press `R` while placing to rotate
 
 **Configure it:**
+
 1. Press `E` on the diode
 2. Reference: `D1`
 3. Value: `MBRS340`
@@ -46,11 +51,13 @@ This guide will walk you through creating the schematic from scratch in KiCad 9.
 ### 4. Add Buck Converter (U1)
 
 **Add the symbol:**
+
 1. Press `A`
 2. Search for: `LM2596S-3.3`
 3. Place to the right of D1
 
 **Configure it:**
+
 1. Press `E`
 2. Reference: `U1`
 3. Value: `LM2596S-3.3`
@@ -58,11 +65,13 @@ This guide will walk you through creating the schematic from scratch in KiCad 9.
 ### 5. Add Capacitors
 
 **For each capacitor:**
+
 1. Press `A`
 2. Search for: `C_Polarized` (for electrolytics) or `C` (for ceramic)
 3. Place appropriately
 
 **You need:**
+
 - `C1`: 100uF/25V (input, after D1)
 - `C2`: 100uF/10V (output, after U1)
 - `C3`: 10uF ceramic (output)
@@ -71,18 +80,21 @@ This guide will walk you through creating the schematic from scratch in KiCad 9.
 ### 6. Add Power Symbols
 
 **Add +12V symbol:**
+
 1. Press `P` (Place Power Port)
 2. Search for: `+12V`
 3. Click to place at J1 pin 1
 4. Press `Esc`
 
 **Add GND symbols:**
+
 1. Press `P`
 2. Search for: `GND`
 3. Place near J1 pin 2 and other ground connections
 4. Repeat as needed (you'll need several)
 
 **Add +3V3 symbol:**
+
 1. Press `P`
 2. Search for: `+3V3`
 3. Place at U1 output
@@ -90,13 +102,15 @@ This guide will walk you through creating the schematic from scratch in KiCad 9.
 ### 7. Wire the Power Section
 
 **Basic wiring:**
+
 1. Press `W` (Wire tool)
 2. Click on a pin to start
 3. Click on destination pin to finish
 4. Press `Esc` to exit wire mode
 
 **Wire this section:**
-```
+
+```text
 J1 Pin 1 (+) → +12V power symbol → D1 anode
 D1 cathode → C1+ → U1 VIN
 J1 Pin 2 (-) → GND → C1- → U1 GND
@@ -105,6 +119,7 @@ C2-, C3-, C4- → GND
 ```
 
 **Tips:**
+
 - Wires must connect pin to pin
 - Use labels for nets that span long distances (we'll do this later)
 - Click to create corners in wires
@@ -116,6 +131,7 @@ C2-, C3-, C4- → GND
 ### 1. Add ESP32-C6 Module (U2)
 
 **Add the symbol:**
+
 1. Press `A`
 2. Search for: `ESP32-C6-WROOM-1`
 3. Place in center of schematic
@@ -125,17 +141,20 @@ C2-, C3-, C4- → GND
 ### 2. Add RESET Button Circuit
 
 **Components needed:**
+
 - `R_EN`: 10k resistor (pullup to EN)
 - `C_EN`: 0.1uF capacitor (EN filter)
 - `SW_RESET`: Momentary push button
 
 **Add each:**
+
 1. Press `A` → search for `SW_Push` → place
 2. Reference: `SW_RESET`
 3. Add resistor and capacitor
 
 **Wire it:**
-```
+
+```text
 +3V3 → R_EN → ESP32 EN pin
 ESP32 EN pin → C_EN → GND
 ESP32 EN pin → SW_RESET → GND
@@ -146,11 +165,13 @@ ESP32 EN pin → SW_RESET → GND
 ### 3. Add BOOT Button Circuit
 
 **Components:**
+
 - `R_BOOT`: 10k resistor (pullup)
 - `SW_BOOT`: Momentary push button
 
 **Wire it:**
-```
+
+```text
 +3V3 → R_BOOT → ESP32 GPIO9 pin (BOOT)
 ESP32 GPIO9 → SW_BOOT → GND
 ```
@@ -159,7 +180,7 @@ ESP32 GPIO9 → SW_BOOT → GND
 
 ### 4. Connect Power to ESP32
 
-```
+```text
 +3V3 → ESP32 3V3 pin
 GND → ESP32 GND pin
 ```
@@ -167,27 +188,32 @@ GND → ESP32 GND pin
 ### 5. Add Power Indicator LED
 
 **Components:**
+
 - `D_PWR`: Green LED
 - `R_PWR`: 1kΩ resistor (current limiting)
 
 **Wire it:**
-```
+
+```text
 +3V3 → R_PWR → LED anode
 LED cathode → GND
 ```
 
 **Tips:**
+
 - LED symbol has anode (pin 1, triangle) and cathode (pin 2, bar)
 - Rotate with `R` if needed
 
 ### 6. Add GPIO Labels (for peripherals)
 
 **Use labels instead of long wires:**
+
 1. Press `L` (Local Label)
 2. Type label name
 3. Place on ESP32 GPIO pin
 
 **Add these labels:**
+
 - `USB_D+` on GPIO12
 - `USB_D-` on GPIO13
 - `I2C_SDA` on GPIO6
@@ -208,6 +234,7 @@ LED cathode → GND
 ### 1. Add USB-C Connector (J_USB)
 
 **Add the symbol:**
+
 1. Press `A`
 2. Search for: `USB_C_Receptacle_USB2.0`
 3. Place near ESP32
@@ -216,7 +243,8 @@ LED cathode → GND
 ### 2. Add USB Data Lines
 
 **Wire USB data to ESP32:**
-```
+
+```text
 J_USB D+ (pin A6) → Label "USB_D+"
 J_USB D- (pin A7) → Label "USB_D-"
 ```
@@ -226,11 +254,13 @@ J_USB D- (pin A7) → Label "USB_D-"
 ### 3. Add CC (Configuration Channel) Resistors
 
 **Components needed:**
+
 - `R_CC1`: 5.1kΩ resistor
 - `R_CC2`: 5.1kΩ resistor
 
 **Wire them:**
-```
+
+```text
 J_USB CC1 (pin A5) → R_CC1 → GND
 J_USB CC2 (pin B5) → R_CC2 → GND
 ```
@@ -240,10 +270,12 @@ J_USB CC2 (pin B5) → R_CC2 → GND
 ### 4. Add ESD Protection (Optional but Recommended)
 
 **Component:**
+
 - `U_ESD`: USBLC6-2SC6 (TVS diode array)
 
 **Connections:**
-```
+
+```text
 J_USB VBUS → U_ESD pin 4 (VCC)
 J_USB D- → U_ESD pin 1 (I/O1)
 J_USB D+ → U_ESD pin 3 (I/O2)
@@ -257,19 +289,21 @@ U_ESD pin 6 (I/O2') → Label "USB_D+"
 ### 5. Connect USB Power
 
 **Simple approach:**
-```
+
+```text
 J_USB VBUS → (optional diode) → +3V3 (if powering from USB)
 J_USB GND → GND
 ```
 
 **OR for dual power:**
+
 - Add a diode from USB VBUS to +3V3
 - Add a diode from 12V buck output to +3V3
 - This allows powering from either USB or 12V input
 
 ### 6. Add USB Shield Connection
 
-```
+```text
 J_USB Shield (pin S1) → (100nF capacitor) → GND
 ```
 
@@ -282,6 +316,7 @@ J_USB Shield (pin S1) → (100nF capacitor) → GND
 ### 1. Add WS2812B RGB LED (D_RGB)
 
 **Add the symbol:**
+
 1. Press `A`
 2. Search for: `WS2812B` or `LED_ARGB`
 3. Place near ESP32
@@ -290,10 +325,12 @@ J_USB Shield (pin S1) → (100nF capacitor) → GND
 ### 2. Add Decoupling Capacitor
 
 **Component:**
+
 - `C_RGB`: 0.1uF capacitor
 
 **Wire it:**
-```
+
+```text
 +3V3 → D_RGB VDD pin
 D_RGB GND pin → GND
 +3V3 → C_RGB → GND (place near LED)
@@ -302,12 +339,14 @@ D_RGB GND pin → GND
 ### 3. Connect Data Line
 
 **Wire it:**
-```
+
+```text
 ESP32 GPIO15 → (optional 330Ω resistor) → D_RGB DIN pin
 ```
 
 **Or use label:**
-```
+
+```text
 ESP32 GPIO15 → Label "RGB_LED"
 Label "RGB_LED" → D_RGB DIN pin
 ```
@@ -317,10 +356,11 @@ Label "RGB_LED" → D_RGB DIN pin
 ### 4. Add Status LED (Optional)
 
 **Simple green LED on GPIO23:**
+
 - `D_STATUS`: Green LED
 - `R_STATUS`: 330Ω resistor
 
-```
+```text
 ESP32 GPIO23 → R_STATUS → LED anode
 LED cathode → GND
 ```
@@ -329,7 +369,7 @@ LED cathode → GND
 
 ## Part 3: Current Clamp Signal Conditioning (30 minutes)
 
-### For ONE Current Clamp Channel:
+### For ONE Current Clamp Channel
 
 ### 1. Add Input Connector
 
@@ -344,23 +384,27 @@ LED cathode → GND
 **Components (in order):**
 
 **Series Resistor:**
+
 - `R_SER_1`: 1k resistor (protection)
 
 **Voltage Divider:**
+
 - `R_DIV1_1`: 10k resistor (top)
 - `R_DIV2_1`: 20k resistor (bottom to GND)
 
 **RC Filter:**
+
 - `R_FILT_1`: 1k resistor
 - `C_FILT_1`: 0.1uF capacitor to GND
 
 **Op-Amp Buffer:**
+
 - Use `MCP6004` (quad op-amp)
 - Reference: `U5A` (unit A)
 
 ### 3. Wire the Signal Chain
 
-```
+```text
 J2 Pin 1 → R_SER_1 → R_DIV1_1 → [midpoint junction]
 [midpoint] → R_DIV2_1 → GND
 [midpoint] → R_FILT_1 → C_FILT_1 → GND
@@ -396,12 +440,13 @@ U5A Pin 1 → Label "ADC_CH0"
 ### 2. Add I2C Pullup Resistors
 
 **Components:**
+
 - `R_SDA_PU`: 4.7k resistor
 - `R_SCL_PU`: 4.7k resistor
 
 ### 3. Wire I2C Section
 
-```
+```text
 +3V3 → R_SDA_PU → Label "I2C_SDA"
 +3V3 → R_SCL_PU → Label "I2C_SCL"
 U3 SDA pin → Label "I2C_SDA"
@@ -454,6 +499,7 @@ U3 VSS → GND
 ## Tips & Tricks
 
 ### Keyboard Shortcuts
+
 - `A` - Add symbol
 - `P` - Add power port
 - `W` - Wire tool
@@ -468,6 +514,7 @@ U3 VSS → GND
 - `Esc` - Cancel current action
 
 ### Best Practices
+
 1. **Use labels**: For nets that span long distances
 2. **Power symbols**: Use for all power connections (cleaner than wires)
 3. **Grid**: Keep everything on grid (View → Grid Settings)
@@ -475,6 +522,7 @@ U3 VSS → GND
 5. **Reference designators**: Use logical prefixes (J=connectors, R=resistors, C=capacitors, U=ICs)
 
 ### Common Issues
+
 - **Wires not connecting**: Make sure endpoints touch pins exactly
 - **Missing symbols**: Update library tables (Preferences → Manage Symbol Libraries)
 - **ERC errors**: Most common are missing power connections and unconnected pins
@@ -484,6 +532,7 @@ U3 VSS → GND
 ## What to Build First
 
 **Recommended order:**
+
 1. ✅ Power supply section (most critical)
 2. ✅ ESP32-C6 core with RESET/BOOT buttons
 3. ✅ Power indicator LED (green)
@@ -501,6 +550,7 @@ U3 VSS → GND
 ## Need Help?
 
 If you get stuck:
+
 1. Take a screenshot and describe the issue
 2. Check the ERC report for specific errors
 3. Verify all pins are connected

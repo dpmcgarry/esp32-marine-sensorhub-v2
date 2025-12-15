@@ -63,7 +63,7 @@ A unified sensor board for marine applications featuring temperature, humidity, 
 
 ### Power Supply Circuit
 
-```
+```text
 12V_IN (J_PWR, 2-pin screw terminal)
   │
   ├── D1 (MBRS340 Schottky) ──┐ (Reverse polarity protection)
@@ -88,7 +88,7 @@ GND ─── Common ground
 
 ### ESP32-C6 Core Circuit (U2)
 
-```
+```text
 ESP32-C6
 ├── VDD: 3.3V_MAIN
 ├── GND: GND
@@ -98,7 +98,7 @@ ESP32-C6
 
 ### SHT40 Temperature & Humidity Sensor (U3)
 
-```
+```text
 SHT40 (I2C Address: 0x44)
 ├── VDD: 3.3V_MAIN
 ├── GND: GND
@@ -111,7 +111,7 @@ SHT40 (I2C Address: 0x44)
 
 Each of 3 connectors (J1, J2, J3 - RJ45 or 3-pin JST-XH):
 
-```
+```text
 Connector Pinout:
   Pin 1: 3.3V (or 5V if long cable runs needed)
   Pin 2: DATA (to GPIO8/10/11 with 4.7kΩ pullup)
@@ -125,7 +125,7 @@ Notes:
 
 ### MAX31855 Thermocouple Interface (U4)
 
-```
+```text
 MAX31855 (SPI)
 ├── VCC: 3.3V_MAIN
 ├── GND: GND
@@ -148,7 +148,7 @@ QNHCK2-16 outputs 0-5V, but ESP32 ADC maximum is 3.3V.
 
 **Per channel circuit:**
 
-```
+```text
 CLAMP_x_IN (J5-J10, screw terminal or JST)
   │
   ├── R_series (1kΩ) ──────────┐ (Current limiting/protection)
@@ -189,12 +189,14 @@ Two MCP6004 ICs required:
 ### Additional Circuits
 
 **Power Indicator LED:**
-```
+
+```text
 3.3V ──[1kΩ]──[LED]──── GND
 ```
 
 **Status LED:**
-```
+
+```text
 GPIO23 ──[330Ω]──[LED]──── GND
 ```
 
@@ -263,14 +265,14 @@ GPIO23 ──[330Ω]──[LED]──── GND
 
 ### J_PWR - 12V Power Input (Screw Terminal)
 
-```
+```text
 Pin 1: +12V
 Pin 2: GND
 ```
 
 ### J1, J2, J3 - DS18B20 Temperature Sensors (RJ45 or JST-XH)
 
-```
+```text
 Pin 1: +3.3V (or +5V)
 Pin 2: DATA
 Pin 3: GND
@@ -278,21 +280,21 @@ Pin 3: GND
 
 ### J4 - K-Type Thermocouple (Screw Terminal)
 
-```
+```text
 Pin 1: T+ (Yellow wire on standard K-type)
 Pin 2: T- (Red wire on standard K-type)
 ```
 
 ### J5-J10 - QNHCK2-16 Current Clamps (Screw Terminal)
 
-```
+```text
 Pin 1: Signal (0-5V)
 Pin 2: GND
 ```
 
 ### J_PROG - Programming Header (Optional, 2×3 pin header)
 
-```
+```text
 Pin 1: GND      Pin 2: 3.3V
 Pin 3: TX       Pin 4: RX
 Pin 5: GPIO9    Pin 6: EN
@@ -396,7 +398,7 @@ float current_amps = adc_voltage * (30.0 / 3.3);
 
 ### MQTT Topic Structure
 
-```
+```text
 boat/sensors/{location}/{sensor_type}
 
 Examples:

@@ -8,6 +8,7 @@
 *.bck
 *~*
 _autosave-*
+\#auto_saved_files#
 
 # KiCad cache and temporary files
 fp-info-cache

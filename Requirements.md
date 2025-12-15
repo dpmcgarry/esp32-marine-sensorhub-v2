@@ -25,15 +25,15 @@ Create a KiCad 7.x schematic and PCB layout for an ESP32-C6 based multi-sensor b
    - I2C interface
    - Address: 0x44
 
-3. **MAX31855** (U4) - Thermocouple Amplifier
+4. **MAX31855** (U4) - Thermocouple Amplifier
    - SPI interface
    - K-type thermocouple input
 
-4. **MCP6004** (U5, U6) - Quad Op-Amp (2 ICs)
+5. **MCP6004** (U5, U6) - Quad Op-Amp (2 ICs)
    - Used for current clamp signal buffering
    - SOIC-14 or TSSOP-14 package
 
-5. **LM2596** (U1) - Buck Converter
+6. **LM2596** (U1) - Buck Converter
    - 12V → 3.3V
    - Can use module footprint or discrete IC
 
@@ -87,7 +87,7 @@ Create a KiCad 7.x schematic and PCB layout for an ESP32-C6 based multi-sensor b
 
 Each channel:
 
-```
+```text
 Input (0-5V from QNHCK2-16) 
   → 1kΩ series resistor
   → Voltage divider (10kΩ / 20kΩ) 
