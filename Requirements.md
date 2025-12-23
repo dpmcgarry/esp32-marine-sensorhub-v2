@@ -2,7 +2,8 @@
 
 ## Project Overview
 
-Create a KiCad 7.x schematic and PCB layout for an ESP32-C6 based multi-sensor board for marine applications.
+Create a KiCad 7.x schematic and PCB layout for an ESP32-C6 based
+multi-sensor board for marine applications.
 
 ## Schematic Requirements
 
@@ -99,7 +100,7 @@ Input (0-5V from QNHCK2-16)
 ### Connectors
 
 | Designator | Type | Purpose | Pins |
-|------------|------|---------|------|
+| ---------- | ---- | ------- | ---- |
 | J_PWR | Screw terminal 5mm | 12V power input | 2 |
 | J_USB | USB Type-C | Programming & UART debug | 16 (USB 2.0) |
 | J1-J3 | RJ45 or JST-XH | DS18B20 sensors | 3 each |
@@ -108,7 +109,8 @@ Input (0-5V from QNHCK2-16)
 
 ### Passives Summary
 
-- Resistors: 4.7kΩ (5x), 10kΩ (~10x), 20kΩ (6x), 1kΩ (~13x), 5.1kΩ (2x for USB CC), 330Ω (1x)
+- Resistors: 4.7kΩ (5x), 10kΩ (~10x), 20kΩ (6x), 1kΩ (~13x), 5.1kΩ
+  (2x for USB CC), 330Ω (1x)
 - Capacitors: 0.1µF (~15x), 10µF (1x), 100µF 25V (1x), 100µF 10V (1x)
 - LEDs: 3x (1x green power LED, 1x green status LED, 1x WS2812B RGB LED)
 - Buttons: 2x momentary tactile (RESET, BOOT)
@@ -232,10 +234,12 @@ Add test points for:
 
 ## Reference Documents
 
-See `HARDWARE.md` for complete circuit details, component specifications, and design rationale.
+See `HARDWARE.md` for complete circuit details, component specifications,
+and design rationale.
 
 ---
 
 **Target Cost:** ~$23-25 per board (components only, qty 1-10)
 **Application:** Marine environment - requires conformal coating
-**Safety Critical:** Engine monitoring application - implement watchdog and fault detection
+**Safety Critical:** Engine monitoring application - implement watchdog and
+fault detection

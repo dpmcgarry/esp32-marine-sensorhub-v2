@@ -77,6 +77,18 @@ This guide will walk you through creating the schematic from scratch in KiCad 9.
 - `C3`: 10uF ceramic (output)
 - `C4`: 0.1uF ceramic (decoupling)
 
+### 5a. Add Dual Power OR-ing Diode
+
+**Add the diode:**
+
+1. Press `A`
+2. Search for: `D_Schottky`
+3. Place after U1 output
+4. Reference: `D_BUCK`
+5. Value: `B5819W`
+
+**This diode allows dual power from either 12V or USB without conflict.**
+
 ### 6. Add Power Symbols
 
 **Add +12V symbol:**
@@ -114,9 +126,12 @@ This guide will walk you through creating the schematic from scratch in KiCad 9.
 J1 Pin 1 (+) → +12V power symbol → D1 anode
 D1 cathode → C1+ → U1 VIN
 J1 Pin 2 (-) → GND → C1- → U1 GND
-U1 VOUT → C2+ → C3+ → C4+ → +3V3 symbol
+U1 VOUT → C2+ → C3+ → D_BUCK cathode
+D_BUCK anode → C4+ → +3V3 symbol
 C2-, C3-, C4- → GND
 ```
+
+**Note:** The D_BUCK diode prevents backfeeding when USB power is connected.
 
 **Tips:**
 
@@ -214,8 +229,8 @@ LED cathode → GND
 
 **Add these labels:**
 
-- `USB_D+` on GPIO12
-- `USB_D-` on GPIO13
+- `USB_D-` on GPIO12
+- `USB_D+` on GPIO13
 - `I2C_SDA` on GPIO6
 - `I2C_SCL` on GPIO7
 - `ADC_CH0` on GPIO0 (ADC1_CH0)
@@ -286,20 +301,42 @@ U_ESD pin 6 (I/O2') → Label "USB_D+"
 
 **Why:** Protects against static discharge on USB port.
 
-### 5. Connect USB Power
+### 5. Add USB Power Path (Dual Power Support)
 
-**Simple approach:**
+**This section creates a second power path from USB for programming/development.**
+
+**Components needed:**
+
+- `U_USB_REG`: AMS1117-3.3 (LDO regulator, SOT-223)
+- `C_USB_IN`: 10uF ceramic capacitor (input)
+- `C_USB_OUT`: 10uF ceramic capacitor (output)
+- `D_USB`: B5819W Schottky diode (OR-ing diode)
+
+**Add LDO regulator:**
+
+1. Press `A`
+2. Search for: `AMS1117-3.3`
+3. Place near USB connector
+4. Reference: `U_USB_REG`
+
+**Wire the USB power path:**
 
 ```text
-J_USB VBUS → (optional diode) → +3V3 (if powering from USB)
+J_USB VBUS → C_USB_IN+ → U_USB_REG VIN
+C_USB_IN- → GND
+U_USB_REG VOUT → C_USB_OUT+ → D_USB cathode
+C_USB_OUT- → GND
+D_USB anode → +3V3 symbol (meets D_BUCK here)
+U_USB_REG GND → GND
 J_USB GND → GND
 ```
 
-**OR for dual power:**
+**How it works:**
 
-- Add a diode from USB VBUS to +3V3
-- Add a diode from 12V buck output to +3V3
-- This allows powering from either USB or 12V input
+- USB VBUS (5V) → AMS1117 → 3.3V → D_USB → +3V3 rail
+- 12V path → LM2596S → 3.3V → D_BUCK → +3V3 rail
+- Whichever voltage is higher (after diode drop) powers the board
+- Typical: 12V path = 3.0V, USB path = 3.0V (both can power independently)
 
 ### 6. Add USB Shield Connection
 
@@ -531,19 +568,16 @@ U3 VSS → GND
 
 ## What to Build First
 
-**Recommended order:**
+**Follow the parts in order:**
 
-1. ✅ Power supply section (most critical)
-2. ✅ ESP32-C6 core with RESET/BOOT buttons
-3. ✅ Power indicator LED (green)
-4. ✅ USB-C connector for programming
-5. ✅ RGB LED (WS2812B)
-6. ✅ Status LED (optional)
-7. ✅ One current clamp channel (test the concept)
-8. ✅ SHT40 I2C sensor
-9. ⏭️ Add more current clamp channels (copy/paste first one)
-10. ⏭️ Add DS18B20 1-Wire sensors
-11. ⏭️ Add MAX31855 thermocouple interface
+1. ✅ **COMPLETED:** Part 1 - Setup & Power Supply (J1, D1, U1, capacitors, D_BUCK, power symbols)
+2. ✅ **COMPLETED:** Part 2 - ESP32-C6 Core (U2, RESET/BOOT buttons, power LED, GPIO labels)
+3. ✅ **COMPLETED:** Part 2.5 - USB-C Connector (J_USB, CC resistors, ESD protection, USB power path with AMS1117 & D_USB)
+4. ⏭️ **NEXT:** Part 2.6 - RGB LED (WS2812B & optional status LED)
+5. ⏭️ Part 3 - Current Clamp Signal Conditioning (one channel to test)
+6. ⏭️ Part 4 - SHT40 I2C Sensor
+7. ⏭️ Part 5 - Finishing Up (annotate, ERC, assign footprints)
+8. ⏭️ Future expansion: Add more current clamp channels, DS18B20 sensors, MAX31855 thermocouple
 
 ---
 

@@ -2,22 +2,24 @@
 
 ## Overview
 
-A unified sensor board for marine applications featuring temperature, humidity, current monitoring, and high-temperature sensing capabilities. Designed for reliable operation in harsh marine environments with 12VDC power input.
+A unified sensor board for marine applications featuring temperature, humidity,
+current monitoring, and high-temperature sensing capabilities. Designed for
+reliable operation in harsh marine environments with 12VDC power input.
 
 ## Features
 
 - **Onboard Sensors:**
   - SHT40 temperature & humidity sensor (±0.2°C accuracy)
-  
+
 - **External Sensor Support:**
   - 3x DS18B20 1-Wire temperature sensors (-67°F to +257°F)
   - 1x K-type thermocouple via MAX31855 (up to 2000°F)
   - 6x QNHCK2-16 30A current clamp sensors
-  
+
 - **Connectivity:**
   - ESP32-C6 with WiFi 6 (802.11ax)
   - MQTT communication to central server
-  
+
 - **Power:**
   - 12VDC input with reverse polarity protection
   - TVS diode protection for voltage spikes
@@ -41,7 +43,7 @@ A unified sensor board for marine applications featuring temperature, humidity, 
 ### GPIO Pin Allocation
 
 | Function | GPIO Pin(s) | Notes |
-|----------|-------------|-------|
+| -------- | ----------- | ----- |
 | I2C SDA (SHT40) | GPIO6 | 4.7kΩ pullup |
 | I2C SCL (SHT40) | GPIO7 | 4.7kΩ pullup |
 | 1-Wire DS18B20 #1 | GPIO8 | 4.7kΩ pullup |
@@ -174,10 +176,11 @@ MCP6004 Configuration (Unity Gain Buffer):
   VDD: 3.3V_MAIN
   VSS: GND
   Decoupling: 0.1µF ceramic
-  
+
 Two MCP6004 ICs required:
-  - U5: Channels 1-4
-  - U6: Channels 5-6 (2 op-amps unused)
+
+- U5: Channels 1-4
+- U6: Channels 5-6 (2 op-amps unused)
 ```
 
 **Alternative (cost-optimized, less accurate):**
@@ -205,7 +208,7 @@ GPIO23 ──[330Ω]──[LED]──── GND
 ### Core Components
 
 | Reference | Part Number | Description | Qty | Unit Price | Extended |
-|-----------|-------------|-------------|-----|------------|----------|
+| --------- | ----------- | ----------- | --- | ---------- | -------- |
 | U2 | ESP32-C6-WROOM-1 | WiFi 6 module | 1 | $2.50 | $2.50 |
 | U3 | SHT40 | Temp/humidity sensor | 1 | $4.00 | $4.00 |
 | U4 | MAX31855 | Thermocouple amplifier | 1 | $5.00 | $5.00 |
@@ -215,7 +218,7 @@ GPIO23 ──[330Ω]──[LED]──── GND
 ### Protection & Power
 
 | Reference | Part Number | Description | Qty | Unit Price | Extended |
-|-----------|-------------|-------------|-----|------------|----------|
+| --------- | ----------- | ----------- | --- | ---------- | -------- |
 | D1 | MBRS340 | Schottky diode 3A 40V | 1 | $0.30 | $0.30 |
 | TVS1 | SMBJ15A | TVS diode 15V | 1 | $0.40 | $0.40 |
 | C1 | - | 100µF 25V electrolytic | 1 | $0.15 | $0.15 |
@@ -225,7 +228,7 @@ GPIO23 ──[330Ω]──[LED]──── GND
 ### Passives (approximate quantities)
 
 | Type | Value | Description | Qty | Unit Price | Extended |
-|------|-------|-------------|-----|------------|----------|
+| ---- | ----- | ----------- | --- | ---------- | -------- |
 | Resistors | 4.7kΩ | I2C & 1-Wire pullups | 5 | $0.02 | $0.10 |
 | Resistors | 10kΩ | Voltage dividers, pullups | 10 | $0.02 | $0.20 |
 | Resistors | 20kΩ | Voltage dividers | 6 | $0.02 | $0.12 |
@@ -236,7 +239,7 @@ GPIO23 ──[330Ω]──[LED]──── GND
 ### Connectors
 
 | Reference | Type | Description | Qty | Unit Price | Extended |
-|-----------|------|-------------|-----|------------|----------|
+| --------- | ---- | ----------- | --- | ---------- | -------- |
 | J_PWR | Screw terminal | 2-pin, 5mm pitch, 12V input | 1 | $0.30 | $0.30 |
 | J1-J3 | RJ45 or JST-XH | 3-pin, DS18B20 sensors | 3 | $0.40 | $1.20 |
 | J4 | Screw terminal | 2-pin, thermocouple | 1 | $0.30 | $0.30 |
@@ -246,7 +249,7 @@ GPIO23 ──[330Ω]──[LED]──── GND
 ### Miscellaneous
 
 | Item | Description | Qty | Unit Price | Extended |
-|------|-------------|-----|------------|----------|
+| ---- | ----------- | --- | ---------- | -------- |
 | LEDs | Status indicators | 2 | $0.10 | $0.20 |
 | Buttons | Tactile switches (reset, boot) | 2 | $0.10 | $0.20 |
 | PCB | 2-layer, ~80×60mm | 1 | $2.50 | $2.50 |
@@ -256,7 +259,7 @@ GPIO23 ──[330Ω]──[LED]──── GND
 ### External Sensors (purchased separately)
 
 | Item | Part Number | Description | Unit Price |
-|------|-------------|-------------|------------|
+| ---- | ----------- | ----------- | ---------- |
 | DS18B20 | DS18B20 | Waterproof probe, 1m cable | $2-4 |
 | Thermocouple | K-type | Stainless probe, 1-2m | $5-15 |
 | Current clamp | QNHCK2-16 | 30A, 0-5V output | $8-12 |
@@ -427,7 +430,8 @@ boat/sensors/battery_bank/current_1
    - Test each 1-Wire bus independently
    - Test SPI communication with MAX31855
    - Calibrate ADC channels with known voltage source
-5. **Conformal coating:** After full testing, apply to bottom of board only (avoid connectors)
+5. **Conformal coating:** After full testing, apply to bottom of board only
+   (avoid connectors)
 
 ## Testing & Calibration
 
@@ -479,13 +483,14 @@ boat/sensors/battery_bank/current_1
 
 ## Revision History
 
-| Version | Date | Changes |
-|---------|------|---------|
-| 1.0 | 2024-12-14 | Initial design document |
+| Version | Date       | Changes                 |
+| ------- | ---------- | ----------------------- |
+| 1.0     | 2024-12-14 | Initial design document |
 
 ## License
 
-This design is open-source hardware. Please specify your preferred license (e.g., MIT, Apache 2.0, CERN-OHL).
+This design is open-source hardware. Please specify your preferred license
+(e.g., MIT, Apache 2.0, CERN-OHL).
 
 ## Support & Contact
 
@@ -495,4 +500,7 @@ This design is open-source hardware. Please specify your preferred license (e.g.
 
 ---
 
-**Safety Warning:** This board is designed for 12V automotive/marine applications. Ensure proper fusing and circuit protection in your installation. High-temperature sensors should be installed per manufacturer specifications. This design has not been certified for safety-critical applications.
+**Safety Warning:** This board is designed for 12V automotive/marine
+applications. Ensure proper fusing and circuit protection in your installation.
+High-temperature sensors should be installed per manufacturer specifications.
+This design has not been certified for safety-critical applications.
