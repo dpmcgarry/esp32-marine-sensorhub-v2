@@ -98,7 +98,7 @@ Only after testing individual subsystems:
 | Solderable breadboard | 1-2 | 830 tie-point or similar |
 | 22AWG solid wire | 1 spool | For breadboard jumpers |
 | Pin headers (male) | 2×20 pins | For dev board |
-| Screw terminals | 6-8 | 2-pin, 5mm pitch |
+| Screw terminals | 6-8 | 2-pin, 2.54mm pitch (or use jumper wires) |
 
 ### Phase 1: Core Components
 
