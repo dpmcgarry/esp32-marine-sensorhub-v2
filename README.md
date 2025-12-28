@@ -114,7 +114,7 @@ esp32-marine-sensorhub-v2/
 
 3. **Order components:**
    - See BOM in [Hardware.md](Hardware.md#bill-of-materials-bom)
-   - Estimated cost: ~$33.80 per board (components only)
+   - Estimated cost: ~$32.85 per board (components only)
 
 ### For Firmware Developers
 
@@ -167,7 +167,7 @@ Note: GPIO5 (ADC1_CH5) reserved for 6th clamp expansion with U6B.
 
 ## Bill of Materials
 
-Estimated component cost: **~$33.80** per board (quantity 1-10)
+Estimated component cost: **~$32.85** per board (quantity 1-10)
 
 ### Key Components
 
@@ -177,7 +177,7 @@ Estimated component cost: **~$33.80** per board (quantity 1-10)
 - MCP6004 quad op-amp (2×): $1.00
 - LM2596 buck converter module: $2.00
 - AMS1117-3.3 LDO regulator: ~$0.50
-- Passive components & connectors: ~$8.80
+- Passive components & connectors: ~$7.85
 
 See [Hardware.md](Hardware.md#bill-of-materials-bom) for complete BOM.
 

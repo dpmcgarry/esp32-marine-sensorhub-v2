@@ -116,11 +116,10 @@ Op-amp allocation:
 
 | Designator | Type | Purpose | Pins |
 | ---------- | ---- | ------- | ---- |
-| J_PWR | Screw terminal 5mm | 12V power input | 2 |
+| J_MAIN | Screw terminal 5mm | Power + DS18B20 sensors | 11 |
+| J_TC | Screw terminal 5mm | K-type thermocouples (3×) | 6 |
+| J_CLAMP | Screw terminal 5mm | Current clamps (5×) | 10 |
 | J_USB | USB Type-C | Programming & UART debug | 16 (USB 2.0) |
-| J_1WIRE | Screw terminal | DS18B20 sensors (shared bus) | 3 each |
-| J_TC1, J_TC2, J_TC3 | Screw terminal | K-type thermocouples | 2 each |
-| J_CLAMP_1 to J_CLAMP_5 | Screw terminal | Current clamps | 2 each |
 
 ### Passives Summary
 
@@ -255,7 +254,7 @@ and design rationale.
 
 ---
 
-**Target Cost:** ~$33-35 per board (components only, qty 1-10)
+**Target Cost:** ~$32.85 per board (components only, qty 1-10)
 **Application:** Marine environment - requires conformal coating
 **Safety Critical:** Engine monitoring application - implement watchdog and
 fault detection

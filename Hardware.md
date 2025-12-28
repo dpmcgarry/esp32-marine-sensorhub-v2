@@ -281,12 +281,10 @@ GPIO23 ──[330Ω]──[LED]──── GND
 
 | Reference | Type | Description | Qty | Unit Price | Extended |
 | --------- | ---- | ----------- | --- | ---------- | -------- |
-| J_PWR | Screw terminal | 2-pin, 5mm pitch, 12V input | 1 | $0.30 | $0.30 |
-| J_1WIRE | Screw terminal | 3-pin, DS18B20 sensors (shared bus) | 3 | $0.30 | $0.90 |
-| J_TC1, J_TC2, J_TC3 | Screw terminal | 2-pin, K-type thermocouples | 3 | $0.30 | $0.90 |
-| J_CLAMP | Screw terminal | 2-pin, current clamps | 5 | $0.30 | $1.50 |
+| J_MAIN | Screw terminal | 11-pin, 5mm pitch, power + DS18B20 | 1 | $0.90 | $0.90 |
+| J_TC | Screw terminal | 6-pin, 5mm pitch, thermocouples | 1 | $0.60 | $0.60 |
+| J_CLAMP | Screw terminal | 10-pin, 5mm pitch, current clamps | 1 | $0.85 | $0.85 |
 | J_USB | USB-C receptacle | 16-pin, USB 2.0 | 1 | $0.50 | $0.50 |
-| J_PROG | Pin header | 2×3, programming (optional) | 1 | $0.15 | $0.15 |
 
 ### Miscellaneous
 
@@ -296,7 +294,7 @@ GPIO23 ──[330Ω]──[LED]──── GND
 | Buttons | Tactile switches (reset, boot) | 2 | $0.10 | $0.20 |
 | PCB | 2-layer, ~80×60mm | 1 | $2.50 | $2.50 |
 
-### **Total Board Cost: ~$33.80**
+### **Total Board Cost: ~$32.85**
 
 ### External Sensors (purchased separately)
 
@@ -308,54 +306,63 @@ GPIO23 ──[330Ω]──[LED]──── GND
 
 ## Connectors Pinout Reference
 
-### J_PWR - 12V Power Input (Screw Terminal)
+### J_MAIN - Main Power & DS18B20 Connector (11-pin Screw Terminal, 5mm pitch)
+
+Consolidated connector for 12V power input and three DS18B20 1-Wire sensors:
 
 ```text
-Pin 1: +12V
-Pin 2: GND
+Pin 1:  +12V (power input)
+Pin 2:  GND (power ground)
+Pin 3:  +3.3V (DS18B20 sensor 1)
+Pin 4:  DATA (DS18B20 sensor 1 → GPIO10, 4.7kΩ pullup)
+Pin 5:  GND (DS18B20 sensor 1)
+Pin 6:  +3.3V (DS18B20 sensor 2)
+Pin 7:  DATA (DS18B20 sensor 2 → GPIO10, shared bus)
+Pin 8:  GND (DS18B20 sensor 2)
+Pin 9:  +3.3V (DS18B20 sensor 3)
+Pin 10: DATA (DS18B20 sensor 3 → GPIO10, shared bus)
+Pin 11: GND (DS18B20 sensor 3)
+
+Notes:
+- All DATA pins (4, 7, 10) connected together to GPIO10 with single 4.7kΩ pullup
+- Can use +5V instead of +3.3V for long cable runs (pins 3, 6, 9)
+- All GND pins (2, 5, 8, 11) connected together
 ```
 
-### J_1WIRE_x - DS18B20 Temperature Sensors (Screw Terminal)
+### J_TC - Thermocouple Connector (6-pin Screw Terminal, 5mm pitch)
 
-All connectors wired in parallel on shared 1-Wire bus (GPIO10):
-
-```text
-Pin 1: +3.3V (or +5V)
-Pin 2: DATA (all connected to GPIO10)
-Pin 3: GND
-```
-
-### J_TC1, J_TC2, J_TC3 - K-Type Thermocouples (Screw Terminals)
-
-All three connectors have identical pinout:
+Consolidated connector for three K-type thermocouples:
 
 ```text
-Pin 1: T+ (Yellow wire on standard K-type)
-Pin 2: T- (Red wire on standard K-type)
-
-J_TC1 → MAX31855 #1 (U4) → GPIO20 (CS)
-J_TC2 → MAX31855 #2 (U7) → GPIO21 (CS)
-J_TC3 → MAX31855 #3 (U8) → GPIO22 (CS)
+Pin 1: TC1_T+ (Thermocouple 1 +, Yellow) → MAX31855 #1 (U4) → GPIO20 (CS)
+Pin 2: TC1_T- (Thermocouple 1 -, Red)
+Pin 3: TC2_T+ (Thermocouple 2 +, Yellow) → MAX31855 #2 (U7) → GPIO21 (CS)
+Pin 4: TC2_T- (Thermocouple 2 -, Red)
+Pin 5: TC3_T+ (Thermocouple 3 +, Yellow) → MAX31855 #3 (U8) → GPIO22 (CS)
+Pin 6: TC3_T- (Thermocouple 3 -, Red)
 
 Temperature Range: -270°C to +1372°C (-454°F to +2501°F)
-Resolution: 0.25°C (14-bit)
+Resolution: 0.25°C (14-bit) with cold junction compensation
 ```
 
-### J_CLAMP_1 through J_CLAMP_5 - QNHCK2-16 Current Clamps (Screw Terminal)
+### J_CLAMP - Current Clamp Connector (10-pin Screw Terminal, 5mm pitch)
+
+Consolidated connector for five QNHCK2-16 current clamps:
 
 ```text
-Pin 1: Signal (0-5V)
-Pin 2: GND
-```
+Pin 1:  CLAMP1_SIG (0-5V) → Conditioning → GPIO0 (ADC1_CH0)
+Pin 2:  CLAMP1_GND
+Pin 3:  CLAMP2_SIG (0-5V) → Conditioning → GPIO1 (ADC1_CH1)
+Pin 4:  CLAMP2_GND
+Pin 5:  CLAMP3_SIG (0-5V) → Conditioning → GPIO2 (ADC1_CH2)
+Pin 6:  CLAMP3_GND
+Pin 7:  CLAMP4_SIG (0-5V) → Conditioning → GPIO3 (ADC1_CH3)
+Pin 8:  CLAMP4_GND
+Pin 9:  CLAMP5_SIG (0-5V) → Conditioning → GPIO4 (ADC1_CH4)
+Pin 10: CLAMP5_GND
 
-Note: GPIO5 (ADC1_CH5) reserved for 6th clamp expansion.
-
-### J_PROG - Programming Header (Optional, 2×3 pin header)
-
-```text
-Pin 1: GND      Pin 2: 3.3V
-Pin 3: TX       Pin 4: RX
-Pin 5: GPIO9    Pin 6: EN
+Signal conditioning: voltage divider → RC filter → MCP6004 buffer → ESP32 ADC
+Note: GPIO5 (ADC1_CH5) reserved for 6th clamp expansion
 ```
 
 ## PCB Design Guidelines

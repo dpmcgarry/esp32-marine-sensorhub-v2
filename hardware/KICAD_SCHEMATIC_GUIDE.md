@@ -4,6 +4,22 @@
 
 This guide will walk you through creating the schematic from scratch in KiCad 9.0.
 
+## Connector Design Note
+
+**IMPORTANT:** This design uses consolidated multi-pin screw terminal blocks instead
+of many individual 2-pin connectors:
+
+- **J_MAIN** (11-pin): 12V power + 3× DS18B20 sensors (replaces J_PWR + 3× J_1WIRE)
+- **J_TC** (6-pin): 3× thermocouples (replaces J_TC1, J_TC2, J_TC3)
+- **J_CLAMP** (10-pin): 5× current clamps (replaces J_CLAMP_1 through J_CLAMP_5)
+
+When following this guide, you can choose to use either consolidated terminal blocks
+or individual connectors. The pin assignments remain the same - consolidated blocks
+simply save board space and reduce component count.
+
+See [Hardware.md - Connectors Pinout Reference](../Hardware.md#connectors-pinout-reference)
+for detailed pinout diagrams.
+
 ---
 
 ## Part 1: Setup & Power Supply (15 minutes)
@@ -17,21 +33,28 @@ This guide will walk you through creating the schematic from scratch in KiCad 9.
    - Start fresh: File → New → Schematic
    - Or clear the current one and start over
 
-### 2. Add Power Input Connector (J1)
+### 2. Add Power Input Connector (J1 or J_MAIN)
 
-**Add the symbol:**
+#### Option A: Individual Power Connector (J1)
 
 1. Press `A` (Add Symbol) or click the "Place Symbol" button
 2. Search for: `Screw_Terminal_01x02`
 3. Click to place it at a comfortable position (left side, near top)
 4. Press `Esc` when done
+5. Hover over the symbol and press `E` (Edit)
+6. Set Reference: `J1`, Value: `12V_INPUT`
 
-**Configure it:**
+#### Option B: Consolidated Connector (J_MAIN - 11-pin)
 
-1. Hover over the symbol and press `E` (Edit)
-2. Set Reference: `J1`
-3. Set Value: `12V_INPUT`
-4. Click OK
+1. Press `A`
+2. Search for: `Screw_Terminal_01x11`
+3. Place on left side
+4. Reference: `J_MAIN`, Value: `POWER+SENSORS`
+5. Pin 1: +12V, Pin 2: GND (power section)
+6. Pins 3-11: DS18B20 sensors (3×3 pins: VCC, DATA, GND for each)
+
+For this guide, we'll use J1 (Option A) for simplicity. The consolidated design
+is shown in Hardware.md.
 
 ### 3. Add Reverse Polarity Protection Diode (D1)
 
