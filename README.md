@@ -1,9 +1,11 @@
 # ESP32-C6 Marine Sensor Hub
 
 A WiFi-enabled multi-sensor board designed for marine applications, featuring
-temperature monitoring, humidity sensing, and current measurement capabilities.
+temperature monitoring, humidity sensing, current measurement, and dashboard
+I/O capabilities for remote indicators and controls.
 
-![License](https://img.shields.io/badge/license-Open%20Source-blue)
+![Hardware License](https://img.shields.io/badge/hardware-CERN--OHL--S--2.0-blue)
+![Software License](https://img.shields.io/badge/software-GPLv3-blue)
 ![Status](https://img.shields.io/badge/status-In%20Development-yellow)
 
 ## Overview
@@ -18,9 +20,15 @@ server via MQTT.
 - **ESP32-C6 with WiFi 6** - Low-power RISC-V microcontroller with 8MB flash
 - **Multiple Sensor Interfaces:**
   - Onboard SHT40 temperature & humidity sensor (±0.2°C accuracy)
+  - Onboard piezo buzzer for audible alarms
   - Multiple DS18B20 1-Wire temperature sensors on shared bus (-67°F to +257°F)
   - 3× K-type thermocouple inputs (up to 2000°F via MAX31855)
-  - 5× 30A current clamp inputs (QNHCK2-16 compatible, 6th channel reserved)
+  - 5× 30A current clamp inputs (QNHCK2-16 compatible)
+- **Dashboard I/O Interface:**
+  - 3× 12V LED outputs for remote panel indicators (MOSFET drivers)
+  - 3× 12V toggle switch inputs with voltage dividers and protection
+  - Supports long wire runs (10+ feet) for dashboard mounting
+  - Software-controlled piezo buzzer for alarms
 - **Dual Power System:**
   - 12VDC input (automotive/marine standard)
   - USB-C for programming and bench testing
@@ -34,12 +42,15 @@ server via MQTT.
 ## Use Cases
 
 - **Engine Room Monitoring:** Track engine temperature, exhaust temperature,
-  and alternator current
+  and alternator current with dashboard warning LEDs
 - **Battery Bank Management:** Monitor charging current across multiple banks
+  with visual and audible alarms
 - **HVAC Monitoring:** Track refrigerator/freezer performance and cabin
   temperature/humidity
-- **Safety Systems:** High-temperature alarms for exhaust systems and engine
-  components
+- **Safety Systems:** High-temperature alarms with piezo buzzer and dashboard
+  indicators
+- **User Controls:** Toggle switches for pump control, alarm acknowledgment,
+  or mode selection
 
 ## Project Status
 
@@ -47,10 +58,18 @@ Currently in schematic design phase:
 
 - ✅ Hardware requirements defined
 - ✅ Component selection complete
-- ✅ Dual power system designed
-- 🚧 KiCad schematic in progress (Part 2.6 - RGB LED)
+- ✅ Dual power system designed (12V + USB-C with OR-ing diodes)
+- ✅ Dashboard I/O interface designed (piezo, LEDs, switches)
+- 🚧 KiCad schematic starting from beginning (hierarchical sheet approach)
 - ⏳ PCB layout pending
 - ⏳ Firmware development pending
+
+**Recent Updates:**
+
+- Added dashboard I/O interface with piezo buzzer and 12V LED/switch support
+- GPIO5 and GPIO23 repurposed for dashboard I/O (breaking change)
+- Updated documentation with detailed circuit designs
+- Board cost updated to ~$36.00
 
 ## Hardware Specifications
 
@@ -68,14 +87,17 @@ Currently in schematic design phase:
 - **USB-C:** 5V input with 3.3V LDO regulator
 - **Power Dissipation:** ~3W maximum
 
-### Sensors
+### Sensors & I/O
 
-| Sensor | Interface | Quantity | Range |
-| ------ | --------- | -------- | ----- |
+| Component | Interface | Quantity | Range/Purpose |
+| --------- | --------- | -------- | ------------- |
 | SHT40 | I2C | 1 (onboard) | -40°C to +125°C, 0-100% RH |
 | DS18B20 | 1-Wire | Multiple (shared bus) | -55°C to +125°C |
 | MAX31855 | SPI | 3 | -270°C to +1372°C (K-type) |
-| QNHCK2-16 | Analog | 5 (6th reserved) | 0-30A AC/DC |
+| QNHCK2-16 | Analog | 5 | 0-30A AC/DC current clamps |
+| Piezo Buzzer | GPIO | 1 (onboard) | Audible alarms (85dB @ 10cm) |
+| 12V LED Outputs | GPIO | 3 | Dashboard panel indicators |
+| 12V Switch Inputs | GPIO | 3 | Toggle switch inputs |
 
 ### Connectivity
 
@@ -153,9 +175,34 @@ Each of the 5 current clamp channels features precision signal conditioning:
 Two MCP6004 quad op-amps provide buffering:
 
 - U5 (channels 1-4)
-- U6 (channel 5 + reserved channel 6)
+- U6 (channel 5 only, U6B-D unused)
 
-Note: GPIO5 (ADC1_CH5) reserved for 6th clamp expansion with U6B.
+Note: GPIO5 repurposed for piezo buzzer (6th clamp expansion not available).
+
+### Dashboard I/O Interface
+
+The board provides comprehensive dashboard control capabilities:
+
+**Piezo Buzzer (GPIO5):**
+
+- Murata PKLCS1212E4001-R1 (SMD) or PKM13EPYH4000-A0 (TH)
+- NPN transistor driver (2N3904/BC547)
+- 85dB @ 10cm, 4kHz operating frequency
+- Software-controlled for alarms and alerts
+
+**12V LED Outputs (GPIO11, GPIO14, GPIO15):**
+
+- N-channel MOSFET drivers (2N7002)
+- For remote panel-mount indicator LEDs
+- Supports long wire runs (10+ feet)
+- Suggested colors: Red (alarm), Green (normal), Amber (warning)
+
+**12V Toggle Switch Inputs (GPIO16, GPIO17, GPIO23):**
+
+- Voltage dividers (10kΩ/3.3kΩ) for 12V→3.3V level shifting
+- Zener diode protection (BZX84C3V3, 3.3V)
+- For marine-grade toggle switches (SPST, ON-OFF)
+- 3.0V when switch closed (HIGH), 0V when open (LOW)
 
 ### Marine Environment Protection
 
@@ -167,7 +214,7 @@ Note: GPIO5 (ADC1_CH5) reserved for 6th clamp expansion with U6B.
 
 ## Bill of Materials
 
-Estimated component cost: **~$32.85** per board (quantity 1-10)
+Estimated component cost: **~$36.00** per board (quantity 1-10)
 
 ### Key Components
 
@@ -177,7 +224,9 @@ Estimated component cost: **~$32.85** per board (quantity 1-10)
 - MCP6004 quad op-amp (2×): $1.00
 - LM2596 buck converter module: $2.00
 - AMS1117-3.3 LDO regulator: ~$0.50
-- Passive components & connectors: ~$7.85
+- Piezo buzzer (Murata): $1.50
+- Dashboard I/O components (MOSFETs, Zeners, transistor): ~$0.50
+- Passive components & connectors: ~$9.00
 
 See [Hardware.md](Hardware.md#bill-of-materials-bom) for complete BOM.
 
@@ -227,8 +276,37 @@ This is an open-source hardware project. Contributions are welcome!
 
 ## License
 
-This design is open-source hardware. License to be specified (MIT, Apache 2.0,
-or CERN-OHL).
+This project uses a dual licensing approach to ensure both hardware and
+software remain free and open:
+
+### Hardware (Schematics, PCB, Design Files)
+
+**CERN Open Hardware Licence Version 2 - Strongly Reciprocal (CERN-OHL-S-2.0)**
+
+- All KiCad files, schematics, PCB layouts, and manufacturing files
+- Hardware design documentation (Hardware.md, Requirements.md)
+- Copyleft license - derivative works must be shared under same terms
+- Commercial use permitted
+- Full license: <https://ohwr.org/cern_ohl_s_v2.txt>
+
+### Software/Firmware
+
+**GNU General Public License v3.0 (GPLv3)**
+
+- All firmware source code (firmware/ directory)
+- Build scripts and automation tools
+- Copyleft license ensuring software freedom
+- Full license: <https://www.gnu.org/licenses/gpl-3.0.html>
+
+### Documentation
+
+**Creative Commons Attribution-ShareAlike 4.0 International (CC-BY-SA-4.0)**
+
+- README, guides, and markdown documentation
+- Must provide attribution and share-alike
+- Full license: <https://creativecommons.org/licenses/by-sa/4.0/>
+
+See the [LICENSE](LICENSE) file for complete terms and conditions.
 
 ## Acknowledgments
 

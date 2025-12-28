@@ -660,8 +660,28 @@ boat/sensors/battery_bank/current_1
 
 ## License
 
-This design is open-source hardware. Please specify your preferred license
-(e.g., MIT, Apache 2.0, CERN-OHL).
+This hardware design is licensed under:
+
+**CERN Open Hardware Licence Version 2 - Strongly Reciprocal (CERN-OHL-S-2.0)**
+
+Copyright (C) 2024-2025 Don P. McGarry
+
+This design is free hardware: you can redistribute it and/or modify it under
+the terms of the CERN-OHL-S-2.0. This design is distributed WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+A PARTICULAR PURPOSE. See the CERN-OHL-S-2.0 for more details.
+
+You should have received a copy of the CERN-OHL-S-2.0 along with this design.
+If not, see <https://ohwr.org/cern_ohl_s_v2.txt>.
+
+**Key Requirements:**
+- Derivative works must be shared under CERN-OHL-S-2.0
+- Design files must be made available when distributing hardware
+- Preserve copyright and license notices
+- Document any modifications made
+
+See [LICENSE](LICENSE) file for complete licensing information including
+software (GPLv3) and documentation (CC-BY-SA-4.0) licenses.
 
 ## Support & Contact
 

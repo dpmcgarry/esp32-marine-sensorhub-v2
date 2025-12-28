@@ -10,6 +10,7 @@
   <https://www.conventionalcommits.org/en/v1.0.0/#specification>
 - Never use the word comprehensive
 - When you write documentation scrub any weasel words
+- When writing a commit message - at the end include the original prompt I gave to you as well as the name of the person who provided the prompt.
 
 ## Hardware Implementation
 

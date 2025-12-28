@@ -285,3 +285,13 @@ and design rationale.
 fault detection
 **Dashboard I/O:** Supports remote 12V LED indicators and toggle switch inputs
 for user interface
+
+## License
+
+This hardware specification is licensed under:
+
+**CERN Open Hardware Licence Version 2 - Strongly Reciprocal (CERN-OHL-S-2.0)**
+
+Copyright (C) 2024-2025 Don P. McGarry
+
+See [LICENSE](LICENSE) file for complete licensing information.
