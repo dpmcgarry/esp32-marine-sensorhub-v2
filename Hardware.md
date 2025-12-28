@@ -283,9 +283,9 @@ GPIO23 ──[330Ω]──[LED]──── GND
 
 | Reference | Type | Description | Qty | Unit Price | Extended |
 | --------- | ---- | ----------- | --- | ---------- | -------- |
-| J_MAIN | Screw terminal | 11-pin, 5mm pitch, power + DS18B20 | 1 | $0.90 | $0.90 |
-| J_TC | Screw terminal | 6-pin, 5mm pitch, thermocouples | 1 | $0.60 | $0.60 |
-| J_CLAMP | Screw terminal | 10-pin, 5mm pitch, current clamps | 1 | $0.85 | $0.85 |
+| J_MAIN | Screw terminal | 11-pin, 5mm, pwr+DS18B20 | 1 | $0.90 | $0.90 |
+| J_TC | Screw terminal | 6-pin, 5mm, thermocouples | 1 | $0.60 | $0.60 |
+| J_CLAMP | Screw terminal | 10-pin, 5mm, clamps | 1 | $0.85 | $0.85 |
 | J_USB | USB-C receptacle | 16-pin, USB 2.0 | 1 | $0.50 | $0.50 |
 
 ### Miscellaneous
