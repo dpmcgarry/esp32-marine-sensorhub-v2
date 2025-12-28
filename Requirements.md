@@ -43,7 +43,7 @@ multi-sensor board for marine applications.
 
 ### Power Section
 
-- Input: 12V screw terminal (J_PWR)
+- Input: 12V from J_MAIN (11-pin consolidated connector, Pins 1-2)
 - MBRS340 Schottky diode (D1) for reverse polarity protection
 - SMBJ15A TVS diode (TVS1) for spike protection
 - Capacitors: 100µF/25V, 100µF/10V, 10µF, multiple 0.1µF

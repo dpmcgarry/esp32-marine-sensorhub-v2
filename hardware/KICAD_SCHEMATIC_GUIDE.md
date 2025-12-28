@@ -6,16 +6,13 @@ This guide will walk you through creating the schematic from scratch in KiCad 9.
 
 ## Connector Design Note
 
-**IMPORTANT:** This design uses consolidated multi-pin screw terminal blocks instead
-of many individual 2-pin connectors:
+**IMPORTANT:** This design uses consolidated multi-pin screw terminal blocks:
 
-- **J_MAIN** (11-pin): 12V power + 3× DS18B20 sensors (replaces J_PWR + 3× J_1WIRE)
-- **J_TC** (6-pin): 3× thermocouples (replaces J_TC1, J_TC2, J_TC3)
-- **J_CLAMP** (10-pin): 5× current clamps (replaces J_CLAMP_1 through J_CLAMP_5)
+- **J_MAIN** (11-pin): 12V power + 3× DS18B20 sensors
+- **J_TC** (6-pin): 3× thermocouples
+- **J_CLAMP** (10-pin): 5× current clamps
 
-When following this guide, you can choose to use either consolidated terminal blocks
-or individual connectors. The pin assignments remain the same - consolidated blocks
-simply save board space and reduce component count.
+This consolidated approach saves board space and reduces component count.
 
 See [Hardware.md - Connectors Pinout Reference](../Hardware.md#connectors-pinout-reference)
 for detailed pinout diagrams.
@@ -33,28 +30,22 @@ for detailed pinout diagrams.
    - Start fresh: File → New → Schematic
    - Or clear the current one and start over
 
-### 2. Add Power Input Connector (J1 or J_MAIN)
+### 2. Add Main Connector (J_MAIN - 11-pin)
 
-#### Option A: Individual Power Connector (J1)
+**Add the consolidated connector:**
 
 1. Press `A` (Add Symbol) or click the "Place Symbol" button
-2. Search for: `Screw_Terminal_01x02`
+2. Search for: `Screw_Terminal_01x11`
 3. Click to place it at a comfortable position (left side, near top)
 4. Press `Esc` when done
 5. Hover over the symbol and press `E` (Edit)
-6. Set Reference: `J1`, Value: `12V_INPUT`
+6. Set Reference: `J_MAIN`, Value: `POWER+SENSORS`
 
-#### Option B: Consolidated Connector (J_MAIN - 11-pin)
+**Pin assignments:**
 
-1. Press `A`
-2. Search for: `Screw_Terminal_01x11`
-3. Place on left side
-4. Reference: `J_MAIN`, Value: `POWER+SENSORS`
-5. Pin 1: +12V, Pin 2: GND (power section)
-6. Pins 3-11: DS18B20 sensors (3×3 pins: VCC, DATA, GND for each)
-
-For this guide, we'll use J1 (Option A) for simplicity. The consolidated design
-is shown in Hardware.md.
+- Pin 1: +12V (power input)
+- Pin 2: GND (power ground)
+- Pins 3-11: DS18B20 sensors (3×3 pins: VCC, DATA, GND for each sensor)
 
 ### 3. Add Reverse Polarity Protection Diode (D1)
 
@@ -146,9 +137,9 @@ is shown in Hardware.md.
 **Wire this section:**
 
 ```text
-J1 Pin 1 (+) → +12V power symbol → D1 anode
+J_MAIN Pin 1 (+12V) → +12V power symbol → D1 anode
 D1 cathode → C1+ → U1 VIN
-J1 Pin 2 (-) → GND → C1- → U1 GND
+J_MAIN Pin 2 (GND) → GND → C1- → U1 GND
 U1 VOUT → C2+ → C3+ → D_BUCK cathode
 D_BUCK anode → C4+ → +3V3 symbol
 C2-, C3-, C4- → GND
@@ -445,13 +436,23 @@ We'll use **two MCP6004 ICs** for buffering all 5 current clamp channels:
 - **U5** (MCP6004): Clamps 1-4 (all 4 op-amps used)
 - **U6** (MCP6004): Clamps 5-6 (U6A for clamp 5, U6B reserved for clamp 6)
 
-### 1. Add Input Connector (Clamp 1)
+### 1. Add Consolidated Current Clamp Connector (J_CLAMP - 10-pin)
+
+**Add the connector:**
 
 1. Press `A`
-2. Search: `Screw_Terminal_01x02`
+2. Search: `Screw_Terminal_01x10`
 3. Place on left side
-4. Reference: `J2`
-5. Value: `CLAMP_1`
+4. Reference: `J_CLAMP`
+5. Value: `CURRENT_CLAMPS`
+
+**Pin assignments:**
+
+- Pin 1: CLAMP1_SIG, Pin 2: CLAMP1_GND
+- Pin 3: CLAMP2_SIG, Pin 4: CLAMP2_GND
+- Pin 5: CLAMP3_SIG, Pin 6: CLAMP3_GND
+- Pin 7: CLAMP4_SIG, Pin 8: CLAMP4_GND
+- Pin 9: CLAMP5_SIG, Pin 10: CLAMP5_GND
 
 ### 2. Add Signal Conditioning Components (Clamp 1)
 
@@ -479,13 +480,13 @@ We'll use **two MCP6004 ICs** for buffering all 5 current clamp channels:
 ### 3. Wire the Signal Chain (Clamp 1)
 
 ```text
-J2 Pin 1 → R_SER_1 → R_DIV1_1 → [midpoint junction]
+J_CLAMP Pin 1 (CLAMP1_SIG) → R_SER_1 → R_DIV1_1 → [midpoint junction]
 [midpoint] → R_DIV2_1 → GND
 [midpoint] → R_FILT_1 → C_FILT_1 → GND
 [after R_FILT_1] → U5A Pin 3 (+ input)
 U5A Pin 2 (- input) → U5A Pin 1 (output) [unity gain buffer]
 U5A Pin 1 → Label "ADC_CH0"
-J2 Pin 2 → GND
+J_CLAMP Pin 2 (CLAMP1_GND) → GND
 ```
 
 ### 4. Add Op-Amp Power - First IC (U5E)
@@ -504,23 +505,24 @@ J2 Pin 2 → GND
 
 ### 5. Add Remaining Channels 2-4 (U5B, U5C, U5D)
 
-Repeat the same circuit for channels 2-4:
+Repeat the same circuit for channels 2-4, connecting to the appropriate pins
+on J_CLAMP:
 
 **Channel 2:**
 
-- Connector: `J3` (CLAMP_2)
+- Connector pins: `J_CLAMP Pin 3` (CLAMP2_SIG), `J_CLAMP Pin 4` (CLAMP2_GND)
 - Components: `R_SER_2`, `R_DIV1_2`, `R_DIV2_2`, `R_FILT_2`, `C_FILT_2`
 - Op-amp: `U5B` → Label "ADC_CH1"
 
 **Channel 3:**
 
-- Connector: `J4` (CLAMP_3)
+- Connector pins: `J_CLAMP Pin 5` (CLAMP3_SIG), `J_CLAMP Pin 6` (CLAMP3_GND)
 - Components: `R_SER_3`, `R_DIV1_3`, `R_DIV2_3`, `R_FILT_3`, `C_FILT_3`
 - Op-amp: `U5C` → Label "ADC_CH2"
 
 **Channel 4:**
 
-- Connector: `J5` (CLAMP_4)
+- Connector pins: `J_CLAMP Pin 7` (CLAMP4_SIG), `J_CLAMP Pin 8` (CLAMP4_GND)
 - Components: `R_SER_4`, `R_DIV1_4`, `R_DIV2_4`, `R_FILT_4`, `C_FILT_4`
 - Op-amp: `U5D` → Label "ADC_CH3"
 
@@ -529,7 +531,7 @@ Repeat the same circuit for channels 2-4:
 **Add U6 (second MCP6004):**
 
 1. Add all components for channel 5 (same as channels 1-4)
-2. Connector: `J6` (CLAMP_5)
+2. Connector pins: `J_CLAMP Pin 9` (CLAMP5_SIG), `J_CLAMP Pin 10` (CLAMP5_GND)
 3. Components: `R_SER_5`, `R_DIV1_5`, `R_DIV2_5`, `R_FILT_5`, `C_FILT_5`
 4. Op-amp: `U6A` → Label "ADC_CH4"
 
@@ -588,15 +590,35 @@ U3 VSS → GND
 
 We'll add **3× MAX31855** thermocouple amplifiers for high-temperature sensing.
 All three share the SPI bus (SCK and MISO), but each has its own CS (chip select) pin.
+All thermocouples connect to a single consolidated **J_TC** (6-pin) connector.
 
-### 1. Add First MAX31855 (U4)
+### 1. Add Consolidated Thermocouple Connector (J_TC - 6-pin)
+
+**Add the connector:**
+
+1. Press `A`
+2. Search: `Screw_Terminal_01x06`
+3. Place on left side
+4. Reference: `J_TC`
+5. Value: `THERMOCOUPLES`
+
+**Pin assignments:**
+
+- Pin 1: TC1_T+ (Thermocouple 1 +)
+- Pin 2: TC1_T- (Thermocouple 1 -)
+- Pin 3: TC2_T+ (Thermocouple 2 +)
+- Pin 4: TC2_T- (Thermocouple 2 -)
+- Pin 5: TC3_T+ (Thermocouple 3 +)
+- Pin 6: TC3_T- (Thermocouple 3 -)
+
+### 2. Add First MAX31855 (U4)
 
 1. Press `A`
 2. Search: `MAX31855`
 3. Place on schematic
 4. Reference: `U4`
 
-### 2. Wire First MAX31855
+### 3. Wire First MAX31855
 
 ```text
 U4 VCC → +3V3
@@ -604,35 +626,22 @@ U4 GND → GND
 U4 SCK → Label "SPI_SCK"
 U4 SO → Label "SPI_MISO"
 U4 CS → Label "SPI_CS_TC1"
-U4 T+ → J_TC1 Pin 1 (thermocouple + terminal)
-U4 T- → J_TC1 Pin 2 (thermocouple - terminal)
+U4 T+ → J_TC Pin 1 (TC1_T+)
+U4 T- → J_TC Pin 2 (TC1_T-)
 ```
 
-### 3. Add Decoupling Capacitor
+### 4. Add Decoupling Capacitor
 
 - `C_TC1`: 0.1uF ceramic
 - Connect between VCC and GND (place close to MAX31855)
-
-### 4. Add Thermocouple Connector
-
-1. Press `A`
-2. Search: `Screw_Terminal_01x02`
-3. Reference: `J_TC1`
-4. Value: `K_TYPE_1`
-
-```text
-J_TC1 Pin 1 → U4 T+
-J_TC1 Pin 2 → U4 T-
-```
 
 ### 5. Add Second MAX31855 (U7)
 
 Repeat the same circuit for the second thermocouple:
 
 1. Add MAX31855, Reference: `U7`
-2. Add connector `J_TC2` (K_TYPE_2)
-3. Add decoupling cap `C_TC2`
-4. Wire:
+2. Add decoupling cap `C_TC2`
+3. Wire:
 
 ```text
 U7 VCC → +3V3
@@ -640,8 +649,8 @@ U7 GND → GND
 U7 SCK → Label "SPI_SCK" (shared)
 U7 SO → Label "SPI_MISO" (shared)
 U7 CS → Label "SPI_CS_TC2" (GPIO21)
-U7 T+ → J_TC2 Pin 1
-U7 T- → J_TC2 Pin 2
+U7 T+ → J_TC Pin 3 (TC2_T+)
+U7 T- → J_TC Pin 4 (TC2_T-)
 ```
 
 ### 6. Add Third MAX31855 (U8)
@@ -649,9 +658,8 @@ U7 T- → J_TC2 Pin 2
 Repeat for the third thermocouple:
 
 1. Add MAX31855, Reference: `U8`
-2. Add connector `J_TC3` (K_TYPE_3)
-3. Add decoupling cap `C_TC3`
-4. Wire:
+2. Add decoupling cap `C_TC3`
+3. Wire:
 
 ```text
 U8 VCC → +3V3
@@ -659,8 +667,8 @@ U8 GND → GND
 U8 SCK → Label "SPI_SCK" (shared)
 U8 SO → Label "SPI_MISO" (shared)
 U8 CS → Label "SPI_CS_TC3" (GPIO22)
-U8 T+ → J_TC3 Pin 1
-U8 T- → J_TC3 Pin 2
+U8 T+ → J_TC Pin 5 (TC3_T+)
+U8 T- → J_TC Pin 6 (TC3_T-)
 ```
 
 ### Notes

@@ -67,7 +67,7 @@ reliable operation in harsh marine environments with 12VDC power input.
 ### Power Supply Circuit
 
 ```text
-12V_IN (J_PWR, 2-pin screw terminal)
+12V_IN (J_MAIN Pin 1, from 11-pin consolidated screw terminal)
   │
   ├── D1 (MBRS340 Schottky) ──┐ (Reverse polarity protection)
   │                            │
@@ -86,7 +86,7 @@ reliable operation in harsh marine environments with 12VDC power input.
   │
   └── 3.3V_MAIN (to all ICs)
 
-GND ─── Common ground
+GND ─── Common ground (J_MAIN Pin 2)
 ```
 
 ### ESP32-C6 Core Circuit (U2)
@@ -113,17 +113,19 @@ SHT40 (I2C Address: 0x44)
 ### DS18B20 External Temperature Sensors
 
 Multiple sensors share a single 1-Wire bus on GPIO10.
-Connectors (J_1WIRE_x - 3-pin screw terminal or JST-XH):
+Connectors via J_MAIN (Pins 3-11, supporting 3 sensors):
 
 ```text
-Connector Pinout (all connectors wired in parallel):
-  Pin 1: 3.3V (or 5V if long cable runs needed)
-  Pin 2: DATA (to GPIO10 with 4.7kΩ pullup - shared)
-  Pin 3: GND
+J_MAIN Pinout for DS18B20 Sensors:
+  Sensor 1: Pin 3 (3.3V), Pin 4 (DATA), Pin 5 (GND)
+  Sensor 2: Pin 6 (3.3V), Pin 7 (DATA), Pin 8 (GND)
+  Sensor 3: Pin 9 (3.3V), Pin 10 (DATA), Pin 11 (GND)
 
 Notes:
 - Single 4.7kΩ pullup resistor on GPIO10
-- All DS18B20 sensors share the same 1-Wire bus
+- All DATA pins (4, 7, 10) connected together to GPIO10 (shared 1-Wire bus)
+- All GND pins (5, 8, 11) connected together
+- Can use 5V instead of 3.3V for long cable runs
 - Each sensor has a unique 64-bit address
 - Max recommended cable length: 100 feet
 - Supports up to 10-20 sensors on one bus
@@ -141,8 +143,8 @@ MAX31855 #1 (U4) - Thermocouple 1
 ├── SCK: GPIO19 (shared SPI clock)
 ├── SO: GPIO18 (shared SPI MISO)
 ├── CS: GPIO20 (dedicated chip select)
-├── T+: K-type thermocouple + (J_TC1 pin 1, screw terminal)
-├── T-: K-type thermocouple - (J_TC1 pin 2, screw terminal)
+├── T+: K-type thermocouple + (J_TC Pin 1)
+├── T-: K-type thermocouple - (J_TC Pin 2)
 └── Decoupling: C_TC1 (0.1µF ceramic capacitor)
 
 MAX31855 #2 (U7) - Thermocouple 2
@@ -151,8 +153,8 @@ MAX31855 #2 (U7) - Thermocouple 2
 ├── SCK: GPIO19 (shared SPI clock)
 ├── SO: GPIO18 (shared SPI MISO)
 ├── CS: GPIO21 (dedicated chip select)
-├── T+: K-type thermocouple + (J_TC2 pin 1, screw terminal)
-├── T-: K-type thermocouple - (J_TC2 pin 2, screw terminal)
+├── T+: K-type thermocouple + (J_TC Pin 3)
+├── T-: K-type thermocouple - (J_TC Pin 4)
 └── Decoupling: C_TC2 (0.1µF ceramic capacitor)
 
 MAX31855 #3 (U8) - Thermocouple 3
@@ -161,8 +163,8 @@ MAX31855 #3 (U8) - Thermocouple 3
 ├── SCK: GPIO19 (shared SPI clock)
 ├── SO: GPIO18 (shared SPI MISO)
 ├── CS: GPIO22 (dedicated chip select)
-├── T+: K-type thermocouple + (J_TC3 pin 1, screw terminal)
-├── T-: K-type thermocouple - (J_TC3 pin 2, screw terminal)
+├── T+: K-type thermocouple + (J_TC Pin 5)
+├── T-: K-type thermocouple - (J_TC Pin 6)
 └── Decoupling: C_TC3 (0.1µF ceramic capacitor)
 
 SPI Bus Configuration:
@@ -187,7 +189,7 @@ QNHCK2-16 outputs 0-5V, but ESP32 ADC maximum is 3.3V.
 **Per channel circuit:**
 
 ```text
-CLAMP_x_IN (J_CLAMP_1 through J_CLAMP_5, screw terminal or JST)
+CLAMP_x_IN (J_CLAMP consolidated 10-pin connector)
   │
   ├── R_series (1kΩ) ──────────┐ (Current limiting/protection)
   │                             │
