@@ -6,6 +6,8 @@
 - Don't create additional markdown files unless I tell you to do so
 - The initial design document is Hardware.md and the hardware requirements are captured in Requirements.md
 - Write commit messages using the conventional commit specification: <https://www.conventionalcommits.org/en/v1.0.0/#specification>
+- Never use the word comprehensive
+- When you write documentation scrub any weasel words
 
 ## Hardware Implementation
 
