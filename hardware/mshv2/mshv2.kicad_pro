@@ -613,6 +613,30 @@
     [
       "71e681ae-2e40-4eed-9bbd-6e93cdfb5938",
       "Root"
+    ],
+    [
+      "0447c360-c8e2-4112-b464-7f4cc44e4922",
+      "Power Supply"
+    ],
+    [
+      "312edfd2-0216-42e6-b6ef-c18035a1d1b8",
+      "ESP32"
+    ],
+    [
+      "5273a47d-2716-450b-891d-753ea05d4514",
+      "Main Connector"
+    ],
+    [
+      "671d3fd5-8465-42ce-a3ae-bdb939cc3aed",
+      "Current Sensing"
+    ],
+    [
+      "60e647a3-b76f-4e70-b72c-1ac5b34ab7cc",
+      "Temperature Sensors"
+    ],
+    [
+      "4cfdb88f-df99-4b59-ace3-70df64723afc",
+      "Thermocouples"
     ]
   ],
   "text_variables": {}
