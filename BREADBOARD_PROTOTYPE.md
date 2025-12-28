@@ -30,7 +30,7 @@ Marine Sensor Hub to validate the design before ordering custom PCBs.
 - USB-C connector (native USB Serial/JTAG)
 - All GPIO broken out to headers
 - 3.3V and GND pins accessible
-- Built-in RGB LED (GPIO8)
+- Built-in RGB LED (GPIO8, same as custom design for consistency)
 
 ### Option 2: ESP32-C6 Super Mini
 
@@ -119,11 +119,11 @@ need external ones.
 | Voltage divider R2 | 20kΩ | 1 | Bottom to GND |
 | Filter resistor | 1kΩ | 1 | RC filter |
 | Filter capacitor | 0.1µF ceramic | 1 | RC filter |
-| Op-amp | MCP6004 | 1 (for 4 channels) | Quad op-amp |
-| Decoupling cap | 0.1µF | 1 | For op-amp |
-| Current clamp | QNHCK2-16 | 1 | 30A, 0-5V output |
+| Op-amp | MCP6004 | 2 (for 5 channels) | Quad op-amp (U5, U6) |
+| Decoupling cap | 0.1µF | 2 | For op-amps |
+| Current clamp | QNHCK2-16 | 1-5 | 30A, 0-5V output |
 
-Start with 1-2 channels, then expand.
+Start with 1-2 channels, then expand. Use U5 for channels 1-4, U6 for channel 5.
 
 ### Phase 3 Components: Temperature Sensors
 
@@ -231,7 +231,7 @@ Junction C:
 MCP6004 Unity Gain Buffer:
   Pin 3 (IN+) ← from Junction C
   Pin 2 (IN-) ← connect to Pin 1 (OUT)
-  Pin 1 (OUT) → ESP32-C6 GPIO0 (ADC1_CH0)
+  Pin 1 (OUT) → ESP32-C6 GPIO0 (ADC1_CH0 - Clamp 1)
   Pin 4 (V-)  → GND rail
   Pin 11 (V+) → +3V3 rail
 
@@ -255,7 +255,7 @@ DS18B20 (3 wires in cable):
   Red    → +3V3 rail
   Black  → GND rail
   Yellow → 4.7kΩ → +3V3 (pullup)
-  Yellow → ESP32-C6 GPIO8 (1-Wire data)
+  Yellow → ESP32-C6 GPIO10 (1-Wire data)
 ```
 
 **Multiple Sensors:**
@@ -318,7 +318,7 @@ MAX31855 Breakout:
 3. **Add decoupling cap** for MCP6004 (0.1µF between V+ and GND)
 
 4. **Connect to ESP32-C6:**
-   - Op-amp output → GPIO0 (ADC1_CH0)
+   - Op-amp output → GPIO0-3 (ADC1_CH0 through ADC1_CH3)
 
 5. **Test without current clamp:**
    - Apply 0V to input: should read ~0V on ADC
@@ -335,10 +335,11 @@ Before adding more:
 
 ### Step 6: Expand (Only After Testing)
 
-1. Add 2nd current clamp channel (same circuit, GPIO1)
-2. Add 3rd current clamp channel (GPIO2), etc.
-3. Add DS18B20 sensors (GPIO8, 10, 11)
-4. Add MAX31855 if needed (SPI interface)
+1. Add 2nd current clamp channel (same circuit, GPIO1 - ADC1_CH1)
+2. Add 3rd-5th current clamp channels (GPIO2-4 - ADC1_CH2 through ADC1_CH4)
+3. Add multiple DS18B20 sensors on shared 1-Wire bus (GPIO10)
+4. GPIO5 (ADC1_CH5) reserved for 6th clamp expansion
+5. Add MAX31855 if needed (SPI interface)
 
 ## Testing Procedures
 

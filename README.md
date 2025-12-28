@@ -18,9 +18,9 @@ server via MQTT.
 - **ESP32-C6 with WiFi 6** - Low-power RISC-V microcontroller with 8MB flash
 - **Multiple Sensor Interfaces:**
   - Onboard SHT40 temperature & humidity sensor (±0.2°C accuracy)
-  - 3× DS18B20 1-Wire temperature inputs (-67°F to +257°F)
-  - 1× K-type thermocouple input (up to 2000°F via MAX31855)
-  - 6× 30A current clamp inputs (QNHCK2-16 compatible)
+  - Multiple DS18B20 1-Wire temperature sensors on shared bus (-67°F to +257°F)
+  - 3× K-type thermocouple inputs (up to 2000°F via MAX31855)
+  - 5× 30A current clamp inputs (QNHCK2-16 compatible, 6th channel reserved)
 - **Dual Power System:**
   - 12VDC input (automotive/marine standard)
   - USB-C for programming and bench testing
@@ -73,9 +73,9 @@ Currently in schematic design phase:
 | Sensor | Interface | Quantity | Range |
 | ------ | --------- | -------- | ----- |
 | SHT40 | I2C | 1 (onboard) | -40°C to +125°C, 0-100% RH |
-| DS18B20 | 1-Wire | 3 | -55°C to +125°C |
-| MAX31855 | SPI | 1 | -200°C to +1350°C (K-type) |
-| QNHCK2-16 | Analog | 6 | 0-30A AC/DC |
+| DS18B20 | 1-Wire | Multiple (shared bus) | -55°C to +125°C |
+| MAX31855 | SPI | 3 | -270°C to +1372°C (K-type) |
+| QNHCK2-16 | Analog | 5 (6th reserved) | 0-30A AC/DC |
 
 ### Connectivity
 
@@ -114,7 +114,7 @@ esp32-marine-sensorhub-v2/
 
 3. **Order components:**
    - See BOM in [Hardware.md](Hardware.md#bill-of-materials-bom)
-   - Estimated cost: ~$23.50 per board (components only)
+   - Estimated cost: ~$33.80 per board (components only)
 
 ### For Firmware Developers
 
@@ -142,13 +142,20 @@ or backfeeding.
 
 ### Current Clamp Signal Conditioning
 
-Each of the 6 current clamp channels features precision signal conditioning:
+Each of the 5 current clamp channels features precision signal conditioning:
 
 - Input protection (1kΩ series resistor)
 - Voltage divider (5V → 3.3V range)
 - RC low-pass filter (1.6kHz cutoff)
-- Unity-gain op-amp buffer (MCP6004)
-- Direct connection to ESP32 ADC
+- Unity-gain op-amp buffer (MCP6004) for all channels
+- Direct connection to ESP32 ADC (GPIO0-4)
+
+Two MCP6004 quad op-amps provide buffering:
+
+- U5 (channels 1-4)
+- U6 (channel 5 + reserved channel 6)
+
+Note: GPIO5 (ADC1_CH5) reserved for 6th clamp expansion with U6B.
 
 ### Marine Environment Protection
 
@@ -160,17 +167,17 @@ Each of the 6 current clamp channels features precision signal conditioning:
 
 ## Bill of Materials
 
-Estimated component cost: **~$23.50** per board (quantity 1-10)
+Estimated component cost: **~$33.80** per board (quantity 1-10)
 
 ### Key Components
 
 - ESP32-C6-WROOM-1-N8: $2.50
 - SHT40 temperature/humidity sensor: $4.00
-- MAX31855 thermocouple amplifier: $5.00
-- MCP6004 quad op-amps (2×): $1.00
+- MAX31855 thermocouple amplifier (3×): $15.00
+- MCP6004 quad op-amp (2×): $1.00
 - LM2596 buck converter module: $2.00
 - AMS1117-3.3 LDO regulator: ~$0.50
-- Passive components & connectors: ~$8.50
+- Passive components & connectors: ~$8.80
 
 See [Hardware.md](Hardware.md#bill-of-materials-bom) for complete BOM.
 

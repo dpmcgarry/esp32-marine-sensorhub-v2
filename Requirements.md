@@ -26,12 +26,15 @@ multi-sensor board for marine applications.
    - I2C interface
    - Address: 0x44
 
-4. **MAX31855** (U4) - Thermocouple Amplifier
-   - SPI interface
-   - K-type thermocouple input
+4. **MAX31855** (U4, U7, U8) - Thermocouple Amplifiers (3× ICs)
+   - SPI interface (shared bus with individual CS lines)
+   - K-type thermocouple inputs (3 channels)
+   - Temperature range: -270°C to +1372°C
+   - 0.25°C resolution with cold junction compensation
 
 5. **MCP6004** (U5, U6) - Quad Op-Amp (2 ICs)
-   - Used for current clamp signal buffering
+   - Used for current clamp signal buffering (channels 1-5)
+   - U5: Channels 1-4, U6: Channel 5 + reserved channel 6
    - SOIC-14 or TSSOP-14 package
 
 6. **LM2596** (U1) - Buck Converter
@@ -54,28 +57,33 @@ multi-sensor board for marine applications.
 
 **1-Wire (DS18B20):**
 
-- GPIO8: DS18B20_1 (4.7kΩ pullup)
-- GPIO10: DS18B20_2 (4.7kΩ pullup)
-- GPIO11: DS18B20_3 (4.7kΩ pullup)
+- GPIO10: 1-Wire bus (4.7kΩ pullup, multi-drop for all DS18B20 sensors)
 
-**SPI (MAX31855):**
+**SPI (MAX31855 - 3× ICs):**
 
-- GPIO19: SCK
-- GPIO18: MISO
-- GPIO20: CS
+- GPIO19: SCK (shared by all 3 MAX31855)
+- GPIO18: MISO (shared by all 3 MAX31855)
+- GPIO20: CS for MAX31855 #1 (U4)
+- GPIO21: CS for MAX31855 #2 (U7)
+- GPIO22: CS for MAX31855 #3 (U8)
 
 **ADC (Current Clamps):**
 
-- GPIO0-5: ADC1_CH0 through ADC1_CH5 (6 channels)
+- GPIO0: ADC1_CH0 (Clamp 1)
+- GPIO1: ADC1_CH1 (Clamp 2)
+- GPIO2: ADC1_CH2 (Clamp 3)
+- GPIO3: ADC1_CH3 (Clamp 4)
+- GPIO4: ADC1_CH4 (Clamp 5)
+- GPIO5: ADC1_CH5 (Reserved for 6th clamp expansion)
 
 **USB (Native ESP32-C6 USB):**
 
-- GPIO12: USB D+ (to USB-C connector)
-- GPIO13: USB D- (to USB-C connector)
+- GPIO12: USB D- (to USB-C connector)
+- GPIO13: USB D+ (to USB-C connector)
 
 **User Interface:**
 
-- GPIO15: WS2812B RGB LED (addressable, like ESP32-C6-DevKitC)
+- GPIO8: WS2812B RGB LED (addressable, matches ESP32-C6-DevKitC)
 - GPIO23: Status LED (green, 330Ω resistor)
 - GPIO9: BOOT button (momentary, 10kΩ pullup to +3V3)
 - EN: RESET button (momentary, 10kΩ pullup, 0.1µF cap to GND)
@@ -84,18 +92,25 @@ multi-sensor board for marine applications.
 
 - D_PWR: Green LED for power indicator (1kΩ resistor from +3V3)
 
-### Current Clamp Signal Conditioning (6x identical circuits)
+### Current Clamp Signal Conditioning (5 channels + 1 reserved)
 
-Each channel:
+All channels use identical buffered signal conditioning:
 
 ```text
-Input (0-5V from QNHCK2-16) 
+Input (0-5V from QNHCK2-16)
   → 1kΩ series resistor
-  → Voltage divider (10kΩ / 20kΩ) 
+  → Voltage divider (10kΩ / 20kΩ)
   → RC filter (1kΩ / 0.1µF)
   → MCP6004 buffer (unity gain)
-  → ESP32 ADC
+  → ESP32 ADC (GPIO0-4)
 ```
+
+Op-amp allocation:
+
+- U5A-D: Channels 1-4 → GPIO0-3
+- U6A: Channel 5 → GPIO4
+- U6B: Reserved for channel 6 → GPIO5 (future expansion)
+- U6C, U6D: Unused
 
 ### Connectors
 
@@ -103,15 +118,16 @@ Input (0-5V from QNHCK2-16)
 | ---------- | ---- | ------- | ---- |
 | J_PWR | Screw terminal 5mm | 12V power input | 2 |
 | J_USB | USB Type-C | Programming & UART debug | 16 (USB 2.0) |
-| J1-J3 | RJ45 or JST-XH | DS18B20 sensors | 3 each |
-| J4 | Screw terminal | K-type thermocouple | 2 |
-| J5-J10 | Screw terminal | Current clamps | 2 each |
+| J_1WIRE | Screw terminal | DS18B20 sensors (shared bus) | 3 each |
+| J_TC1, J_TC2, J_TC3 | Screw terminal | K-type thermocouples | 2 each |
+| J_CLAMP_1 to J_CLAMP_5 | Screw terminal | Current clamps | 2 each |
 
 ### Passives Summary
 
-- Resistors: 4.7kΩ (5x), 10kΩ (~10x), 20kΩ (6x), 1kΩ (~13x), 5.1kΩ
-  (2x for USB CC), 330Ω (1x)
-- Capacitors: 0.1µF (~15x), 10µF (1x), 100µF 25V (1x), 100µF 10V (1x)
+- Resistors: 4.7kΩ (3x), 10kΩ (~9x), 20kΩ (5x), 1kΩ (~12x), 5.1kΩ
+  (2x for USB CC), 330Ω (2x for LEDs)
+- Capacitors: 0.1µF (~15x including 3x for MAX31855), 10µF (1x), 100µF 25V
+  (1x), 100µF 10V (1x)
 - LEDs: 3x (1x green power LED, 1x green status LED, 1x WS2812B RGB LED)
 - Buttons: 2x momentary tactile (RESET, BOOT)
 - USB-C connector: 1x (16-pin receptacle)
@@ -239,7 +255,7 @@ and design rationale.
 
 ---
 
-**Target Cost:** ~$23-25 per board (components only, qty 1-10)
+**Target Cost:** ~$33-35 per board (components only, qty 1-10)
 **Application:** Marine environment - requires conformal coating
 **Safety Critical:** Engine monitoring application - implement watchdog and
 fault detection

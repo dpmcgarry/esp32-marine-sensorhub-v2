@@ -233,14 +233,21 @@ LED cathode → GND
 - `USB_D+` on GPIO13
 - `I2C_SDA` on GPIO6
 - `I2C_SCL` on GPIO7
-- `ADC_CH0` on GPIO0 (ADC1_CH0)
-- `ADC_CH1` on GPIO1 (ADC1_CH1)
-- `1WIRE_1` on GPIO2
-- `RGB_LED` on GPIO15
+- `ADC_CH0` on GPIO0 (ADC1_CH0) - Current Clamp 1
+- `ADC_CH1` on GPIO1 (ADC1_CH1) - Current Clamp 2
+- `ADC_CH2` on GPIO2 (ADC1_CH2) - Current Clamp 3
+- `ADC_CH3` on GPIO3 (ADC1_CH3) - Current Clamp 4
+- `ADC_CH4` on GPIO4 (ADC1_CH4) - Current Clamp 5
+- `RGB_LED` on GPIO8 (WS2812B, matches DevKitC)
+- `1WIRE_1` on GPIO10
+- `SPI_SCK` on GPIO19 (shared by all MAX31855)
+- `SPI_MISO` on GPIO18 (shared by all MAX31855)
+- `SPI_CS_TC1` on GPIO20 (MAX31855 #1)
+- `SPI_CS_TC2` on GPIO21 (MAX31855 #2)
+- `SPI_CS_TC3` on GPIO22 (MAX31855 #3)
 - `STATUS_LED` on GPIO23
-- `SPI_SCK` on GPIO19
-- `SPI_MISO` on GPIO18
-- `SPI_CS_TC` on GPIO20
+
+**Note:** GPIO5 (ADC1_CH5) is available for future expansion (6th current clamp).
 
 ---
 
@@ -378,17 +385,19 @@ D_RGB GND pin → GND
 **Wire it:**
 
 ```text
-ESP32 GPIO15 → (optional 330Ω resistor) → D_RGB DIN pin
+ESP32 GPIO8 → (optional 330Ω resistor) → D_RGB DIN pin
 ```
 
 **Or use label:**
 
 ```text
-ESP32 GPIO15 → Label "RGB_LED"
+ESP32 GPIO8 → Label "RGB_LED"
 Label "RGB_LED" → D_RGB DIN pin
 ```
 
 **Optional:** Add 330Ω series resistor for signal protection.
+
+**Note:** GPIO8 matches the ESP32-C6-DevKitC-1 RGB LED pin for consistency.
 
 ### 4. Add Status LED (Optional)
 
@@ -404,11 +413,16 @@ LED cathode → GND
 
 ---
 
-## Part 3: Current Clamp Signal Conditioning (30 minutes)
+## Part 3: Current Clamp Signal Conditioning (45 minutes)
 
-### For ONE Current Clamp Channel
+### Build Channels 1-5 with Op-Amp Buffers
 
-### 1. Add Input Connector
+We'll use **two MCP6004 ICs** for buffering all 5 current clamp channels:
+
+- **U5** (MCP6004): Clamps 1-4 (all 4 op-amps used)
+- **U6** (MCP6004): Clamps 5-6 (U6A for clamp 5, U6B reserved for clamp 6)
+
+### 1. Add Input Connector (Clamp 1)
 
 1. Press `A`
 2. Search: `Screw_Terminal_01x02`
@@ -416,7 +430,7 @@ LED cathode → GND
 4. Reference: `J2`
 5. Value: `CLAMP_1`
 
-### 2. Add Signal Conditioning Components
+### 2. Add Signal Conditioning Components (Clamp 1)
 
 **Components (in order):**
 
@@ -437,9 +451,9 @@ LED cathode → GND
 **Op-Amp Buffer:**
 
 - Use `MCP6004` (quad op-amp)
-- Reference: `U5A` (unit A)
+- Reference: `U5A` (unit A of first MCP6004)
 
-### 3. Wire the Signal Chain
+### 3. Wire the Signal Chain (Clamp 1)
 
 ```text
 J2 Pin 1 → R_SER_1 → R_DIV1_1 → [midpoint junction]
@@ -448,20 +462,67 @@ J2 Pin 1 → R_SER_1 → R_DIV1_1 → [midpoint junction]
 [after R_FILT_1] → U5A Pin 3 (+ input)
 U5A Pin 2 (- input) → U5A Pin 1 (output) [unity gain buffer]
 U5A Pin 1 → Label "ADC_CH0"
+J2 Pin 2 → GND
 ```
 
-### 4. Add Op-Amp Power (Unit E)
+### 4. Add Op-Amp Power - First IC (U5E)
 
 **Important: MCP6004 needs power pins!**
 
 1. Press `A`
 2. Search: `MCP6004`
 3. When placing, change Unit to `E` (power unit)
-4. Place near op-amp circuits
+4. Reference: `U5E`
+5. Place near op-amp circuits
+6. Connect:
+   - V+ → +3V3
+   - V- → GND
+   - Add 0.1uF decoupling capacitor between V+ and GND
+
+### 5. Add Remaining Channels 2-4 (U5B, U5C, U5D)
+
+Repeat the same circuit for channels 2-4:
+
+**Channel 2:**
+
+- Connector: `J3` (CLAMP_2)
+- Components: `R_SER_2`, `R_DIV1_2`, `R_DIV2_2`, `R_FILT_2`, `C_FILT_2`
+- Op-amp: `U5B` → Label "ADC_CH1"
+
+**Channel 3:**
+
+- Connector: `J4` (CLAMP_3)
+- Components: `R_SER_3`, `R_DIV1_3`, `R_DIV2_3`, `R_FILT_3`, `C_FILT_3`
+- Op-amp: `U5C` → Label "ADC_CH2"
+
+**Channel 4:**
+
+- Connector: `J5` (CLAMP_4)
+- Components: `R_SER_4`, `R_DIV1_4`, `R_DIV2_4`, `R_FILT_4`, `C_FILT_4`
+- Op-amp: `U5D` → Label "ADC_CH3"
+
+### 6. Add Second MCP6004 for Channel 5
+
+**Add U6 (second MCP6004):**
+
+1. Add all components for channel 5 (same as channels 1-4)
+2. Connector: `J6` (CLAMP_5)
+3. Components: `R_SER_5`, `R_DIV1_5`, `R_DIV2_5`, `R_FILT_5`, `C_FILT_5`
+4. Op-amp: `U6A` → Label "ADC_CH4"
+
+**Add power for second IC (U6E):**
+
+1. Press `A`
+2. Search: `MCP6004`
+3. Change Unit to `E`
+4. Reference: `U6E`
 5. Connect:
    - V+ → +3V3
    - V- → GND
    - Add 0.1uF decoupling capacitor between V+ and GND
+
+**Note:** U6B is reserved for future 6th clamp expansion (GPIO5/ADC1_CH5).
+U6C and U6D remain unused.
 
 ---
 
@@ -495,6 +556,96 @@ U3 VSS → GND
 ### 4. Add Decoupling Capacitor
 
 - `C_SHT40`: 0.1uF between VDD and VSS
+
+---
+
+## Part 4.5: MAX31855 Thermocouple Amplifiers (20 minutes)
+
+### Overview
+
+We'll add **3× MAX31855** thermocouple amplifiers for high-temperature sensing.
+All three share the SPI bus (SCK and MISO), but each has its own CS (chip select) pin.
+
+### 1. Add First MAX31855 (U4)
+
+1. Press `A`
+2. Search: `MAX31855`
+3. Place on schematic
+4. Reference: `U4`
+
+### 2. Wire First MAX31855
+
+```text
+U4 VCC → +3V3
+U4 GND → GND
+U4 SCK → Label "SPI_SCK"
+U4 SO → Label "SPI_MISO"
+U4 CS → Label "SPI_CS_TC1"
+U4 T+ → J_TC1 Pin 1 (thermocouple + terminal)
+U4 T- → J_TC1 Pin 2 (thermocouple - terminal)
+```
+
+### 3. Add Decoupling Capacitor
+
+- `C_TC1`: 0.1uF ceramic
+- Connect between VCC and GND (place close to MAX31855)
+
+### 4. Add Thermocouple Connector
+
+1. Press `A`
+2. Search: `Screw_Terminal_01x02`
+3. Reference: `J_TC1`
+4. Value: `K_TYPE_1`
+
+```text
+J_TC1 Pin 1 → U4 T+
+J_TC1 Pin 2 → U4 T-
+```
+
+### 5. Add Second MAX31855 (U7)
+
+Repeat the same circuit for the second thermocouple:
+
+1. Add MAX31855, Reference: `U7`
+2. Add connector `J_TC2` (K_TYPE_2)
+3. Add decoupling cap `C_TC2`
+4. Wire:
+
+```text
+U7 VCC → +3V3
+U7 GND → GND
+U7 SCK → Label "SPI_SCK" (shared)
+U7 SO → Label "SPI_MISO" (shared)
+U7 CS → Label "SPI_CS_TC2" (GPIO21)
+U7 T+ → J_TC2 Pin 1
+U7 T- → J_TC2 Pin 2
+```
+
+### 6. Add Third MAX31855 (U8)
+
+Repeat for the third thermocouple:
+
+1. Add MAX31855, Reference: `U8`
+2. Add connector `J_TC3` (K_TYPE_3)
+3. Add decoupling cap `C_TC3`
+4. Wire:
+
+```text
+U8 VCC → +3V3
+U8 GND → GND
+U8 SCK → Label "SPI_SCK" (shared)
+U8 SO → Label "SPI_MISO" (shared)
+U8 CS → Label "SPI_CS_TC3" (GPIO22)
+U8 T+ → J_TC3 Pin 1
+U8 T- → J_TC3 Pin 2
+```
+
+### Notes
+
+- **Shared SPI bus:** SCK and MISO are shared between all MAX31855 ICs
+- **Individual CS pins:** Each MAX31855 has its own chip select
+- **PCB layout:** Keep thermocouple traces short and away from noisy signals
+- **Thermocouple polarity:** Yellow wire = T+, Red wire = T- (standard K-type)
 
 ---
 
@@ -573,11 +724,12 @@ U3 VSS → GND
 1. ✅ **COMPLETED:** Part 1 - Setup & Power Supply (J1, D1, U1, capacitors, D_BUCK, power symbols)
 2. ✅ **COMPLETED:** Part 2 - ESP32-C6 Core (U2, RESET/BOOT buttons, power LED, GPIO labels)
 3. ✅ **COMPLETED:** Part 2.5 - USB-C Connector (J_USB, CC resistors, ESD protection, USB power path with AMS1117 & D_USB)
-4. ⏭️ **NEXT:** Part 2.6 - RGB LED (WS2812B & optional status LED)
-5. ⏭️ Part 3 - Current Clamp Signal Conditioning (one channel to test)
-6. ⏭️ Part 4 - SHT40 I2C Sensor
-7. ⏭️ Part 5 - Finishing Up (annotate, ERC, assign footprints)
-8. ⏭️ Future expansion: Add more current clamp channels, DS18B20 sensors, MAX31855 thermocouple
+4. ✅ **COMPLETED:** Part 2.6 - RGB LED (WS2812B & optional status LED)
+5. ✅ **COMPLETED:** Part 3 - Current Clamp Signal Conditioning (5 channels with dual MCP6004)
+6. ⏭️ **NEXT:** Part 4 - SHT40 I2C Sensor
+7. ⏭️ Part 4.5 - MAX31855 Thermocouple Amplifiers (3× for high-temp sensing)
+8. ⏭️ Part 5 - Finishing Up (annotate, ERC, assign footprints)
+9. ⏭️ Future expansion: Add DS18B20 sensors on 1-Wire bus, 6th current clamp
 
 ---
 

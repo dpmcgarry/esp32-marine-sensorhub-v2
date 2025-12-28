@@ -12,9 +12,9 @@ reliable operation in harsh marine environments with 12VDC power input.
   - SHT40 temperature & humidity sensor (±0.2°C accuracy)
 
 - **External Sensor Support:**
-  - 3x DS18B20 1-Wire temperature sensors (-67°F to +257°F)
-  - 1x K-type thermocouple via MAX31855 (up to 2000°F)
-  - 6x QNHCK2-16 30A current clamp sensors
+  - Multiple DS18B20 1-Wire temperature sensors on shared bus (-67°F to +257°F)
+  - 3x K-type thermocouples via MAX31855 (up to 2000°F each)
+  - 5x QNHCK2-16 30A current clamp sensors (6th channel reserved)
 
 - **Connectivity:**
   - ESP32-C6 with WiFi 6 (802.11ax)
@@ -46,18 +46,19 @@ reliable operation in harsh marine environments with 12VDC power input.
 | -------- | ----------- | ----- |
 | I2C SDA (SHT40) | GPIO6 | 4.7kΩ pullup |
 | I2C SCL (SHT40) | GPIO7 | 4.7kΩ pullup |
-| 1-Wire DS18B20 #1 | GPIO8 | 4.7kΩ pullup |
-| 1-Wire DS18B20 #2 | GPIO10 | 4.7kΩ pullup |
-| 1-Wire DS18B20 #3 | GPIO11 | 4.7kΩ pullup |
-| SPI SCK (MAX31855) | GPIO19 | |
-| SPI MISO (MAX31855) | GPIO18 | |
-| SPI CS (MAX31855) | GPIO20 | |
+| RGB LED | GPIO8 | WS2812B (matches DevKitC) |
+| 1-Wire (DS18B20) | GPIO10 | 4.7kΩ pullup, multi-drop bus |
+| SPI SCK (MAX31855) | GPIO19 | Shared by all 3 MAX31855 |
+| SPI MISO (MAX31855) | GPIO18 | Shared by all 3 MAX31855 |
+| SPI CS MAX31855 #1 | GPIO20 | Thermocouple 1 |
+| SPI CS MAX31855 #2 | GPIO21 | Thermocouple 2 |
+| SPI CS MAX31855 #3 | GPIO22 | Thermocouple 3 |
 | ADC Clamp #1 | GPIO0 (ADC1_CH0) | |
 | ADC Clamp #2 | GPIO1 (ADC1_CH1) | |
 | ADC Clamp #3 | GPIO2 (ADC1_CH2) | |
 | ADC Clamp #4 | GPIO3 (ADC1_CH3) | |
 | ADC Clamp #5 | GPIO4 (ADC1_CH4) | |
-| ADC Clamp #6 | GPIO5 (ADC1_CH5) | |
+| Reserved (Clamp #6) | GPIO5 (ADC1_CH5) | Future expansion |
 | Status LED | GPIO23 | 330Ω resistor |
 | Boot Button | GPIO9 | 10kΩ pullup |
 
@@ -111,47 +112,82 @@ SHT40 (I2C Address: 0x44)
 
 ### DS18B20 External Temperature Sensors
 
-Each of 3 connectors (J1, J2, J3 - RJ45 or 3-pin JST-XH):
+Multiple sensors share a single 1-Wire bus on GPIO10.
+Connectors (J_1WIRE_x - 3-pin screw terminal or JST-XH):
 
 ```text
-Connector Pinout:
+Connector Pinout (all connectors wired in parallel):
   Pin 1: 3.3V (or 5V if long cable runs needed)
-  Pin 2: DATA (to GPIO8/10/11 with 4.7kΩ pullup)
+  Pin 2: DATA (to GPIO10 with 4.7kΩ pullup - shared)
   Pin 3: GND
 
 Notes:
-- 4.7kΩ pullup resistors on each data line
-- Can support multiple sensors per 1-Wire bus if needed
+- Single 4.7kΩ pullup resistor on GPIO10
+- All DS18B20 sensors share the same 1-Wire bus
+- Each sensor has a unique 64-bit address
 - Max recommended cable length: 100 feet
+- Supports up to 10-20 sensors on one bus
 ```
 
-### MAX31855 Thermocouple Interface (U4)
+### MAX31855 Thermocouple Interface (3× ICs for 3 thermocouples)
+
+The design uses three MAX31855 ICs (U4, U7, U8) sharing a common SPI bus
+with individual chip select lines:
 
 ```text
-MAX31855 (SPI)
+MAX31855 #1 (U4) - Thermocouple 1
 ├── VCC: 3.3V_MAIN
 ├── GND: GND
-├── SCK: GPIO19
-├── SO: GPIO18
-├── CS: GPIO20
-├── T+: K-type thermocouple + (J4, screw terminal)
-├── T-: K-type thermocouple - (J4, screw terminal)
-└── Decoupling: 0.1µF ceramic capacitor
+├── SCK: GPIO19 (shared SPI clock)
+├── SO: GPIO18 (shared SPI MISO)
+├── CS: GPIO20 (dedicated chip select)
+├── T+: K-type thermocouple + (J_TC1 pin 1, screw terminal)
+├── T-: K-type thermocouple - (J_TC1 pin 2, screw terminal)
+└── Decoupling: C_TC1 (0.1µF ceramic capacitor)
+
+MAX31855 #2 (U7) - Thermocouple 2
+├── VCC: 3.3V_MAIN
+├── GND: GND
+├── SCK: GPIO19 (shared SPI clock)
+├── SO: GPIO18 (shared SPI MISO)
+├── CS: GPIO21 (dedicated chip select)
+├── T+: K-type thermocouple + (J_TC2 pin 1, screw terminal)
+├── T-: K-type thermocouple - (J_TC2 pin 2, screw terminal)
+└── Decoupling: C_TC2 (0.1µF ceramic capacitor)
+
+MAX31855 #3 (U8) - Thermocouple 3
+├── VCC: 3.3V_MAIN
+├── GND: GND
+├── SCK: GPIO19 (shared SPI clock)
+├── SO: GPIO18 (shared SPI MISO)
+├── CS: GPIO22 (dedicated chip select)
+├── T+: K-type thermocouple + (J_TC3 pin 1, screw terminal)
+├── T-: K-type thermocouple - (J_TC3 pin 2, screw terminal)
+└── Decoupling: C_TC3 (0.1µF ceramic capacitor)
+
+SPI Bus Configuration:
+- All three MAX31855 share SCK (GPIO19) and MISO (GPIO18)
+- Each has its own CS line (GPIO20, GPIO21, GPIO22)
+- Software selects which IC to read by pulling its CS line low
+- Temperature range: -270°C to +1372°C (-454°F to +2501°F)
+- Resolution: 0.25°C (14-bit)
+- Cold junction compensation included
 
 PCB Notes:
-- Keep thermocouple traces short
+- Keep thermocouple traces short and symmetrical
 - Route away from noisy digital signals
-- Consider copper pour ground plane around MAX31855
+- Consider copper pour ground plane around all MAX31855 ICs
+- Place decoupling caps close to VCC pins
 ```
 
-### Current Clamp Signal Conditioning (6 channels)
+### Current Clamp Signal Conditioning (5 channels + 1 reserved)
 
 QNHCK2-16 outputs 0-5V, but ESP32 ADC maximum is 3.3V.
 
 **Per channel circuit:**
 
 ```text
-CLAMP_x_IN (J5-J10, screw terminal or JST)
+CLAMP_x_IN (J_CLAMP_1 through J_CLAMP_5, screw terminal or JST)
   │
   ├── R_series (1kΩ) ──────────┐ (Current limiting/protection)
   │                             │
@@ -165,9 +201,9 @@ CLAMP_x_IN (J5-J10, screw terminal or JST)
   │   R3 (1kΩ) ────┬─────────────┐
   │   C (0.1µF) ───┴─── GND      │ (1.6kHz cutoff)
   │                               │
-  └── U5/U6 (MCP6004 buffer) ─────┘
+  └── U5/U6 (MCP6004 buffer) ──────┘
         │
-        └── ESP32 ADC (GPIO0-5)
+        └── ESP32 ADC (GPIO0-4)
 
 MCP6004 Configuration (Unity Gain Buffer):
   +IN: from RC filter
@@ -177,10 +213,15 @@ MCP6004 Configuration (Unity Gain Buffer):
   VSS: GND
   Decoupling: 0.1µF ceramic
 
-Two MCP6004 ICs required:
+Two MCP6004 ICs required for 5 channels + 1 reserved:
 
-- U5: Channels 1-4
-- U6: Channels 5-6 (2 op-amps unused)
+- U5A: Clamp 1 → GPIO0 (ADC1_CH0)
+- U5B: Clamp 2 → GPIO1 (ADC1_CH1)
+- U5C: Clamp 3 → GPIO2 (ADC1_CH2)
+- U5D: Clamp 4 → GPIO3 (ADC1_CH3)
+- U6A: Clamp 5 → GPIO4 (ADC1_CH4)
+- U6B: Reserved for Clamp 6 → GPIO5 (ADC1_CH5) - future expansion
+- U6C, U6D: Unused
 ```
 
 **Alternative (cost-optimized, less accurate):**
@@ -211,7 +252,7 @@ GPIO23 ──[330Ω]──[LED]──── GND
 | --------- | ----------- | ----------- | --- | ---------- | -------- |
 | U2 | ESP32-C6-WROOM-1 | WiFi 6 module | 1 | $2.50 | $2.50 |
 | U3 | SHT40 | Temp/humidity sensor | 1 | $4.00 | $4.00 |
-| U4 | MAX31855 | Thermocouple amplifier | 1 | $5.00 | $5.00 |
+| U4, U7, U8 | MAX31855 | Thermocouple amplifier | 3 | $5.00 | $15.00 |
 | U5, U6 | MCP6004 | Quad op-amp | 2 | $0.50 | $1.00 |
 | U1 | LM2596 module | Buck converter 12V→3.3V | 1 | $2.00 | $2.00 |
 
@@ -229,11 +270,11 @@ GPIO23 ──[330Ω]──[LED]──── GND
 
 | Type | Value | Description | Qty | Unit Price | Extended |
 | ---- | ----- | ----------- | --- | ---------- | -------- |
-| Resistors | 4.7kΩ | I2C & 1-Wire pullups | 5 | $0.02 | $0.10 |
-| Resistors | 10kΩ | Voltage dividers, pullups | 10 | $0.02 | $0.20 |
-| Resistors | 20kΩ | Voltage dividers | 6 | $0.02 | $0.12 |
+| Resistors | 4.7kΩ | I2C & 1-Wire pullups | 3 | $0.02 | $0.06 |
+| Resistors | 10kΩ | Voltage dividers, pullups | 9 | $0.02 | $0.18 |
+| Resistors | 20kΩ | Voltage dividers | 5 | $0.02 | $0.10 |
 | Resistors | 1kΩ | Current limiting, filters | 12 | $0.02 | $0.24 |
-| Resistors | 330Ω | LED current limiting | 1 | $0.02 | $0.02 |
+| Resistors | 330Ω | LED/RGB current limiting | 2 | $0.02 | $0.04 |
 | Capacitors | 0.1µF | Decoupling, filtering | 15 | $0.05 | $0.75 |
 
 ### Connectors
@@ -241,9 +282,10 @@ GPIO23 ──[330Ω]──[LED]──── GND
 | Reference | Type | Description | Qty | Unit Price | Extended |
 | --------- | ---- | ----------- | --- | ---------- | -------- |
 | J_PWR | Screw terminal | 2-pin, 5mm pitch, 12V input | 1 | $0.30 | $0.30 |
-| J1-J3 | RJ45 or JST-XH | 3-pin, DS18B20 sensors | 3 | $0.40 | $1.20 |
-| J4 | Screw terminal | 2-pin, thermocouple | 1 | $0.30 | $0.30 |
-| J5-J10 | Screw terminal | 2-pin, current clamps | 6 | $0.30 | $1.80 |
+| J_1WIRE | Screw terminal | 3-pin, DS18B20 sensors (shared bus) | 3 | $0.30 | $0.90 |
+| J_TC1, J_TC2, J_TC3 | Screw terminal | 2-pin, K-type thermocouples | 3 | $0.30 | $0.90 |
+| J_CLAMP | Screw terminal | 2-pin, current clamps | 5 | $0.30 | $1.50 |
+| J_USB | USB-C receptacle | 16-pin, USB 2.0 | 1 | $0.50 | $0.50 |
 | J_PROG | Pin header | 2×3, programming (optional) | 1 | $0.15 | $0.15 |
 
 ### Miscellaneous
@@ -254,7 +296,7 @@ GPIO23 ──[330Ω]──[LED]──── GND
 | Buttons | Tactile switches (reset, boot) | 2 | $0.10 | $0.20 |
 | PCB | 2-layer, ~80×60mm | 1 | $2.50 | $2.50 |
 
-### **Total Board Cost: ~$23.50**
+### **Total Board Cost: ~$33.80**
 
 ### External Sensors (purchased separately)
 
@@ -273,27 +315,40 @@ Pin 1: +12V
 Pin 2: GND
 ```
 
-### J1, J2, J3 - DS18B20 Temperature Sensors (RJ45 or JST-XH)
+### J_1WIRE_x - DS18B20 Temperature Sensors (Screw Terminal)
+
+All connectors wired in parallel on shared 1-Wire bus (GPIO10):
 
 ```text
 Pin 1: +3.3V (or +5V)
-Pin 2: DATA
+Pin 2: DATA (all connected to GPIO10)
 Pin 3: GND
 ```
 
-### J4 - K-Type Thermocouple (Screw Terminal)
+### J_TC1, J_TC2, J_TC3 - K-Type Thermocouples (Screw Terminals)
+
+All three connectors have identical pinout:
 
 ```text
 Pin 1: T+ (Yellow wire on standard K-type)
 Pin 2: T- (Red wire on standard K-type)
+
+J_TC1 → MAX31855 #1 (U4) → GPIO20 (CS)
+J_TC2 → MAX31855 #2 (U7) → GPIO21 (CS)
+J_TC3 → MAX31855 #3 (U8) → GPIO22 (CS)
+
+Temperature Range: -270°C to +1372°C (-454°F to +2501°F)
+Resolution: 0.25°C (14-bit)
 ```
 
-### J5-J10 - QNHCK2-16 Current Clamps (Screw Terminal)
+### J_CLAMP_1 through J_CLAMP_5 - QNHCK2-16 Current Clamps (Screw Terminal)
 
 ```text
 Pin 1: Signal (0-5V)
 Pin 2: GND
 ```
+
+Note: GPIO5 (ADC1_CH5) reserved for 6th clamp expansion.
 
 ### J_PROG - Programming Header (Optional, 2×3 pin header)
 
