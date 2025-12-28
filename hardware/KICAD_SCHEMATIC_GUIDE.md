@@ -370,6 +370,16 @@ Add these labels (Press `H` for each):
 - `ADC_CH3` (Input) - connects to GPIO3
 - `ADC_CH4` (Input) - connects to GPIO4
 
+**Dashboard I/O:**
+
+- `PIEZO` (Output) - connects to GPIO5
+- `LED1_OUT` (Output) - connects to GPIO11
+- `LED2_OUT` (Output) - connects to GPIO14
+- `LED3_OUT` (Output) - connects to GPIO15
+- `SWITCH1_IN` (Input) - connects to GPIO16
+- `SWITCH2_IN` (Input) - connects to GPIO17
+- `SWITCH3_IN` (Input) - connects to GPIO23
+
 ### 3. Add ESP32-C6 Module (U2)
 
 **Add the symbol:**
@@ -459,11 +469,12 @@ Now connect ESP32 GPIO pins to the hierarchical labels (sheet interface):
    - `USB_D-` on GPIO12 (connects to USB-C connector within this sheet)
    - `USB_D+` on GPIO13 (connects to USB-C connector within this sheet)
    - `RGB_LED` on GPIO8 (connects to WS2812B within this sheet)
-   - `STATUS_LED` on GPIO23 (connects to status LED within this sheet)
 
 **External signals (connect to hierarchical labels):**
 
 Wire these GPIO pins directly to their corresponding hierarchical labels:
+
+**Sensors:**
 
 - GPIO6 → wire → Hierarchical Label `I2C_SDA`
 - GPIO7 → wire → Hierarchical Label `I2C_SCL`
@@ -479,7 +490,15 @@ Wire these GPIO pins directly to their corresponding hierarchical labels:
 - GPIO3 → wire → Hierarchical Label `ADC_CH3`
 - GPIO4 → wire → Hierarchical Label `ADC_CH4`
 
-**Note:** GPIO5 (ADC1_CH5) is available for future expansion (6th current clamp).
+**Dashboard I/O:**
+
+- GPIO5 → wire → Hierarchical Label `PIEZO`
+- GPIO11 → wire → Hierarchical Label `LED1_OUT`
+- GPIO14 → wire → Hierarchical Label `LED2_OUT`
+- GPIO15 → wire → Hierarchical Label `LED3_OUT`
+- GPIO16 → wire → Hierarchical Label `SWITCH1_IN`
+- GPIO17 → wire → Hierarchical Label `SWITCH2_IN`
+- GPIO23 → wire → Hierarchical Label `SWITCH3_IN`
 
 ---
 
@@ -633,18 +652,7 @@ Label "RGB_LED" → D_RGB DIN pin
 **Optional:** Add 330Ω series resistor for signal protection.
 
 **Note:** GPIO8 matches the ESP32-C6-DevKitC-1 RGB LED pin for consistency.
-
-### 4. Add Status LED (Optional)
-
-**Simple green LED on GPIO23:**
-
-- `D_STATUS`: Green LED
-- `R_STATUS`: 330Ω resistor
-
-```text
-ESP32 GPIO23 → R_STATUS → LED anode
-LED cathode → GND
-```
+The RGB LED can be used for status indication instead of a dedicated status LED.
 
 ---
 
@@ -1006,7 +1014,7 @@ U8 T- → J_TC Pin 6 (TC3_T-)
 
 ---
 
-## Part 6: Main Connector Sheet (15 minutes)
+## Part 6: Main Connector & I/O Interface Sheet (45 minutes)
 
 ### 1. Enter the Main Connector Hierarchical Sheet
 
@@ -1016,17 +1024,28 @@ From the root sheet:
 2. Double-click on the "Main Connector" sheet symbol
 3. This opens the `main_connector.kicad_sch` file
 
-### 2. Add Main Connector Hierarchical Labels
+### 2. Add Main Connector & I/O Hierarchical Labels
 
 **Power:**
 
 - `+12V` (Output) - provides 12V to Power Supply sheet
 - `GND` (Bidirectional)
 - `DS18B20_VCC` (Input) - receives 3.3V from Power Supply sheet
+- `+3V3` (Input) - receives 3.3V for piezo buzzer
 
 **1-Wire:**
 
 - `1WIRE_DATA` (Bidirectional) - connects to Temperature Sensors sheet
+
+**Dashboard I/O (from/to ESP32 Core sheet):**
+
+- `PIEZO` (Input) - piezo buzzer control from GPIO5
+- `LED1_OUT` (Input) - LED 1 control from GPIO11
+- `LED2_OUT` (Input) - LED 2 control from GPIO14
+- `LED3_OUT` (Input) - LED 3 control from GPIO15
+- `SWITCH1_IN` (Output) - Switch 1 input to GPIO16
+- `SWITCH2_IN` (Output) - Switch 2 input to GPIO17
+- `SWITCH3_IN` (Output) - Switch 3 input to GPIO23
 
 ### 3. Add J_MAIN Connector (11-pin)
 
@@ -1064,6 +1083,158 @@ J_MAIN Pin 5 (DS18B20_1_GND) ─┐
 J_MAIN Pin 8 (DS18B20_2_GND) ─┼→ Hierarchical Label "GND"
 J_MAIN Pin 11 (DS18B20_3_GND) ┘
 ```
+
+### 4. Add Piezo Buzzer Circuit
+
+**Components needed:**
+
+- `PIEZO1`: Murata PKLCS1212E4001-R1 (SMD) or PKM13EPYH4000-A0 (TH)
+- `Q1`: 2N3904 or BC547 (NPN transistor)
+- `R_PIEZO`: 1kΩ resistor
+
+**Add the components:**
+
+1. Press `A` → Search for `Q_NPN_BCE` → Place
+2. Reference: `Q1`
+3. Add piezo buzzer symbol (search for `Speaker` or `Buzzer`)
+4. Reference: `PIEZO1`
+5. Add 1kΩ resistor
+6. Reference: `R_PIEZO`
+
+**Wire the circuit:**
+
+```text
+Hierarchical Label "PIEZO" (from ESP32 GPIO5) → R_PIEZO (1kΩ) → Q1 base
+Q1 collector → PIEZO1 positive terminal
+PIEZO1 positive terminal → Hierarchical Label "+3V3"
+Q1 emitter → Hierarchical Label "GND"
+PIEZO1 negative terminal → Hierarchical Label "GND"
+```
+
+**How it works:** GPIO5 drives the NPN transistor base through a 1kΩ
+current-limiting resistor. When GPIO5 is HIGH, the transistor conducts,
+allowing current to flow through the piezo from +3.3V to GND, producing sound.
+
+### 5. Add J_IO Connector (10-pin)
+
+**Add the connector:**
+
+1. Press `A`
+2. Search for: `Screw_Terminal_01x10`
+3. Place on schematic
+4. Reference: `J_IO`
+5. Value: `DASHBOARD_IO`
+
+**Pin assignments:**
+
+- Pin 1: +12V (from main 12V bus)
+- Pin 2: GND
+- Pin 3: LED1_OUT (to 12V LED cathode)
+- Pin 4: LED2_OUT (to 12V LED cathode)
+- Pin 5: LED3_OUT (to 12V LED cathode)
+- Pin 6: LED_GND (common return for LED cathodes)
+- Pin 7: SWITCH1_IN (from 12V toggle switch)
+- Pin 8: SWITCH2_IN (from 12V toggle switch)
+- Pin 9: SWITCH3_IN (from 12V toggle switch)
+- Pin 10: SWITCH_GND (common ground for switches)
+
+### 6. Add LED Output Circuits (3× identical channels)
+
+**Components per channel:**
+
+- `Q_LED1/2/3`: 2N7002 (N-channel MOSFET, SOT-23)
+- `R_LED1/2/3`: 10kΩ resistor (gate pulldown)
+
+**Add for LED 1:**
+
+1. Press `A` → Search for `Q_NMOS_GSD` or `2N7002` → Place
+2. Reference: `Q_LED1`
+3. Add 10kΩ resistor
+4. Reference: `R_LED1`
+
+**Wire LED 1 circuit:**
+
+```text
+Hierarchical Label "LED1_OUT" (from ESP32 GPIO11) → R_LED1 (10kΩ) → Q_LED1 gate
+Q_LED1 drain → J_IO Pin 3 (LED1_OUT)
+Q_LED1 source → J_IO Pin 6 (LED_GND) → Hierarchical Label "GND"
+J_IO Pin 1 (+12V) → Hierarchical Label "+12V"
+```
+
+**Repeat for LED 2 and LED 3:**
+
+- LED 2: GPIO14 → R_LED2 → Q_LED2 gate, Q_LED2 drain → J_IO Pin 4
+- LED 3: GPIO15 → R_LED3 → Q_LED3 gate, Q_LED3 drain → J_IO Pin 5
+
+**How it works:** When ESP32 GPIO goes HIGH (3.3V), it turns on the MOSFET,
+which connects the 12V LED cathode to GND through the drain-source channel.
+The external 12V LED (with built-in current limiting resistor) has its anode
+connected to +12V (Pin 1) and cathode to LED_OUT (Pins 3-5), completing the
+circuit.
+
+### 7. Add Switch Input Circuits (3× identical channels)
+
+**Components per channel:**
+
+- `R_SW1_DIV1/2/3`: 10kΩ resistor (top of voltage divider)
+- `R_SW1_DIV2/2/3`: 3.3kΩ resistor (bottom of voltage divider)
+- `D_Z1/2/3`: BZX84C3V3 (3.3V Zener diode, SOT-23)
+
+**Add for Switch 1:**
+
+1. Add two resistors (10kΩ and 3.3kΩ)
+   - References: `R_SW1_DIV1`, `R_SW1_DIV2`
+2. Press `A` → Search for `D_Zener` → Place
+   - Reference: `D_Z1`
+   - Value: `BZX84C3V3` (3.3V)
+
+**Wire Switch 1 circuit:**
+
+```text
+J_IO Pin 7 (SWITCH1_IN) → R_SW1_DIV1 (10kΩ) → [midpoint junction]
+[midpoint] → R_SW1_DIV2 (3.3kΩ) → J_IO Pin 10 (SWITCH_GND) →
+              Hierarchical Label "GND"
+[midpoint] → D_Z1 cathode
+D_Z1 anode → Hierarchical Label "GND"
+[midpoint] → Hierarchical Label "SWITCH1_IN" (to ESP32 GPIO16)
+```
+
+**Repeat for Switch 2 and Switch 3:**
+
+- Switch 2: J_IO Pin 8 → voltage divider →
+  Hierarchical Label "SWITCH2_IN" (GPIO17)
+- Switch 3: J_IO Pin 9 → voltage divider →
+  Hierarchical Label "SWITCH3_IN" (GPIO23)
+
+**How it works:**
+
+- External 12V switch connects one terminal to +12V (J_IO Pin 1)
+  and the other to SWITCH_IN (Pins 7-9)
+- When switch is CLOSED: 12V is divided by 10kΩ/(10kΩ+3.3kΩ) = 3.0V →
+  GPIO reads HIGH
+- When switch is OPEN: 3.3kΩ pulls to GND → GPIO reads LOW
+- Zener diode clamps voltage at 3.3V maximum for ESP32 protection
+
+**Voltage divider calculation:**
+
+- Input: 12V
+- R1: 10kΩ (top)
+- R2: 3.3kΩ (bottom)
+- Output: 12V × [3.3k / (10k + 3.3k)] = 12V × 0.248 = **2.98V** ✓
+  (safe for 3.3V GPIO)
+
+### 8. Add Decoupling and Notes
+
+**Optional improvements:**
+
+- Add 0.1µF capacitors across each Zener diode for transient suppression
+- Add local labels for clarity (e.g., `LED1_GATE`, `SW1_DIV`)
+
+**Silkscreen notes to add:**
+
+- Mark J_IO Pin 1 with "+12V WARNING"
+- Label LED outputs as "TO LED CATHODE" on silkscreen
+- Label switch inputs as "FROM 12V SWITCH" on silkscreen
 
 ---
 
@@ -1149,13 +1320,14 @@ J_MAIN Pin 11 (DS18B20_3_GND) ┘
 
 1. **Part 0** - Setup hierarchical sheets on root (create all sheet symbols)
 2. **Part 1** - Power Supply sheet (buck converter, USB LDO, OR-ing diodes)
-3. **Part 2** - ESP32 Core sheet (MCU, buttons, LEDs)
+3. **Part 2** - ESP32 Core sheet (MCU, buttons, RGB LED)
 4. **Part 2.5** - USB-C connector (on ESP32 Core sheet)
-5. **Part 2.6** - RGB LED and status LED (on ESP32 Core sheet)
+5. **Part 2.6** - RGB LED (on ESP32 Core sheet)
 6. **Part 3** - Current Sensing sheet (J_CLAMP connector + conditioning)
 7. **Part 4** - Temperature Sensors sheet (SHT40 + 1-Wire interface)
 8. **Part 5** - Thermocouples sheet (J_TC connector + 3× MAX31855)
-9. **Part 6** - Main Connector sheet (J_MAIN 11-pin breakout)
+9. **Part 6** - Main Connector & I/O Interface sheet (J_MAIN + J_IO +
+   piezo + LED/switch circuits)
 10. **Part 7** - Finishing up (annotate, ERC, footprints)
 
 **Benefits of this approach:**

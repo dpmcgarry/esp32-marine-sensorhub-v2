@@ -41,6 +41,18 @@ multi-sensor board for marine applications.
    - 12V → 3.3V
    - Can use module footprint or discrete IC
 
+7. **Piezo Buzzer** (PIEZO1) - Audible Alarm
+   - Murata PKLCS1212E4001-R1 (SMD) or PKM13EPYH4000-A0 (TH)
+   - 12mm diameter, 4kHz, 85dB @ 10cm
+   - NPN transistor driver (2N3904 or BC547)
+   - Always populated, software-controllable
+
+8. **Dashboard I/O Interface**
+   - 3× N-channel MOSFETs (2N7002) for 12V LED outputs
+   - 3× Zener diodes (BZX84C3V3, 3.3V) for 12V switch input protection
+   - Voltage dividers for 12V→3.3V level shifting on switch inputs
+   - External: 3× 12V panel-mount LEDs, 3× marine toggle switches (user-supplied)
+
 ### Power Section
 
 - Input: 12V from J_MAIN (11-pin consolidated connector, Pins 1-2)
@@ -74,7 +86,16 @@ multi-sensor board for marine applications.
 - GPIO2: ADC1_CH2 (Clamp 3)
 - GPIO3: ADC1_CH3 (Clamp 4)
 - GPIO4: ADC1_CH4 (Clamp 5)
-- GPIO5: ADC1_CH5 (Reserved for 6th clamp expansion)
+
+**Dashboard I/O:**
+
+- GPIO5: Piezo buzzer (NPN transistor driver, always populated)
+- GPIO11: Dashboard LED #1 output (MOSFET → 12V LED)
+- GPIO14: Dashboard LED #2 output (MOSFET → 12V LED)
+- GPIO15: Dashboard LED #3 output (MOSFET → 12V LED)
+- GPIO16: 12V Switch #1 input (voltage divider 12V→3.3V)
+- GPIO17: 12V Switch #2 input (voltage divider 12V→3.3V)
+- GPIO23: 12V Switch #3 input (voltage divider 12V→3.3V)
 
 **USB (Native ESP32-C6 USB):**
 
@@ -84,7 +105,6 @@ multi-sensor board for marine applications.
 **User Interface:**
 
 - GPIO8: WS2812B RGB LED (addressable, matches ESP32-C6-DevKitC)
-- GPIO23: Status LED (green, 330Ω resistor)
 - GPIO9: BOOT button (momentary, 10kΩ pullup to +3V3)
 - EN: RESET button (momentary, 10kΩ pullup, 0.1µF cap to GND)
 
@@ -109,8 +129,7 @@ Op-amp allocation:
 
 - U5A-D: Channels 1-4 → GPIO0-3
 - U6A: Channel 5 → GPIO4
-- U6B: Reserved for channel 6 → GPIO5 (future expansion)
-- U6C, U6D: Unused
+- U6B-D: Unused (GPIO5 repurposed for piezo buzzer)
 
 ### Connectors
 
@@ -119,16 +138,22 @@ Op-amp allocation:
 | J_MAIN | Screw terminal 5mm | Power + DS18B20 sensors | 11 |
 | J_TC | Screw terminal 5mm | K-type thermocouples (3×) | 6 |
 | J_CLAMP | Screw terminal 5mm | Current clamps (5×) | 10 |
+| J_IO | Screw terminal 5mm | Dashboard LEDs + switches | 10 |
 | J_USB | USB Type-C | Programming & UART debug | 16 (USB 2.0) |
 
 ### Passives Summary
 
-- Resistors: 4.7kΩ (3x), 10kΩ (~9x), 20kΩ (5x), 1kΩ (~12x), 5.1kΩ
+- Resistors: 4.7kΩ (3x), 10kΩ (~15x including gate resistors), 3.3kΩ (3x for
+  switch voltage dividers), 20kΩ (5x), 1kΩ (~13x including piezo), 5.1kΩ
   (2x for USB CC), 330Ω (2x for LEDs)
 - Capacitors: 0.1µF (~15x including 3x for MAX31855), 10µF (1x), 100µF 25V
   (1x), 100µF 10V (1x)
-- LEDs: 3x (1x green power LED, 1x green status LED, 1x WS2812B RGB LED)
+- LEDs: 2x (1x green power LED, 1x WS2812B RGB LED)
+- Transistors: 1x NPN (2N3904/BC547 for piezo), 3x N-ch MOSFET (2N7002
+  for LED outputs)
+- Diodes: 3x Zener 3.3V (BZX84C3V3 for switch input protection)
 - Buttons: 2x momentary tactile (RESET, BOOT)
+- Piezo buzzer: 1x Murata PKLCS1212E4001-R1 (SMD) or PKM13EPYH4000-A0 (TH)
 - USB-C connector: 1x (16-pin receptacle)
 - ESD protection: 1x USBLC6-2SC6 (optional but recommended)
 
@@ -254,7 +279,9 @@ and design rationale.
 
 ---
 
-**Target Cost:** ~$32.85 per board (components only, qty 1-10)
+**Target Cost:** ~$36.00 per board (components only, qty 1-10)
 **Application:** Marine environment - requires conformal coating
 **Safety Critical:** Engine monitoring application - implement watchdog and
 fault detection
+**Dashboard I/O:** Supports remote 12V LED indicators and toggle switch inputs
+for user interface

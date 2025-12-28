@@ -10,11 +10,17 @@ reliable operation in harsh marine environments with 12VDC power input.
 
 - **Onboard Sensors:**
   - SHT40 temperature & humidity sensor (±0.2°C accuracy)
+  - Piezo buzzer for audible alarms/alerts
 
 - **External Sensor Support:**
   - Multiple DS18B20 1-Wire temperature sensors on shared bus (-67°F to +257°F)
   - 3x K-type thermocouples via MAX31855 (up to 2000°F each)
-  - 5x QNHCK2-16 30A current clamp sensors (6th channel reserved)
+  - 5x QNHCK2-16 30A current clamp sensors
+
+- **Dashboard I/O:**
+  - 3x 12V LED outputs for remote panel indicators
+  - 3x 12V toggle switch inputs for user controls
+  - Long-distance wiring support (10+ feet)
 
 - **Connectivity:**
   - ESP32-C6 with WiFi 6 (802.11ax)
@@ -58,8 +64,13 @@ reliable operation in harsh marine environments with 12VDC power input.
 | ADC Clamp #3 | GPIO2 (ADC1_CH2) | |
 | ADC Clamp #4 | GPIO3 (ADC1_CH3) | |
 | ADC Clamp #5 | GPIO4 (ADC1_CH4) | |
-| Reserved (Clamp #6) | GPIO5 (ADC1_CH5) | Future expansion |
-| Status LED | GPIO23 | 330Ω resistor |
+| Piezo Buzzer | GPIO5 | NPN transistor driver |
+| Dashboard LED #1 | GPIO11 | MOSFET → 12V LED |
+| Dashboard LED #2 | GPIO14 | MOSFET → 12V LED |
+| Dashboard LED #3 | GPIO15 | MOSFET → 12V LED |
+| 12V Switch #1 Input | GPIO16 | Voltage divider (12V→3.3V) |
+| 12V Switch #2 Input | GPIO17 | Voltage divider (12V→3.3V) |
+| 12V Switch #3 Input | GPIO23 | Voltage divider (12V→3.3V) |
 | Boot Button | GPIO9 | 10kΩ pullup |
 
 ## Schematic
@@ -232,6 +243,61 @@ Two MCP6004 ICs required for 5 channels + 1 reserved:
 - Use only voltage divider + RC filter
 - May experience loading issues with high-impedance sensors
 
+### Dashboard I/O Interface
+
+The board provides 3× 12V LED outputs and 3× 12V switch inputs for remote
+dashboard indicators and controls via consolidated J_IO connector (10-pin).
+
+**Piezo Buzzer (always populated):**
+
+```text
+GPIO5 ──[1kΩ]──┬─── Q1 (NPN transistor, 2N3904 or BC547) base
+               │
+               ├─── Q1 collector ──── PIEZO+ ──── +3.3V
+               │
+               └─── Q1 emitter ──── GND
+
+Piezo part: Murata PKLCS1212E4001-R1 (SMD) or PKM13EPYH4000-A0 (TH)
+Specs: 12mm, 4kHz, 85dB @ 10cm, 3-16V, ~10mA draw
+Software-controllable for alarms/alerts
+```
+
+**12V LED Output Circuit (3× channels):**
+
+```text
+GPIO11/14/15 ──[10kΩ]──┬─── Q2/3/4 (N-ch MOSFET, 2N7002) gate
+                        │
++12V ──── LED anode     │
+          LED cathode ──┴─── Q2/3/4 drain
+                             Q2/3/4 source ──── GND
+
+External LEDs: 12V panel-mount indicators with built-in current limiting
+  - Recommended: 8-10mm metal panel mount, marine-grade
+  - Suggested colors: Red (alarm), Green (normal), Amber (warning)
+  - Long wire runs to dashboard (10+ feet typical)
+
+MOSFET: 2N7002 (SOT-23, 60V, 300mA, low Rds(on))
+Gate resistor: protects GPIO from transients
+```
+
+**12V Switch Input Circuit (3× channels):**
+
+```text
++12V ──── Switch (SPST toggle) ────┬──── R1 (10kΩ) ──── GPIO16/17/23
+                                    │
+                                    ├──── R2 (3.3kΩ) ──── GND
+                                    │
+                                    └──── D_Z (3.3V Zener, BZX84C3V3) ──── GND
+
+Voltage divider calculation:
+  - Switch closed (12V): 12V × [3.3k/(10k+3.3k)] = 3.0V → HIGH
+  - Switch open (0V): 0V (pulled to GND) → LOW
+
+Protection: Zener diode clamps overvoltage spikes
+External switches: Marine rocker/toggle switches (ON-OFF, SPST)
+  - Recommended: Carling V-series or equivalent marine-rated
+```
+
 ### Additional Circuits
 
 **Power Indicator LED:**
@@ -240,10 +306,11 @@ Two MCP6004 ICs required for 5 channels + 1 reserved:
 3.3V ──[1kΩ]──[LED]──── GND
 ```
 
-**Status LED:**
+**RGB Status LED:**
 
 ```text
-GPIO23 ──[330Ω]──[LED]──── GND
+GPIO8 ──[330Ω optional]──[WS2812B]──── GND
+                         WS2812B VDD ──── +3.3V
 ```
 
 ## Bill of Materials (BOM)
@@ -268,14 +335,24 @@ GPIO23 ──[330Ω]──[LED]──── GND
 | C2 | - | 100µF 10V electrolytic | 1 | $0.10 | $0.10 |
 | C3 | - | 10µF ceramic | 1 | $0.10 | $0.10 |
 
+### I/O Interface Components
+
+| Reference | Part Number | Description | Qty | Unit Price | Extended |
+| --------- | ----------- | ----------- | --- | ---------- | -------- |
+| PIEZO1 | PKLCS1212E4001-R1 | Piezo buzzer 12mm SMD | 1 | $1.50 | $1.50 |
+| Q1 | 2N3904 / BC547 | NPN transistor (piezo) | 1 | $0.05 | $0.05 |
+| Q2, Q3, Q4 | 2N7002 | N-ch MOSFET SOT-23 | 3 | $0.10 | $0.30 |
+| D_Z1-3 | BZX84C3V3 | Zener 3.3V SOT-23 | 3 | $0.05 | $0.15 |
+
 ### Passives (approximate quantities)
 
 | Type | Value | Description | Qty | Unit Price | Extended |
 | ---- | ----- | ----------- | --- | ---------- | -------- |
 | Resistors | 4.7kΩ | I2C & 1-Wire pullups | 3 | $0.02 | $0.06 |
-| Resistors | 10kΩ | Voltage dividers, pullups | 9 | $0.02 | $0.18 |
+| Resistors | 10kΩ | Voltage dividers, pullups, gates | 15 | $0.02 | $0.30 |
 | Resistors | 20kΩ | Voltage dividers | 5 | $0.02 | $0.10 |
-| Resistors | 1kΩ | Current limiting, filters | 12 | $0.02 | $0.24 |
+| Resistors | 3.3kΩ | Voltage dividers (switch inputs) | 3 | $0.02 | $0.06 |
+| Resistors | 1kΩ | Current limiting, filters, piezo | 13 | $0.02 | $0.26 |
 | Resistors | 330Ω | LED/RGB current limiting | 2 | $0.02 | $0.04 |
 | Capacitors | 0.1µF | Decoupling, filtering | 15 | $0.05 | $0.75 |
 
@@ -286,6 +363,7 @@ GPIO23 ──[330Ω]──[LED]──── GND
 | J_MAIN | Screw terminal | 11-pin, 5mm, pwr+DS18B20 | 1 | $0.90 | $0.90 |
 | J_TC | Screw terminal | 6-pin, 5mm, thermocouples | 1 | $0.60 | $0.60 |
 | J_CLAMP | Screw terminal | 10-pin, 5mm, clamps | 1 | $0.85 | $0.85 |
+| J_IO | Screw terminal | 10-pin, 5mm, LEDs+switches | 1 | $0.85 | $0.85 |
 | J_USB | USB-C receptacle | 16-pin, USB 2.0 | 1 | $0.50 | $0.50 |
 
 ### Miscellaneous
@@ -296,7 +374,7 @@ GPIO23 ──[330Ω]──[LED]──── GND
 | Buttons | Tactile switches (reset, boot) | 2 | $0.10 | $0.20 |
 | PCB | 2-layer, ~80×60mm | 1 | $2.50 | $2.50 |
 
-### **Total Board Cost: ~$32.85**
+### **Total Board Cost: ~$36.00**
 
 ### External Sensors (purchased separately)
 
@@ -364,7 +442,36 @@ Pin 9:  CLAMP5_SIG (0-5V) → Conditioning → GPIO4 (ADC1_CH4)
 Pin 10: CLAMP5_GND
 
 Signal conditioning: voltage divider → RC filter → MCP6004 buffer → ESP32 ADC
-Note: GPIO5 (ADC1_CH5) reserved for 6th clamp expansion
+Note: GPIO5 repurposed for piezo buzzer (6th clamp not available)
+```
+
+### J_IO - Dashboard I/O Connector (10-pin Screw Terminal, 5mm pitch)
+
+Consolidated connector for remote dashboard LEDs and toggle switches:
+
+```text
+Pin 1:  +12V (power for LEDs, from main 12V bus)
+Pin 2:  GND (common ground)
+Pin 3:  LED1_OUT (GPIO11 → MOSFET → 12V LED cathode)
+Pin 4:  LED2_OUT (GPIO14 → MOSFET → 12V LED cathode)
+Pin 5:  LED3_OUT (GPIO15 → MOSFET → 12V LED cathode)
+Pin 6:  LED_GND (common return for LED cathodes)
+Pin 7:  SWITCH1_IN (12V toggle switch → voltage divider → GPIO16)
+Pin 8:  SWITCH2_IN (12V toggle switch → voltage divider → GPIO17)
+Pin 9:  SWITCH3_IN (12V toggle switch → voltage divider → GPIO23)
+Pin 10: SWITCH_GND (common ground for switches)
+
+LED Outputs:
+  - For 12V panel-mount indicator LEDs (8-10mm, marine-grade)
+  - Suggested: Red (alarm), Green (normal), Amber (warning)
+  - LEDs should have built-in current limiting resistors
+  - Connect: LED anode to +12V (Pin 1), LED cathode to LED_OUT (Pins 3-5)
+
+Switch Inputs:
+  - For 12V marine toggle switches (SPST, ON-OFF)
+  - Voltage divider provides 3.0V when switch closed (HIGH)
+  - 3.3V Zener protection on each input
+  - Connect: One switch terminal to +12V (Pin 1), other to SWITCH_IN (Pins 7-9)
 ```
 
 ## PCB Design Guidelines
