@@ -78,14 +78,8 @@ Now we'll add sheet symbols to the root sheet for each functional block.
 
 **Position:** Place near top-left of root sheet
 
-**Add sheet pins (ports) for signals entering/leaving this sheet:**
-
-1. Right-click on sheet border → "Add Sheet Pin"
-2. Add these pins (we'll define them as we build):
-
-   - `+12V` (Output)
-   - `GND` (Bidirectional)
-   - `+3V3` (Output)
+**Note:** We'll add sheet pins later using "Import Sheet Pin" after creating
+hierarchical labels inside each child sheet. This is covered in Parts 1-6.
 
 **Add ESP32 Core Sheet:**
 
@@ -96,24 +90,6 @@ Now we'll add sheet symbols to the root sheet for each functional block.
 
 **Position:** Place to the right of Power Supply sheet
 
-**Sheet pins for ESP32 Core:**
-
-- `+3V3` (Input)
-- `GND` (Bidirectional)
-- `I2C_SDA` (Bidirectional)
-- `I2C_SCL` (Output)
-- `1WIRE_DATA` (Bidirectional)
-- `SPI_SCK` (Output)
-- `SPI_MISO` (Input)
-- `SPI_CS_TC1` (Output)
-- `SPI_CS_TC2` (Output)
-- `SPI_CS_TC3` (Output)
-- `ADC_CH0` (Input)
-- `ADC_CH1` (Input)
-- `ADC_CH2` (Input)
-- `ADC_CH3` (Input)
-- `ADC_CH4` (Input)
-
 **Add Main Connector Sheet:**
 
 1. Press `S`
@@ -121,13 +97,6 @@ Now we'll add sheet symbols to the root sheet for each functional block.
 3. Sheet file name: `main_connector.kicad_sch`
 
 **Position:** Left side, below Power Supply
-
-**Sheet pins:**
-
-- `+12V` (Output) - to Power Supply
-- `GND` (Bidirectional)
-- `1WIRE_DATA` (Bidirectional) - to Temperature Sensors
-- `DS18B20_VCC` (Input) - from Power Supply
 
 **Add Current Sensing Sheet:**
 
@@ -137,16 +106,6 @@ Now we'll add sheet symbols to the root sheet for each functional block.
 
 **Position:** Bottom-left
 
-**Sheet pins:**
-
-- `+3V3` (Input)
-- `GND` (Bidirectional)
-- `ADC_CH0` (Output)
-- `ADC_CH1` (Output)
-- `ADC_CH2` (Output)
-- `ADC_CH3` (Output)
-- `ADC_CH4` (Output)
-
 **Add Temperature Sensors Sheet:**
 
 1. Press `S`
@@ -154,14 +113,6 @@ Now we'll add sheet symbols to the root sheet for each functional block.
 3. Sheet file name: `temperature.kicad_sch`
 
 **Position:** Bottom-center
-
-**Sheet pins:**
-
-- `+3V3` (Input)
-- `GND` (Bidirectional)
-- `I2C_SDA` (Bidirectional)
-- `I2C_SCL` (Input)
-- `1WIRE_DATA` (Bidirectional)
 
 **Add Thermocouples Sheet:**
 
@@ -171,49 +122,42 @@ Now we'll add sheet symbols to the root sheet for each functional block.
 
 **Position:** Bottom-right
 
-**Sheet pins:**
+### 4. Save and Continue to Part 1
 
-- `+3V3` (Input)
-- `GND` (Bidirectional)
-- `SPI_SCK` (Input)
-- `SPI_MISO` (Output)
-- `SPI_CS_TC1` (Input)
-- `SPI_CS_TC2` (Input)
-- `SPI_CS_TC3` (Input)
+**Important:** Don't worry about wiring sheet pins yet - we'll add them later
+after creating hierarchical labels inside each sheet.
 
-### 4. Wire Sheet Pins on Root Sheet
+**Next steps:**
 
-Now connect the sheet pins with wires and labels:
+1. File → Save to save your root sheet
+2. Proceed to **Part 1** to start building the Power Supply sheet
+3. As you complete each part (1-6), you'll add hierarchical labels inside each
+   child sheet
+4. After adding hierarchical labels, return to root and use "Import Sheet Pin"
+   to automatically create matching pins
+5. Once all sheet pins are imported, you'll wire them together on the root sheet
 
-**Power Distribution:**
+**Wiring overview (you'll do this later):**
 
-1. Press `W` (wire tool)
-2. Connect Power Supply `+3V3` output to ESP32 Core `+3V3` input
-3. Add a global label: Press `L`, type `+3V3`, place on wire
-4. Connect to other sheets' `+3V3` inputs using the global label
+- Use global labels (Press `L`) for signals connecting multiple sheets
+- Example: `+3V3` label connects power from Power Supply to all other sheets
+- Example: `SPI_SCK` connects ESP32 Core to Thermocouples sheet
 
-**Repeat for:**
-
-- `GND` - connects to all sheets
-- `+12V` - from Main Connector to Power Supply
-- All SPI signals - from ESP32 to Thermocouples
-- All I2C signals - from ESP32 to Temperature Sensors
-- All ADC signals - from Current Sensing to ESP32
-- 1-Wire - from Main Connector through Temperature Sensors to ESP32
-
-**Tip:** Use global labels (Press `L`) for signals that go to multiple sheets.
-This keeps the root sheet clean and readable.
-
-### 5. Add Title Block to Root Sheet
+### 5. Add Title Block to Root Sheet (Optional)
 
 1. File → Page Settings
 2. Fill in title, revision, date, company
 3. Add notes about the hierarchical structure if desired
 
-### 6. Save Your Work
+### 6. What You've Accomplished
 
-1. File → Save
-2. You now have a root sheet with all hierarchical sheets defined
+You now have:
+
+- A root sheet with 6 hierarchical sheet symbols
+- Empty child schematic files ready to be populated
+- A clean organizational structure for your design
+
+**Next:** Proceed to Part 1 to build the Power Supply sheet!
 
 ---
 
@@ -363,6 +307,20 @@ C2-, C3-, C4- → GND
 
 - Return to root, then double-click another sheet symbol
 - Or: Use the hierarchy navigator (View → Hierarchy Navigator)
+
+### 9. Import Sheet Pins to Root Sheet
+
+Now that you've created hierarchical labels inside the Power Supply sheet,
+you can import them as sheet pins on the root sheet:
+
+1. Return to root sheet (click Up arrow)
+2. Right-click on the Power Supply sheet border
+3. Select "Import Sheet Pin" (or similar option)
+4. This will automatically create sheet pins matching your hierarchical labels
+   (`+12V`, `GND`, `+3V3`)
+
+**Note:** Repeat this step after completing each part (2-6) to import pins for
+each sheet.
 
 **Save your work:** File → Save
 
