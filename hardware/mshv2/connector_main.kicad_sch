@@ -3,6 +3,11 @@
 	(generator "eeschema")
 	(generator_version "9.0")
 	(uuid "b2283582-d8b6-4ae3-9be2-1a915778e39c")
-	(paper "A4")
+	(paper "A")
+	(title_block
+		(rev "v1.0")
+		(company "Don McGarry")
+		(comment 1 "https://github.com/dpmcgarry/esp32-marine-sensorhub-v2")
+	)
 	(lib_symbols)
 )

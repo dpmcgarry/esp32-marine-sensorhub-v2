@@ -25,7 +25,7 @@ server via MQTT.
   - 3× K-type thermocouple inputs (up to 2000°F via MAX31855)
   - 5× 30A current clamp inputs (QNHCK2-16 compatible)
 - **Dashboard I/O Interface:**
-  - 3× 12V LED outputs for remote panel indicators (MOSFET drivers)
+  - 2× 12V LED outputs for remote panel indicators (MOSFET drivers)
   - 3× 12V toggle switch inputs with voltage dividers and protection
   - Supports long wire runs (10+ feet) for dashboard mounting
   - Software-controlled piezo buzzer for alarms
@@ -69,7 +69,7 @@ Currently in schematic design phase:
 - Added dashboard I/O interface with piezo buzzer and 12V LED/switch support
 - GPIO5 and GPIO23 repurposed for dashboard I/O (breaking change)
 - Updated documentation with detailed circuit designs
-- Board cost updated to ~$36.00
+- Board cost updated to ~$35.85
 
 ## Hardware Specifications
 
@@ -96,7 +96,7 @@ Currently in schematic design phase:
 | MAX31855 | SPI | 3 | -270°C to +1372°C (K-type) |
 | QNHCK2-16 | Analog | 5 | 0-30A AC/DC current clamps |
 | Piezo Buzzer | GPIO | 1 (onboard) | Audible alarms (85dB @ 10cm) |
-| 12V LED Outputs | GPIO | 3 | Dashboard panel indicators |
+| 12V LED Outputs | GPIO | 2 | Dashboard panel indicators |
 | 12V Switch Inputs | GPIO | 3 | Toggle switch inputs |
 
 ### Connectivity
@@ -136,7 +136,7 @@ esp32-marine-sensorhub-v2/
 
 3. **Order components:**
    - See BOM in [Hardware.md](Hardware.md#bill-of-materials-bom)
-   - Estimated cost: ~$32.85 per board (components only)
+   - Estimated cost: ~$35.85 per board (components only)
 
 ### For Firmware Developers
 
@@ -190,12 +190,12 @@ The board provides comprehensive dashboard control capabilities:
 - 85dB @ 10cm, 4kHz operating frequency
 - Software-controlled for alarms and alerts
 
-**12V LED Outputs (GPIO11, GPIO14, GPIO15):**
+**12V LED Outputs (GPIO11, GPIO15):**
 
 - N-channel MOSFET drivers (2N7002)
 - For remote panel-mount indicator LEDs
 - Supports long wire runs (10+ feet)
-- Suggested colors: Red (alarm), Green (normal), Amber (warning)
+- Suggested colors: Red (alarm), Green (normal)
 
 **12V Toggle Switch Inputs (GPIO16, GPIO17, GPIO23):**
 
@@ -214,7 +214,7 @@ The board provides comprehensive dashboard control capabilities:
 
 ## Bill of Materials
 
-Estimated component cost: **~$36.00** per board (quantity 1-10)
+Estimated component cost: **~$35.85** per board (quantity 1-10)
 
 ### Key Components
 
@@ -225,7 +225,7 @@ Estimated component cost: **~$36.00** per board (quantity 1-10)
 - LM2596 buck converter module: $2.00
 - AMS1117-3.3 LDO regulator: ~$0.50
 - Piezo buzzer (Murata): $1.50
-- Dashboard I/O components (MOSFETs, Zeners, transistor): ~$0.50
+- Dashboard I/O components (2× MOSFETs, 3× Zeners, transistor): ~$0.35
 - Passive components & connectors: ~$9.00
 
 See [Hardware.md](Hardware.md#bill-of-materials-bom) for complete BOM.
@@ -281,7 +281,7 @@ software remain free and open:
 
 ### Hardware (Schematics, PCB, Design Files)
 
-**CERN Open Hardware Licence Version 2 - Strongly Reciprocal (CERN-OHL-S-2.0)**
+#### CERN Open Hardware Licence Version 2 - Strongly Reciprocal (CERN-OHL-S-2.0)
 
 - All KiCad files, schematics, PCB layouts, and manufacturing files
 - Hardware design documentation (Hardware.md, Requirements.md)
@@ -291,7 +291,7 @@ software remain free and open:
 
 ### Software/Firmware
 
-**GNU General Public License v3.0 (GPLv3)**
+#### GNU General Public License v3.0 (GPLv3)
 
 - All firmware source code (firmware/ directory)
 - Build scripts and automation tools
@@ -300,7 +300,7 @@ software remain free and open:
 
 ### Documentation
 
-**Creative Commons Attribution-ShareAlike 4.0 International (CC-BY-SA-4.0)**
+#### Creative Commons Attribution-ShareAlike 4.0 International (CC-BY-SA-4.0)
 
 - README, guides, and markdown documentation
 - Must provide attribution and share-alike

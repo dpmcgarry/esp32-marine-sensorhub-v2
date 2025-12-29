@@ -19,18 +19,18 @@ This project uses a dual licensing approach:
 ================================================================================
 
 HARDWARE LICENSE - CERN-OHL-S-2.0
-==================================
+----------------------------------
 
 The following files and designs are licensed under CERN-OHL-S-2.0:
 
-- All KiCad project files (*.kicad_pro, *.kicad_sch, *.kicad_pcb)
+- All KiCad project files (\*.kicad_pro, \*.kicad_sch, \*.kicad_pcb)
 - Schematic designs and circuit diagrams
 - PCB layouts and manufacturing files (Gerbers, drill files)
 - Bill of Materials (BOM)
 - Component footprints and symbols
 - Hardware design documentation in Hardware.md and Requirements.md
 
-Full license text: https://ohwr.org/cern_ohl_s_v2.txt
+Full license text: <https://ohwr.org/cern_ohl_s_v2.txt>
 
 CERN Open Hardware Licence Version 2 - Strongly Reciprocal (CERN-OHL-S-2.0)
 
@@ -39,24 +39,26 @@ hardware designs. Any derivative works must be shared under the same license
 terms (strongly reciprocal/copyleft).
 
 Key permissions:
+
 - Use the design commercially or non-commercially
 - Study and analyze the design
 - Modify the design and create derivative works
 - Distribute the design and derivative works
 
 Key requirements:
+
 - Make design files available when distributing hardware
 - Share modifications under CERN-OHL-S-2.0
 - Preserve copyright and license notices
 - Document changes made to the design
 
 For the complete license terms, see:
-https://ohwr.org/cern_ohl_s_v2.txt
+<https://ohwr.org/cern_ohl_s_v2.txt>
 
 ================================================================================
 
 SOFTWARE/FIRMWARE LICENSE - GPLv3
-==================================
+----------------------------------
 
 The following files are licensed under GPLv3:
 
@@ -78,17 +80,17 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 For the complete GPLv3 license text, see:
-https://www.gnu.org/licenses/gpl-3.0.txt
+<https://www.gnu.org/licenses/gpl-3.0.txt>
 
 ================================================================================
 
 DOCUMENTATION LICENSE - CC-BY-SA-4.0
-=====================================
+-------------------------------------
 
 The following files are licensed under CC-BY-SA-4.0:
 
 - README.md
-- All markdown documentation files (*.md)
+- All markdown documentation files (\*.md)
 - Build guides and tutorials
 - Project documentation
 
@@ -96,13 +98,15 @@ This documentation is licensed under the Creative Commons
 Attribution-ShareAlike 4.0 International License.
 
 To view a copy of this license, visit:
-http://creativecommons.org/licenses/by-sa/4.0/
+<http://creativecommons.org/licenses/by-sa/4.0/>
 
 You are free to:
+
 - Share — copy and redistribute the material in any medium or format
 - Adapt — remix, transform, and build upon the material for any purpose
 
 Under the following terms:
+
 - Attribution — You must give appropriate credit
 - ShareAlike — You must distribute under the same license
 - No additional restrictions
@@ -110,15 +114,16 @@ Under the following terms:
 ================================================================================
 
 ADDITIONAL INFORMATION
-=======================
+-----------------------
 
 Source Files:
 All "source" files (design files, firmware source code, documentation source)
 are available in this repository:
-https://github.com/dpmcgarry/esp32-marine-sensorhub-v2
+<https://github.com/dpmcgarry/esp32-marine-sensorhub-v2>
 
 How to Provide Attribution:
 When redistributing or modifying this project, please:
+
 1. Retain all copyright notices
 2. Include a copy of this LICENSE file
 3. Clearly indicate any modifications made
@@ -131,7 +136,8 @@ proper installation, fusing, and circuit protection. See README.md for complete
 safety information.
 
 Contact:
-- GitHub: https://github.com/dpmcgarry/esp32-marine-sensorhub-v2
-- Issues: https://github.com/dpmcgarry/esp32-marine-sensorhub-v2/issues
+
+- GitHub: <https://github.com/dpmcgarry/esp32-marine-sensorhub-v2>
+- Issues: <https://github.com/dpmcgarry/esp32-marine-sensorhub-v2/issues>
 
 ================================================================================

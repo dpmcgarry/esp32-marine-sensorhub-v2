@@ -44,6 +44,25 @@ Root Sheet (Overview/Navigation)
 
 ---
 
+## Implementation Progress
+
+| Part | Section                                  | Status         |
+| ---- | ---------------------------------------- | -------------- |
+| 0    | Setup Hierarchical Sheets                | ✅ Completed   |
+| 1    | Power Supply Sheet                       | ✅ Completed   |
+| 2    | ESP32 Core Sheet                         | ✅ Completed   |
+| 2.5  | USB-C Connector                          | ✅ Completed   |
+| 2.6  | RGB LED                                  | ✅ Completed   |
+| 3    | Current Sensing Sheet                    | ✅ Completed   |
+| 4    | Temperature Sensors Sheet                | ⏳ Not Started |
+| 5    | Thermocouples Sheet                      | ⏳ Not Started |
+| 6    | Main Connector & I/O Interface Sheet     | ⏳ Not Started |
+| 7    | Finishing Up (Annotate, ERC, Footprints) | ⏳ Not Started |
+
+**Legend:** ✅ Completed | 🚧 In Progress | ⏳ Not Started
+
+---
+
 ## Part 0: Setup Hierarchical Sheets (20 minutes)
 
 ### 1. Open KiCad & Create Project
@@ -191,7 +210,7 @@ First, add hierarchical labels that match the sheet pins:
 
 1. Press `A`
 2. Search for: `MBRS340` (or `D_Schottky` if not found)
-3. Place to the right of J1
+3. Place near the `+12V` hierarchical label
 4. If needed, press `R` while placing to rotate
 
 **Configure it:**
@@ -199,6 +218,9 @@ First, add hierarchical labels that match the sheet pins:
 1. Press `E` on the diode
 2. Reference: `D1`
 3. Value: `MBRS340`
+
+**Note:** This diode protects against reverse polarity from the 12V input, which
+comes from J_MAIN via the hierarchical label.
 
 ### 4. Add Buck Converter (U1)
 
@@ -241,27 +263,23 @@ First, add hierarchical labels that match the sheet pins:
 
 **This diode allows dual power from either 12V or USB without conflict.**
 
-### 6. Add Power Symbols
+### 6. Add Power Symbols (Optional for clarity)
 
-**Add +12V symbol:**
+**Note:** With hierarchical labels, power symbols are optional but can help with
+readability. The hierarchical labels `+12V`, `GND`, and `+3V3` handle all
+connections through the sheet boundary.
 
-1. Press `P` (Place Power Port)
-2. Search for: `+12V`
-3. Click to place at J1 pin 1
-4. Press `Esc`
+**If you want to add local power symbols for clarity:**
 
 **Add GND symbols:**
 
-1. Press `P`
+1. Press `P` (Place Power Port)
 2. Search for: `GND`
-3. Place near J1 pin 2 and other ground connections
-4. Repeat as needed (you'll need several)
+3. Place near ground connections throughout the circuit
+4. Repeat as needed (you'll need several for capacitor negatives, U1 GND, etc.)
 
-**Add +3V3 symbol:**
-
-1. Press `P`
-2. Search for: `+3V3`
-3. Place at U1 output
+**Note:** These GND symbols are connected to the `GND` hierarchical label, which
+connects through the root sheet to all other sheets.
 
 ### 7. Wire the Power Section
 
@@ -374,8 +392,7 @@ Add these labels (Press `H` for each):
 
 - `PIEZO` (Output) - connects to GPIO5
 - `LED1_OUT` (Output) - connects to GPIO11
-- `LED2_OUT` (Output) - connects to GPIO14
-- `LED3_OUT` (Output) - connects to GPIO15
+- `LED2_OUT` (Output) - connects to GPIO15
 - `SWITCH1_IN` (Input) - connects to GPIO16
 - `SWITCH2_IN` (Input) - connects to GPIO17
 - `SWITCH3_IN` (Input) - connects to GPIO23
@@ -494,8 +511,7 @@ Wire these GPIO pins directly to their corresponding hierarchical labels:
 
 - GPIO5 → wire → Hierarchical Label `PIEZO`
 - GPIO11 → wire → Hierarchical Label `LED1_OUT`
-- GPIO14 → wire → Hierarchical Label `LED2_OUT`
-- GPIO15 → wire → Hierarchical Label `LED3_OUT`
+- GPIO15 → wire → Hierarchical Label `LED2_OUT`
 - GPIO16 → wire → Hierarchical Label `SWITCH1_IN`
 - GPIO17 → wire → Hierarchical Label `SWITCH2_IN`
 - GPIO23 → wire → Hierarchical Label `SWITCH3_IN`
@@ -1041,8 +1057,7 @@ From the root sheet:
 
 - `PIEZO` (Input) - piezo buzzer control from GPIO5
 - `LED1_OUT` (Input) - LED 1 control from GPIO11
-- `LED2_OUT` (Input) - LED 2 control from GPIO14
-- `LED3_OUT` (Input) - LED 3 control from GPIO15
+- `LED2_OUT` (Input) - LED 2 control from GPIO15
 - `SWITCH1_IN` (Output) - Switch 1 input to GPIO16
 - `SWITCH2_IN` (Output) - Switch 2 input to GPIO17
 - `SWITCH3_IN` (Output) - Switch 3 input to GPIO23
@@ -1115,12 +1130,12 @@ PIEZO1 negative terminal → Hierarchical Label "GND"
 current-limiting resistor. When GPIO5 is HIGH, the transistor conducts,
 allowing current to flow through the piezo from +3.3V to GND, producing sound.
 
-### 5. Add J_IO Connector (10-pin)
+### 5. Add J_IO Connector (9-pin)
 
 **Add the connector:**
 
 1. Press `A`
-2. Search for: `Screw_Terminal_01x10`
+2. Search for: `Screw_Terminal_01x09`
 3. Place on schematic
 4. Reference: `J_IO`
 5. Value: `DASHBOARD_IO`
@@ -1131,19 +1146,18 @@ allowing current to flow through the piezo from +3.3V to GND, producing sound.
 - Pin 2: GND
 - Pin 3: LED1_OUT (to 12V LED cathode)
 - Pin 4: LED2_OUT (to 12V LED cathode)
-- Pin 5: LED3_OUT (to 12V LED cathode)
-- Pin 6: LED_GND (common return for LED cathodes)
-- Pin 7: SWITCH1_IN (from 12V toggle switch)
-- Pin 8: SWITCH2_IN (from 12V toggle switch)
-- Pin 9: SWITCH3_IN (from 12V toggle switch)
-- Pin 10: SWITCH_GND (common ground for switches)
+- Pin 5: LED_GND (common return for LED cathodes)
+- Pin 6: SWITCH1_IN (from 12V toggle switch)
+- Pin 7: SWITCH2_IN (from 12V toggle switch)
+- Pin 8: SWITCH3_IN (from 12V toggle switch)
+- Pin 9: SWITCH_GND (common ground for switches)
 
-### 6. Add LED Output Circuits (3× identical channels)
+### 6. Add LED Output Circuits (2× identical channels)
 
 **Components per channel:**
 
-- `Q_LED1/2/3`: 2N7002 (N-channel MOSFET, SOT-23)
-- `R_LED1/2/3`: 10kΩ resistor (gate pulldown)
+- `Q_LED1/2`: 2N7002 (N-channel MOSFET, SOT-23)
+- `R_LED1/2`: 10kΩ resistor (gate pulldown)
 
 **Add for LED 1:**
 
@@ -1161,15 +1175,14 @@ Q_LED1 source → J_IO Pin 6 (LED_GND) → Hierarchical Label "GND"
 J_IO Pin 1 (+12V) → Hierarchical Label "+12V"
 ```
 
-**Repeat for LED 2 and LED 3:**
+**Repeat for LED 2:**
 
-- LED 2: GPIO14 → R_LED2 → Q_LED2 gate, Q_LED2 drain → J_IO Pin 4
-- LED 3: GPIO15 → R_LED3 → Q_LED3 gate, Q_LED3 drain → J_IO Pin 5
+- LED 2: GPIO15 → R_LED2 → Q_LED2 gate, Q_LED2 drain → J_IO Pin 4
 
 **How it works:** When ESP32 GPIO goes HIGH (3.3V), it turns on the MOSFET,
 which connects the 12V LED cathode to GND through the drain-source channel.
 The external 12V LED (with built-in current limiting resistor) has its anode
-connected to +12V (Pin 1) and cathode to LED_OUT (Pins 3-5), completing the
+connected to +12V (Pin 1) and cathode to LED_OUT (Pins 3-4), completing the
 circuit.
 
 ### 7. Add Switch Input Circuits (3× identical channels)
@@ -1191,8 +1204,8 @@ circuit.
 **Wire Switch 1 circuit:**
 
 ```text
-J_IO Pin 7 (SWITCH1_IN) → R_SW1_DIV1 (10kΩ) → [midpoint junction]
-[midpoint] → R_SW1_DIV2 (3.3kΩ) → J_IO Pin 10 (SWITCH_GND) →
+J_IO Pin 6 (SWITCH1_IN) → R_SW1_DIV1 (10kΩ) → [midpoint junction]
+[midpoint] → R_SW1_DIV2 (3.3kΩ) → J_IO Pin 9 (SWITCH_GND) →
               Hierarchical Label "GND"
 [midpoint] → D_Z1 cathode
 D_Z1 anode → Hierarchical Label "GND"
@@ -1201,15 +1214,15 @@ D_Z1 anode → Hierarchical Label "GND"
 
 **Repeat for Switch 2 and Switch 3:**
 
-- Switch 2: J_IO Pin 8 → voltage divider →
+- Switch 2: J_IO Pin 7 → voltage divider →
   Hierarchical Label "SWITCH2_IN" (GPIO17)
-- Switch 3: J_IO Pin 9 → voltage divider →
+- Switch 3: J_IO Pin 8 → voltage divider →
   Hierarchical Label "SWITCH3_IN" (GPIO23)
 
 **How it works:**
 
 - External 12V switch connects one terminal to +12V (J_IO Pin 1)
-  and the other to SWITCH_IN (Pins 7-9)
+  and the other to SWITCH_IN (Pins 6-8)
 - When switch is CLOSED: 12V is divided by 10kΩ/(10kΩ+3.3kΩ) = 3.0V →
   GPIO reads HIGH
 - When switch is OPEN: 3.3kΩ pulls to GND → GPIO reads LOW

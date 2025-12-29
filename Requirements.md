@@ -48,10 +48,10 @@ multi-sensor board for marine applications.
    - Always populated, software-controllable
 
 8. **Dashboard I/O Interface**
-   - 3× N-channel MOSFETs (2N7002) for 12V LED outputs
+   - 2× N-channel MOSFETs (2N7002) for 12V LED outputs
    - 3× Zener diodes (BZX84C3V3, 3.3V) for 12V switch input protection
    - Voltage dividers for 12V→3.3V level shifting on switch inputs
-   - External: 3× 12V panel-mount LEDs, 3× marine toggle switches (user-supplied)
+   - External: 2× 12V panel-mount LEDs, 3× marine toggle switches (user-supplied)
 
 ### Power Section
 
@@ -91,8 +91,7 @@ multi-sensor board for marine applications.
 
 - GPIO5: Piezo buzzer (NPN transistor driver, always populated)
 - GPIO11: Dashboard LED #1 output (MOSFET → 12V LED)
-- GPIO14: Dashboard LED #2 output (MOSFET → 12V LED)
-- GPIO15: Dashboard LED #3 output (MOSFET → 12V LED)
+- GPIO15: Dashboard LED #2 output (MOSFET → 12V LED)
 - GPIO16: 12V Switch #1 input (voltage divider 12V→3.3V)
 - GPIO17: 12V Switch #2 input (voltage divider 12V→3.3V)
 - GPIO23: 12V Switch #3 input (voltage divider 12V→3.3V)
@@ -138,18 +137,18 @@ Op-amp allocation:
 | J_MAIN | Screw terminal 5mm | Power + DS18B20 sensors | 11 |
 | J_TC | Screw terminal 5mm | K-type thermocouples (3×) | 6 |
 | J_CLAMP | Screw terminal 5mm | Current clamps (5×) | 10 |
-| J_IO | Screw terminal 5mm | Dashboard LEDs + switches | 10 |
+| J_IO | Screw terminal 5mm | Dashboard LEDs + switches | 9 |
 | J_USB | USB Type-C | Programming & UART debug | 16 (USB 2.0) |
 
 ### Passives Summary
 
-- Resistors: 4.7kΩ (3x), 10kΩ (~15x including gate resistors), 3.3kΩ (3x for
+- Resistors: 4.7kΩ (3x), 10kΩ (~14x including gate resistors), 3.3kΩ (3x for
   switch voltage dividers), 20kΩ (5x), 1kΩ (~13x including piezo), 5.1kΩ
   (2x for USB CC), 330Ω (2x for LEDs)
 - Capacitors: 0.1µF (~15x including 3x for MAX31855), 10µF (1x), 100µF 25V
   (1x), 100µF 10V (1x)
 - LEDs: 2x (1x green power LED, 1x WS2812B RGB LED)
-- Transistors: 1x NPN (2N3904/BC547 for piezo), 3x N-ch MOSFET (2N7002
+- Transistors: 1x NPN (2N3904/BC547 for piezo), 2x N-ch MOSFET (2N7002
   for LED outputs)
 - Diodes: 3x Zener 3.3V (BZX84C3V3 for switch input protection)
 - Buttons: 2x momentary tactile (RESET, BOOT)
@@ -279,7 +278,7 @@ and design rationale.
 
 ---
 
-**Target Cost:** ~$36.00 per board (components only, qty 1-10)
+**Target Cost:** ~$35.85 per board (components only, qty 1-10)
 **Application:** Marine environment - requires conformal coating
 **Safety Critical:** Engine monitoring application - implement watchdog and
 fault detection
@@ -290,7 +289,7 @@ for user interface
 
 This hardware specification is licensed under:
 
-**CERN Open Hardware Licence Version 2 - Strongly Reciprocal (CERN-OHL-S-2.0)**
+### CERN Open Hardware Licence Version 2 - Strongly Reciprocal (CERN-OHL-S-2.0)
 
 Copyright (C) 2024-2025 Don P. McGarry
 

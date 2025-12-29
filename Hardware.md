@@ -66,8 +66,7 @@ reliable operation in harsh marine environments with 12VDC power input.
 | ADC Clamp #5 | GPIO4 (ADC1_CH4) | |
 | Piezo Buzzer | GPIO5 | NPN transistor driver |
 | Dashboard LED #1 | GPIO11 | MOSFET → 12V LED |
-| Dashboard LED #2 | GPIO14 | MOSFET → 12V LED |
-| Dashboard LED #3 | GPIO15 | MOSFET → 12V LED |
+| Dashboard LED #2 | GPIO15 | MOSFET → 12V LED |
 | 12V Switch #1 Input | GPIO16 | Voltage divider (12V→3.3V) |
 | 12V Switch #2 Input | GPIO17 | Voltage divider (12V→3.3V) |
 | 12V Switch #3 Input | GPIO23 | Voltage divider (12V→3.3V) |
@@ -245,8 +244,8 @@ Two MCP6004 ICs required for 5 channels + 1 reserved:
 
 ### Dashboard I/O Interface
 
-The board provides 3× 12V LED outputs and 3× 12V switch inputs for remote
-dashboard indicators and controls via consolidated J_IO connector (10-pin).
+The board provides 2× 12V LED outputs and 3× 12V switch inputs for remote
+dashboard indicators and controls via consolidated J_IO connector (9-pin).
 
 **Piezo Buzzer (always populated):**
 
@@ -262,18 +261,18 @@ Specs: 12mm, 4kHz, 85dB @ 10cm, 3-16V, ~10mA draw
 Software-controllable for alarms/alerts
 ```
 
-**12V LED Output Circuit (3× channels):**
+**12V LED Output Circuit (2× channels):**
 
 ```text
-GPIO11/14/15 ──[10kΩ]──┬─── Q2/3/4 (N-ch MOSFET, 2N7002) gate
-                        │
-+12V ──── LED anode     │
-          LED cathode ──┴─── Q2/3/4 drain
-                             Q2/3/4 source ──── GND
+GPIO11/15 ──[10kΩ]──┬─── Q2/3 (N-ch MOSFET, 2N7002) gate
+                     │
++12V ──── LED anode  │
+          LED cathode ──┴─── Q2/3 drain
+                            Q2/3 source ──── GND
 
 External LEDs: 12V panel-mount indicators with built-in current limiting
   - Recommended: 8-10mm metal panel mount, marine-grade
-  - Suggested colors: Red (alarm), Green (normal), Amber (warning)
+  - Suggested colors: Red (alarm), Green (normal)
   - Long wire runs to dashboard (10+ feet typical)
 
 MOSFET: 2N7002 (SOT-23, 60V, 300mA, low Rds(on))
@@ -341,7 +340,7 @@ GPIO8 ──[330Ω optional]──[WS2812B]──── GND
 | --------- | ----------- | ----------- | --- | ---------- | -------- |
 | PIEZO1 | PKLCS1212E4001-R1 | Piezo buzzer 12mm SMD | 1 | $1.50 | $1.50 |
 | Q1 | 2N3904 / BC547 | NPN transistor (piezo) | 1 | $0.05 | $0.05 |
-| Q2, Q3, Q4 | 2N7002 | N-ch MOSFET SOT-23 | 3 | $0.10 | $0.30 |
+| Q2, Q3 | 2N7002 | N-ch MOSFET SOT-23 | 2 | $0.10 | $0.20 |
 | D_Z1-3 | BZX84C3V3 | Zener 3.3V SOT-23 | 3 | $0.05 | $0.15 |
 
 ### Passives (approximate quantities)
@@ -349,7 +348,7 @@ GPIO8 ──[330Ω optional]──[WS2812B]──── GND
 | Type | Value | Description | Qty | Unit Price | Extended |
 | ---- | ----- | ----------- | --- | ---------- | -------- |
 | Resistors | 4.7kΩ | I2C & 1-Wire pullups | 3 | $0.02 | $0.06 |
-| Resistors | 10kΩ | Voltage dividers, pullups, gates | 15 | $0.02 | $0.30 |
+| Resistors | 10kΩ | Voltage dividers, pullups, gates | 14 | $0.02 | $0.28 |
 | Resistors | 20kΩ | Voltage dividers | 5 | $0.02 | $0.10 |
 | Resistors | 3.3kΩ | Voltage dividers (switch inputs) | 3 | $0.02 | $0.06 |
 | Resistors | 1kΩ | Current limiting, filters, piezo | 13 | $0.02 | $0.26 |
@@ -363,7 +362,7 @@ GPIO8 ──[330Ω optional]──[WS2812B]──── GND
 | J_MAIN | Screw terminal | 11-pin, 5mm, pwr+DS18B20 | 1 | $0.90 | $0.90 |
 | J_TC | Screw terminal | 6-pin, 5mm, thermocouples | 1 | $0.60 | $0.60 |
 | J_CLAMP | Screw terminal | 10-pin, 5mm, clamps | 1 | $0.85 | $0.85 |
-| J_IO | Screw terminal | 10-pin, 5mm, LEDs+switches | 1 | $0.85 | $0.85 |
+| J_IO | Screw terminal | 9-pin, 5mm, LEDs+switches | 1 | $0.80 | $0.80 |
 | J_USB | USB-C receptacle | 16-pin, USB 2.0 | 1 | $0.50 | $0.50 |
 
 ### Miscellaneous
@@ -374,7 +373,7 @@ GPIO8 ──[330Ω optional]──[WS2812B]──── GND
 | Buttons | Tactile switches (reset, boot) | 2 | $0.10 | $0.20 |
 | PCB | 2-layer, ~80×60mm | 1 | $2.50 | $2.50 |
 
-### **Total Board Cost: ~$36.00**
+### **Total Board Cost: ~$35.85**
 
 ### External Sensors (purchased separately)
 
@@ -445,7 +444,7 @@ Signal conditioning: voltage divider → RC filter → MCP6004 buffer → ESP32 
 Note: GPIO5 repurposed for piezo buzzer (6th clamp not available)
 ```
 
-### J_IO - Dashboard I/O Connector (10-pin Screw Terminal, 5mm pitch)
+### J_IO - Dashboard I/O Connector (9-pin Screw Terminal, 5mm pitch)
 
 Consolidated connector for remote dashboard LEDs and toggle switches:
 
@@ -453,25 +452,24 @@ Consolidated connector for remote dashboard LEDs and toggle switches:
 Pin 1:  +12V (power for LEDs, from main 12V bus)
 Pin 2:  GND (common ground)
 Pin 3:  LED1_OUT (GPIO11 → MOSFET → 12V LED cathode)
-Pin 4:  LED2_OUT (GPIO14 → MOSFET → 12V LED cathode)
-Pin 5:  LED3_OUT (GPIO15 → MOSFET → 12V LED cathode)
-Pin 6:  LED_GND (common return for LED cathodes)
-Pin 7:  SWITCH1_IN (12V toggle switch → voltage divider → GPIO16)
-Pin 8:  SWITCH2_IN (12V toggle switch → voltage divider → GPIO17)
-Pin 9:  SWITCH3_IN (12V toggle switch → voltage divider → GPIO23)
-Pin 10: SWITCH_GND (common ground for switches)
+Pin 4:  LED2_OUT (GPIO15 → MOSFET → 12V LED cathode)
+Pin 5:  LED_GND (common return for LED cathodes)
+Pin 6:  SWITCH1_IN (12V toggle switch → voltage divider → GPIO16)
+Pin 7:  SWITCH2_IN (12V toggle switch → voltage divider → GPIO17)
+Pin 8:  SWITCH3_IN (12V toggle switch → voltage divider → GPIO23)
+Pin 9:  SWITCH_GND (common ground for switches)
 
 LED Outputs:
   - For 12V panel-mount indicator LEDs (8-10mm, marine-grade)
-  - Suggested: Red (alarm), Green (normal), Amber (warning)
+  - Suggested: Red (alarm), Green (normal)
   - LEDs should have built-in current limiting resistors
-  - Connect: LED anode to +12V (Pin 1), LED cathode to LED_OUT (Pins 3-5)
+  - Connect: LED anode to +12V (Pin 1), LED cathode to LED_OUT (Pins 3-4)
 
 Switch Inputs:
   - For 12V marine toggle switches (SPST, ON-OFF)
   - Voltage divider provides 3.0V when switch closed (HIGH)
   - 3.3V Zener protection on each input
-  - Connect: One switch terminal to +12V (Pin 1), other to SWITCH_IN (Pins 7-9)
+  - Connect: One switch terminal to +12V (Pin 1), other to SWITCH_IN (Pins 6-8)
 ```
 
 ## PCB Design Guidelines
@@ -662,7 +660,7 @@ boat/sensors/battery_bank/current_1
 
 This hardware design is licensed under:
 
-**CERN Open Hardware Licence Version 2 - Strongly Reciprocal (CERN-OHL-S-2.0)**
+### CERN Open Hardware Licence Version 2 - Strongly Reciprocal (CERN-OHL-S-2.0)
 
 Copyright (C) 2024-2025 Don P. McGarry
 
@@ -675,6 +673,7 @@ You should have received a copy of the CERN-OHL-S-2.0 along with this design.
 If not, see <https://ohwr.org/cern_ohl_s_v2.txt>.
 
 **Key Requirements:**
+
 - Derivative works must be shared under CERN-OHL-S-2.0
 - Design files must be made available when distributing hardware
 - Preserve copyright and license notices
@@ -683,11 +682,11 @@ If not, see <https://ohwr.org/cern_ohl_s_v2.txt>.
 See [LICENSE](LICENSE) file for complete licensing information including
 software (GPLv3) and documentation (CC-BY-SA-4.0) licenses.
 
-## Support & Contact
+## Contact & Support
 
-- GitHub Repository: [Your repo URL here]
-- Issues: [Your issues URL here]
-- Discussions: [Your discussions URL here]
+- **GitHub Repository:** <https://github.com/dpmcgarry/esp32-marine-sensorhub-v2>
+- **Issues:** <https://github.com/dpmcgarry/esp32-marine-sensorhub-v2/issues>
+- **Discussions:** <https://github.com/dpmcgarry/esp32-marine-sensorhub-v2/discussions>
 
 ---
 
